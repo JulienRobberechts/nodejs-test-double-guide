@@ -1,4 +1,4 @@
-# Simple stubbing with Sinon
+# Mock with Sinon (Simple stubbing)
 
 ## When to use this approach
 
