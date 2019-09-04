@@ -1,6 +1,6 @@
 "use strict";
 const sinon = require("sinon");
-const { DoItA } = require("./code-under-test/moduleA");
+const { DoItA } = require("../lib/moduleA");
 var chai = require("chai");
 var expect = chai.expect;
 

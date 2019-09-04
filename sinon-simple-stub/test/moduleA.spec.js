@@ -1,4 +1,4 @@
-const moduleA = require("./code-under-test/moduleA");
+const moduleA = require("../lib/moduleA");
 var chai = require("chai");
 var expect = chai.expect;
 

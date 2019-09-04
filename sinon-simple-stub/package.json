@@ -1,0 +1,19 @@
+{
+  "name": "sinon-simple-stub",
+  "version": "1.0.0",
+  "description": "## Which technic to use to stub?",
+  "main": "moduleA.mistake1.spec.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "mocha **/*.spec.js - timeout 10000"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0",
+    "sinon": "^7.4.2"
+  }
+}

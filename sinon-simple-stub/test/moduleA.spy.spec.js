@@ -1,7 +1,7 @@
 "use strict";
 const sinon = require("sinon");
-const moduleA = require("./code-under-test/moduleA");
-const moduleB = require("./code-under-test/moduleB");
+const moduleA = require("../lib/moduleA");
+const moduleB = require("../lib/moduleB");
 var chai = require("chai");
 var expect = chai.expect;
 
