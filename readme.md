@@ -34,13 +34,16 @@ If to test your component you would need to replace an internal function, you ne
 
 ## 2. What you want to mock
 
-Depending of your component and your test case, you will be intrested to mock different type of dependencies:
+Depending of your component and your test case, you will be interested to mock different type of dependencies:
 
 - some of your own dependencies
 - some system dependencies
 - some api calls
 - some variables
 - some database call
+
+Depending of your project the type of import is really important to choose your mock tool.
+[see this page](./sumary-import types.md)
 
 ## 3. Which mocking tool should I use?
 
@@ -66,7 +69,7 @@ See the directory 'sinon-proxyquire' for Module interception by proxyquire and s
 
 #### rewiremock
 
- todo
+todo
 
 #### others
 
@@ -80,13 +83,12 @@ by the creator of rewiremock
 
 ## 4. Integrate the mocking tool in your solution
 
-This collection of demo try to find the pro and cons of different approaches. 
+This collection of demo try to find the pro and cons of different approaches.
 
 ## References
 
 to read:  
 https://medium.com/codeclan/mocking-es-and-commonjs-modules-with-jest-mock-37bbb552da43
-
 
 Please, stop playing with proxyquire  
 https://dev.to/thekashey/please-stop-playing-with-proxyquire-11j4
