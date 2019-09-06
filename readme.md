@@ -32,7 +32,7 @@ Of course, some tools can help you to modify some implementation details like [r
 
 If to test your component you would need to replace an internal function, you need first to refactor your component to expose this function as a seam before thinking of mocking anything.
 
-On top of this, intercept an internal function is tricky [See the chapter Intercept internal function](./sumary-import types.md)
+On top of this, intercept an internal function is tricky [See the chapter Intercept internal function](./sumary-import-types.md)
 
 ## 2. What you want to mock
 
