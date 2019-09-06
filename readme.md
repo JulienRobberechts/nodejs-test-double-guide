@@ -4,20 +4,27 @@
 
 Mocking your dependencies in order to test it is not so easy. You need to make some choices about:
 
-1. How you should organise your production code to make it easy to mock.
+1. How you should organize your production code to make it easy to mock.
 2. What you want to mock.
 3. Which mocking tool should I use?
 4. Integrate the mocking tool in your solution
 
 The goal is to help you to pick the right solution for you and to copy past it into your code.
 
-## 1. How you should organise your production code to make it easy to mock.
+## 0. Vocabulary
+
+- Test double
+- stub
+- spy
+- mock
+
+## 1. How you should organize your production code to make it easy to mock.
 
 The basic structure of javascript is the module.
 Your test should stay independent from internal details of the module.
 
 ```
-In order to test your component in isolatation, which dependencies do you need to replace?
+In order to test your component in isolation, which dependencies do you need to replace?
 ```
 
 Once you have identify those dependencies (functions, modules) they'll become the seams of your component. The seams are the places where two parts of the software meet and where something else can be injected/replaced.
@@ -36,6 +43,8 @@ On top of this, intercept an internal function is tricky [See the chapter Interc
 
 ## 2. What you want to mock
 
+### 2.1. Type of component to mock
+
 Depending of your component and your test case, you will be interested to mock different type of dependencies:
 
 - some of your own dependencies
@@ -44,20 +53,28 @@ Depending of your component and your test case, you will be interested to mock d
 - some variables
 - some database call
 
-Depending of your project the type of import is really important to choose your mock tool.
-[see this page](./sumary-import-types.md)
+### 2.2. Level of mocking
+
+There is 2 types of libraries: stubbing library and module interception library. (See [Sinon documentation](https://sinonjs.org/how-to/stub-dependency/))
+
+- Sinon is simply a stubbing library. Only for simple cases.
+- module interception library: solutions targeting link seams or explicit dependency injection
+  - For module interception, the type of import is really important. Depending of your project the type of import is really important to choose your mock tool. [see this page](./sumary-import-types.md)
+
+#### With module interception
+
+= simple stubbing
+= Full mock
+
+#### Without module interception
+
+= Partial mock
 
 ## 3. Which mocking tool should I use?
 
 There plenty of test libraries in javascript for different purpose. Some are made to be used together some not. See [Javascript test tools types overview](./js-test-tools-overview.md) for more details.
 
-For Mocking purpose we'll be intrested by only those types of tools: Test Doubles library and Module interceptionlibrary.
-
-According to the [Sinon documentation](https://sinonjs.org/how-to/stub-dependency/),
-there is 2 types of libraries: stubbing library and module interception library.
-
-- Sinon is simply a stubbing library. Only for simple cases.
-- module interception library: solutions targetting link seams or explicit dependency injection
+For Mocking purpose we'll be interested by only those types of tools: Test Doubles library and Module interception library.
 
 ### Test Doubles
 
