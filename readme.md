@@ -45,7 +45,7 @@ Depending of your component and your test case, you will be interested to mock d
 - some database call
 
 Depending of your project the type of import is really important to choose your mock tool.
-[see this page](./sumary-import types.md)
+[see this page](./sumary-import-types.md)
 
 ## 3. Which mocking tool should I use?
 
