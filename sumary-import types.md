@@ -72,6 +72,18 @@ export default lib;
 
 Mocking internals is the same with ESM/CommonJS for jest.
 
+TODO: How to explain the difference between this 2 ways:
+
+A. Intercepting imports
+
+- You have to care about the original path.
+- Jest: jest.mock()
+
+B. Spy/mock on imports or mock part of a module by “referencing the module”
+
+- You have to reference the module
+- Jest: jest.spyOn()
+
 ### 3.1 Just mock (Jest) = intercept
 
 ```js
