@@ -24,3 +24,7 @@
 - Explanation/ diagram: vocabulary between tools: mock, spy.
 - Explanation/ diagram: capability across tools.
 
+- read Jest doc
+- read Jasmine doc
+- read Sinon doc
+
