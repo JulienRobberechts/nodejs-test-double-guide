@@ -1,31 +1,33 @@
-var proxyquire = require('proxyquire');
+var proxyquire = require('proxyquire').noCallThru().noPreserveCache();
 var sinon = require('sinon');
-var assert = require('@sinonjs/referee').assert;
+var chai = require("chai");
+var expect = chai.expect;
 
-var doesFileExist; // the module to test
-var existsSyncStub; // the fake method on the dependency
+var moduleA;  // module to test
+var moduleBStub; // module to stub
 
 describe('doesFileExist', function () {
     beforeEach(function () {
-        existsSyncStub = sinon.stub(); // create a stub for every test
+        moduleBStub = sinon.stub(); // create a stub for every test
 
         // import the module to test, using a fake dependency
-        doesFileExist = proxyquire('../lib/does-file-exist', {
-            fs: {
-                existsSync: existsSyncStub
-            }
+        moduleA = proxyquire('../lib/moduleA', {
+            './moduleB': {
+                DoItB: moduleBStub
+            },
         });
     });
 
     describe('when a path exists', function () {
         beforeEach(function() {
-            existsSyncStub.returns(true); // set the return value that we want
+            moduleBStub.returns('beta');
         });
 
-        it('should return `true`', function () {
-            var actual = doesFileExist('9d7af804-4719-4578-ba1d-5dd8a4dae89f');
-
-            assert.isTrue(actual);
+        it('should return A(beta)', function () {
+            const expected = 'A(beta)';
+            const actual = moduleA.DoItA();
+            expect(moduleBStub.called).to.be.true;
+            expect(actual).to.be.equal(expected);
         });
     });
 });
