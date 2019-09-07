@@ -1,5 +1,3 @@
-'use strict';
-
 var proxyquire = require('proxyquire');
 var sinon = require('sinon');
 var assert = require('@sinonjs/referee').assert;
