@@ -6,9 +6,10 @@ var expect = chai.expect;
 var moduleA;  // module to test
 var moduleBStub; // module to stub
 
-describe('doesFileExist', function () {
+describe('moduleB intercepted by proxyquire and stub by Sinon', function () {
     beforeEach(function () {
         moduleBStub = sinon.stub(); // create a stub for every test
+        moduleBStub.returns('beta');
 
         // import the module to test, using a fake dependency
         moduleA = proxyquire('../lib/moduleA', {
@@ -17,17 +18,10 @@ describe('doesFileExist', function () {
             },
         });
     });
-
-    describe('when a path exists', function () {
-        beforeEach(function() {
-            moduleBStub.returns('beta');
-        });
-
-        it('should return A(beta)', function () {
-            const expected = 'A(beta)';
-            const actual = moduleA.DoItA();
-            expect(moduleBStub.called).to.be.true;
-            expect(actual).to.be.equal(expected);
-        });
+    it('should return A(beta)', function () {
+        const expected = 'A(beta)';
+        const actual = moduleA.DoItA();
+        expect(moduleBStub.called).to.be.true;
+        expect(actual).to.be.equal(expected);
     });
 });
