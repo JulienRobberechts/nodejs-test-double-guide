@@ -13,10 +13,50 @@ The goal is to help you to pick the right solution for you and to copy past it i
 
 ## 0. Vocabulary
 
-- Test double
-- stub
-- spy
-- mock
+### General definition
+
+Mock is sometimes used to refer to all type of **test doubles**, but in fact **mock** is just one type of test doubles.
+
+Definition of Test doubles (from Wikipedia):
+
+```
+In automated unit testing, it may be necessary to use objects or procedures that look and behave like their release-intended counterparts, but are actually simplified versions that reduce the complexity and facilitate testing. A test double is a generic (meta) term used for these objects or procedures.
+```
+
+Test doubles is a general term to refer to different type of objects:
+
+- Dummies: simple implementation of an interface. It's not intended to be used. It's not really useful in Javascript.
+- spy: (or Test Spy) get information on dependency usage without changing the behavior. (Number of call, arguments)
+- stub: (= Dummy + static implementation) test double with modification of the behavior in order to test your component.
+- Fakes: (= stub + simple implementation)
+- Mock: (= stub + internal test) test double which is aware about the test (with some test assertion for example).
+
+**Be carful**: Mock is in fact consider as an anti-pattern most of the time. It breaks the AAA (Arrange Act Assert) test structure.
+
+Reference:
+
+Understanding Test Doubles (Mock vs Stub)  
+https://adamcod.es/2014/05/15/test-doubles-mock-vs-stub.html
+
+### Real life usage
+
+In javascript case, 'Dummies' is not really useful because there is no need to implement any fixed interface. We'll not consider this in our tests.
+
+Fakes are technically like stub, their implementation is smarter and fully functional in contrast to a stub which have a very basic implementation (static most of the time). We'll consider Fakes and stub as one category.
+
+Mock are not the first type of test double to consider but some framework have special objects for this. You always have the choice to use a stub to implement a mock.
+
+[Sinon](https://www.npmjs.com/package/sinon)  
+[Jest](https://www.npmjs.com/package/jest)  
+[Jasmine](https://www.npmjs.com/package/jasmine)  
+[testdouble](https://www.npmjs.com/package/testdouble)
+
+| Tool       |    spy/fake     |            stub |          mock |
+| ---------- | :-------------: | --------------: | ------------: |
+| Sinon      |   sinon.spy()   |    sinon.stub() |  sinon.mock() |
+| Jest       |  jest.spyOn()   |       jest.fn() | no / use stub |
+| Jasmine    | jasmine.spyOn() | jasmine.spyOn() | no / use stub |
+| testdouble |    td.func()    |       td.func() | no / use stub |
 
 ## 1. How you should organize your production code to make it easy to mock.
 
