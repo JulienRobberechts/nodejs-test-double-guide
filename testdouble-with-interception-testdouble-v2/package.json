@@ -1,0 +1,24 @@
+{
+  "name": "testdouble-nodejs-example",
+  "private": true,
+  "scripts": {
+    "test:unit": "teenytest",
+    "test": "npm run test:unit",
+    "test:debug": "npm test -- --debug-brk"
+  },
+  "devDependencies": {
+    "core-assert": "^0.2.1",
+    "is-number": "^3.0.0",
+    "teenytest": "^5.0.2",
+    "testdouble": "^3.12.4"
+  },
+  "standard": {
+    "globals": [
+      "td",
+      "assert"
+    ]
+  },
+  "teenytest": {
+    "timeout": 20000
+  }
+}
