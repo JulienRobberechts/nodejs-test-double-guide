@@ -12,11 +12,11 @@
 
 ## in progress
 
-- Sinon + testdouble
+- Jasmine test
 
 ## todo
 
-- Jasmine test
+- jest-no-interception
 - watch videos about testdouble: https://www.npmjs.com/package/testdouble
 - rename moduleA as System under test
 - move logic into before-each
