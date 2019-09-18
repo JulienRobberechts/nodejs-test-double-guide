@@ -2,23 +2,12 @@
   "name": "testdouble-nodejs-example-v2",
   "private": true,
   "scripts": {
-    "test:unit": "teenytest",
-    "test": "npm run test:unit",
-    "test:debug": "npm test -- --debug-brk"
+    "test": "mocha test/**/*.spec.js - timeout 10000"
   },
   "devDependencies": {
     "core-assert": "^0.2.1",
-    "is-number": "^3.0.0",
-    "teenytest": "^5.0.2",
-    "testdouble": "^3.12.4"
-  },
-  "standard": {
-    "globals": [
-      "td",
-      "assert"
-    ]
-  },
-  "teenytest": {
-    "timeout": 20000
+    "testdouble": "^3.12.4",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0"
   }
 }
