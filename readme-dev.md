@@ -18,3 +18,8 @@
 
 - Jasmine test
 - watch videos about testdouble: https://www.npmjs.com/package/testdouble
+- rename moduleA as System under test
+- move logic into before-each
+- inventory of relative paths: relative from the test to the dependency OR NOT???
+- create multiple methods to check if all methods are mocked?
+- finish: sinon-with-interception-testdouble

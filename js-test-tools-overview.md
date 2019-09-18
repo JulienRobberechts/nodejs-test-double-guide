@@ -12,7 +12,7 @@ This list of tools try to sum up which tool you can use for each task. Some tool
 | expect.js           |      -      |     X     |      -      |          -          |          -           |
 | better-assert       |      -      |     X     |      -      |          -          |          -           |
 | Sinon               |      -      |     -     |      X      |          -          |          X           |
-| testdouble          |      -      |     -     |      X      |          -          |          -           |
+| testdouble          |      -      |     -     |      X      |         !!?         |          -           |
 | proxyquire          |      -      |     -     |      -      |          X          |          -           |
 | rewire              |      -      |     -     |      -      |          X          |          -           |
 | mock-require        |      -      |     -     |      -      |          X          |          -           |
