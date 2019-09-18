@@ -12,19 +12,9 @@
 
 ## in progress
 
-- Jest test
+- Sinon + testdouble
 
 ## todo
 
 - Jasmine test
-- Sinon + rewiremock
-- Sinon + testdouble
-- Sinon + testdouble
-- Sinon + rewire
-
-- Explanation/ diagram: vocabulary between tools: mock, spy.
-- Explanation/ diagram: capability across tools.
-
-- read Jest doc
-- read Jasmine doc
-- read Sinon doc
+- watch videos about testdouble: https://www.npmjs.com/package/testdouble
