@@ -1,5 +1,5 @@
 {
-  "name": "testdouble-nodejs-example",
+  "name": "testdouble-nodejs-example-v2",
   "private": true,
   "scripts": {
     "test:unit": "teenytest",
