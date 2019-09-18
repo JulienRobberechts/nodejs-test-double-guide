@@ -1,5 +1,5 @@
 {
-  "name": "sinon-with-interception-rewire-manual",
+  "name": "sinon-with-interception-rewiremock",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
