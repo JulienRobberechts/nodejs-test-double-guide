@@ -1,24 +1,20 @@
-var proxyquire = require("proxyquire").noPreserveCache();
 var sinon = require("sinon");
 var chai = require("chai");
+var proxyquire = require("proxyquire").noPreserveCache();
 var expect = chai.expect;
 
-var moduleA; // module to test
-var moduleBStub; // module to stub
-
 describe("moduleB intercepted by proxyquire and stub by Sinon", function() {
-  beforeEach(function() {
-    moduleBStub = sinon.stub(); // create a stub for every test
+  it("should return A(beta)", function() {
+    let moduleBStub = sinon.stub();
     moduleBStub.returns("beta");
 
     // import the module to test, using a fake dependency
-    moduleA = proxyquire("../lib/moduleA", {
+    const moduleA = proxyquire("../lib/moduleA", {
       "./moduleB": {
         DoItB: moduleBStub
       }
     });
-  });
-  it("should return A(beta)", function() {
+
     const expected = "A(beta)";
     const actual = moduleA.DoItA();
     expect(moduleBStub.called).to.be.true;

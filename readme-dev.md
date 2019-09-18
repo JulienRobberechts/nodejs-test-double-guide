@@ -4,6 +4,7 @@
 
 - only nodejs = commonJS
 - only good practices : no internal mocking demonstration
+- no api mock anymore.
 
 ## Questions to solve
 
@@ -27,4 +28,3 @@
 - read Jest doc
 - read Jasmine doc
 - read Sinon doc
-
