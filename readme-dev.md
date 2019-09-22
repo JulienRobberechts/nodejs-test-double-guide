@@ -12,15 +12,14 @@
 
 ## in progress
 
-
+- create multiple methods to check if all methods are mocked?
 
 ## todo
 
-- create multiple methods to check if all methods are mocked?
-- inventory of relative paths: relative from the test to the dependency OR NOT???
-
 - move logic into before-each
-
 
 - rename moduleA as System under test
 - Review all tests
+
+- inventory of relative paths: relative from the test to the dependency OR NOT???
+

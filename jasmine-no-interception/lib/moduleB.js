@@ -2,4 +2,8 @@ function DoItB() {
   return "B";
 }
 
-module.exports = { DoItB };
+function DoItB2() {
+  return "B2";
+}
+
+module.exports = { DoItB, DoItB2 };
