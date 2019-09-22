@@ -1,7 +1,11 @@
-var { DoItB } = require("./moduleB");
+var moduleB = require("./moduleB");
 
 function DoItA() {
-  return "A(" + DoItB() + ")";
+  return "A(" + moduleB.DoItB() + ")";
 }
 
-module.exports = { DoItA };
+function DoItA2() {
+  return "A(" + moduleB.DoItB2() + ")";
+}
+
+module.exports = { DoItA, DoItA2 };

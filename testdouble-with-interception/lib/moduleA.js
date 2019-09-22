@@ -4,4 +4,8 @@ function DoItA() {
   return "A(" + moduleB.DoItB() + ")";
 }
 
-module.exports = { DoItA };
+function DoItA2() {
+  return "A(" + moduleB.DoItB2() + ")";
+}
+
+module.exports = { DoItA, DoItA2 };
