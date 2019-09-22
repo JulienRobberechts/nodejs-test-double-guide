@@ -12,7 +12,10 @@
 
 ## in progress
 
-- create multiple methods to check if all methods are mocked?
+- test side effect on every test after jest: 
+sinon-...
+
+
 
 ## todo
 
