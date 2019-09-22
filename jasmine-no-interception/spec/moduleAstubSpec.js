@@ -1,5 +1,5 @@
-var moduleA = require('../../lib/jasmine_examples/moduleA');
-var moduleB = require('../../lib/jasmine_examples/moduleB');
+var moduleA = require('../lib/moduleA');
+var moduleB = require('../lib/moduleB');
 
 describe("module A tests with Jasmine spy", function () {
   beforeEach(function () {

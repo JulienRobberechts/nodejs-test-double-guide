@@ -1,7 +1,7 @@
 {
   "name": "jasmine-no-interception",
   "version": "1.0.0",
-  "description": "```\r # Global installation \r npm install -g jasmine",
+  "description": "",
   "main": "index.js",
   "directories": {
     "lib": "lib"
