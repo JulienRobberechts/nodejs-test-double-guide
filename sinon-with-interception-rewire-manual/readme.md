@@ -1,1 +1,0 @@
-# Mock with Sinon + rewire
