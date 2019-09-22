@@ -5,12 +5,22 @@ describe("module A tests with Jasmine spy", function () {
   beforeEach(function () {
     // console.log('beforeEach');
   });
-  it("Jasmine spy delete the behavior of the function: impossible to use it as a spy?", function () {
+  it("Jasmine spy delete the behavior of the function", function () {
     var DoItBSpy = spyOn(moduleB, 'DoItB');
+    
     const actual = moduleA.DoItA();
-    const expected = 'A(undefined)';
-    expect(true).toBe(true);
+
     expect(DoItBSpy).toHaveBeenCalled();
+    
+    const expected = 'A(undefined)';
+    expect(actual).toBe(expected);
+  });
+  it("the spy of DoItB don't affect DoItA2", function () {
+    var DoItBSpy = spyOn(moduleB, 'DoItB');
+    
+    const actual = moduleA.DoItA2();
+
+    const expected = 'A(B2)';
     expect(actual).toBe(expected);
   });
   afterEach(function () {
