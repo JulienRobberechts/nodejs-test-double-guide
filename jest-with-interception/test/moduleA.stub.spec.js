@@ -8,15 +8,30 @@ const moduleBMocked = require("../lib/moduleB");
 beforeEach(() => jest.clearAllMocks());
 
 test("moduleB stub with Jest without implementation", () => {
-  const expected = 'A(undefined)';
   const actual = moduleA.DoItA();
-  expect(actual).toEqual(expected);
+  
   expect(moduleBMocked.DoItB).toHaveBeenCalled();
+  
+  const expected = 'A(undefined)';
+  expect(actual).toEqual(expected);
 });
 
 test("moduleB stub with Jest with implementation", () => {
   moduleBMocked.DoItB.mockReturnValueOnce('beta');
+  
   const actual = moduleA.DoItA();
-  expect(actual).toEqual("A(beta)");
+
   expect(moduleBMocked.DoItB).toHaveBeenCalled();
+
+  const expected = "A(beta)";
+  expect(actual).toEqual(expected);
 });
+
+test("side effects: the method DoItA2 doesn't exist if you don't stub it.", () => {
+  const callAnOtherMethod = () => {
+    moduleA.DoItA2();
+  };
+
+  expect(callAnOtherMethod).toThrow('moduleB.DoItB2 is not a function');
+});
+
