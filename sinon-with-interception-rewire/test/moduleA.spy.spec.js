@@ -44,6 +44,13 @@ describe("moduleB.DoItB interception by rewire and stubbed by Sinon", function()
     const expected = "A(undefined)";
     expect(actual).to.be.equal(expected);
   });
+  it("side effects: the method DoItA2 doesn't exist if you don't stub it.", function() {
+    const callAnOtherMethod = () => {
+      moduleA.DoItA2();
+    };
+
+    expect(callAnOtherMethod).to.throw("moduleB.DoItB2 is not a function");
+  });
   afterEach(function() {
     sinon.reset();
   });

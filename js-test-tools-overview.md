@@ -76,18 +76,80 @@ Tools:
 - super-agent
 - Sinon (fake server)??
 
-Demo of some tool stacks:
+## Demo of some tool stacks
 
 | Tool                                 | Test runner | Assertion | Test double | Module interception |
 | :----------------------------------- | :---------: | :-------: | :---------: | :-----------------: |
-| 1. Jest no interception              |      X      |     X     |      X      |          -          |
-| 2. Jest with interception            |      X      |     X     |      X      |          X          |
-| 3. Jasmine                           |      X      |     X     |      X      |          -          |
+| 1. Jasmine                           |      X      |     X     |      X      |          -          |
+| 2. Jest no interception              |      X      |     X     |      X      |          -          |
+| 3. Jest with interception            |      X      |     X     |      X      |          X          |
 | 4. Mocha + Chai + Sinon              |      X      |     X     |      X      |          -          |
 | 5. Mocha + Chai + Sinon + proxyquire |      X      |     X     |      X      |          X          |
 | 6. Mocha + Chai + Sinon + rewire     |      X      |     X     |      X      |          X          |
 | 7. Mocha + Chai + Sinon + rewiremock |      X      |     X     |      X      |          X          |
 | 8. Mocha + Chai + testdouble         |      X      |     X     |      X      |          X          |
+
+## Specificity
+
+For spies:
+
+- Spy implementation: Real Spy
+  1. [OK] Real spy the behavior is the same
+  2. [FAKE] Just empty stub: return undefined.
+
+For spy and stubs:
+
+- Siblings method call: Is it possible to call other function in the same module.
+
+  1. [OK] possible everything is ok
+  1. [EMPTY] return undefined
+  1. [ERROR] throw an exception the method doesn't exist.
+
+- If I call the same dependency from an other object. Is it counted/stubed.
+
+  1. Yes
+  1. No
+  1. Error
+
+- Path of the dependency in the test
+
+  1. Relative to the module under test
+  1. Relative to the test
+
+- Can the dependency be destructured in the module under test?
+
+  1. Yes
+  1. No, silently fail
+  1. No, error
+
+- Can the import of the module under test be destrustured in the test code?
+  1. Yes
+  1. No, silently fail
+  1. No, error
+
+PATHS:
+
+(.\jasmine-no-interception\test\moduleAspySpec.js#L9)
+(.\jasmine-no-interception\test\moduleAspySpec.js#L19)
+
+(.\jest-no-interception\test\moduleA.spy.spec.js 7/ 18
+(.\jest-with-interception\test\moduleA.spy.spec.js 13 /24
+(.\sinon-no-interception\test\moduleA.spy.spec.js 9 / 19
+(.\sinon-with-interception-proxyquire\test\moduleA.spy.spec.js 8 /31
+(.\sinon-with-interception-rewire\test\moduleA.spy.spec.js
+(.\sinon-with-interception-rewiremock\test\moduleA.spy.spec.js
+(.\testdouble-with-interception\test\moduleA.spy.spec.js
+
+| Tool                                 | Module interception | Spy implementation | Siblings method call |     |     |     |
+| :----------------------------------- | :-----------------: | :----------------: | :------------------: | :-: | :-: | :-: |
+| 1. Jasmine                           |         NO          |       [FAKE]       |         [OK]         |     |     |     |
+| 2. Jest no interception              |         NO          |        [OK]        |         [OK]         |     |     |     |
+| 3. Mocha + Chai + Sinon              |         NO          |        [OK]        |         [OK]         |     |     |     |
+| 4. Jest with interception            |         YES         |       [FAKE]       |       [ERROR]        |     |     |     |
+| 5. Mocha + Chai + Sinon + proxyquire |         YES         |       [FAKE]       |         [OK]         |     |     |     |
+| 6. Mocha + Chai + Sinon + rewire     |         YES         |       [FAKE]       |       [ERROR]        |     |     |     |
+| 7. Mocha + Chai + Sinon + rewiremock |         YES         |       [FAKE]       |       [ERROR]        |     |     |     |
+| 8. Mocha + Chai + testdouble         |         YES         |       [FAKE]       |       [EMPTY]        |     |     |     |
 
 ## References
 
