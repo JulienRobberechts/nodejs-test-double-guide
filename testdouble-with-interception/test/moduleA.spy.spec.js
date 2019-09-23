@@ -15,10 +15,7 @@ describe("moduleB.DoItB intercepted and stubbed by testdouble", function() {
     // The correct way is to call require after replacing the dependencies:
     moduleA = require("../lib/moduleA");
   });
-  it("should return A(beta)", function() {
-    // Arrange
-    td.when(moduleB.DoItB()).thenReturn("beta");
-
+  it("should return A(beta): not really a spy, an empty behavior", function() {
     // Act
     const actual = moduleA.DoItA();
 
@@ -27,7 +24,7 @@ describe("moduleB.DoItB intercepted and stubbed by testdouble", function() {
     td.verify(moduleB.DoItB());
 
     // Assert 2: result
-    const expected = "A(beta)";
+    const expected = "A(undefined)";
     expect(actual).to.be.equal(expected);
   });
   it("side effects: empty behavior", function() {
