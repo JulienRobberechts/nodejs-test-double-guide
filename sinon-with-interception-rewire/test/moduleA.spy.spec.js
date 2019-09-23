@@ -1,31 +1,47 @@
-var rewire = require("rewire");
-var sinon = require("sinon");
-var chai = require("chai");
-var expect = chai.expect;
+const rewire = require("rewire");
+const sinon = require("sinon");
+const chai = require("chai");
+const expect = chai.expect;
 
-// intercept moduleB.DoItB in myModule with rewire
-var moduleA = rewire("../lib/moduleA");
-let DoItBSpy = sinon.stub();
-// DoItBStub.returns("beta");
+describe("moduleB.DoItB interception by rewire and stubbed by Sinon", function () {
+  before(function () {
+    // intercept moduleB.DoItB in moduleA with rewire
+    moduleA = rewire("../lib/moduleA");
+    DoItBStub = sinon.stub();
+    var moduleBTestDouble = {
+      DoItB: DoItBStub
+    };
+    moduleA.__set__("moduleB", moduleBTestDouble);
+  });
+  it("should return A(beta)", function () {
+    // Arrange
+    // nothing for a spy
 
-var moduleBMock = {
-  DoItB: DoItBSpy
-};
-
-moduleA.__set__("moduleB", moduleBMock);
-
-describe("moduleB.DoItB intercepted by rewire and and spied by Sinon (but with empty behavior)", function() {
-  it("should return A(undefined)", function() {
+    // Act
     const actual = moduleA.DoItA();
+
+    // Assert
+    expect(DoItBStub.calledOnce).to.be.true;
+
+    // Assert
     const expected = "A(undefined)";
+    expect(actual).to.be.equal(expected);
+  });
+  it("should return A(beta) BIS", function () {
+    // Arrange
+    // nothing for a spy
 
-    expect(DoItBSpy.called).to.be.true;
+    // Act
+    const actual = moduleA.DoItA();
 
-    // In fact the behavior is modified it's not really a spy,
-    // just a mock with, it's just a stub with empty behavior.
+    // Assert
+    expect(DoItBStub.calledOnce).to.be.true;
+
+    // Assert
+    const expected = "A(undefined)";
     expect(actual).to.be.equal(expected);
   });
   afterEach(function () {
-    sinon.restore();
+    sinon.reset();
   });
 });

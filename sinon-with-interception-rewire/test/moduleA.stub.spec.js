@@ -1,27 +1,47 @@
-var rewire = require("rewire");
-var sinon = require("sinon");
-var chai = require("chai");
-var expect = chai.expect;
+const rewire = require("rewire");
+const sinon = require("sinon");
+const chai = require("chai");
+const expect = chai.expect;
 
-// intercept moduleB.DoItB in myModule with rewire
-var moduleA = rewire("../lib/moduleA");
-let DoItBStub = sinon.stub();
-DoItBStub.returns("beta");
-
-var moduleBMock = {
-  DoItB: DoItBStub
-};
-
-moduleA.__set__("moduleB", moduleBMock);
-
-describe("moduleB.DoItB intercepted by rewire and stub by Sinon", function() {
+describe("moduleB.DoItB interception by rewire and spied by Sinon", function() {
+  before(function() {
+    // intercept moduleB.DoItB in moduleA with rewire
+    moduleA = rewire("../lib/moduleA");
+    DoItBStub = sinon.stub();
+    var moduleBTestDouble = {
+      DoItB: DoItBStub
+    };
+    moduleA.__set__("moduleB", moduleBTestDouble);
+  });
   it("should return A(beta)", function() {
+    // Arrange
+    DoItBStub.returns("beta");
+
+    // Act
     const actual = moduleA.DoItA();
+
+    // Assert
+    expect(DoItBStub.calledOnce).to.be.true;
+
+    // Assert
     const expected = "A(beta)";
-    expect(DoItBStub.called).to.be.true;
+    expect(actual).to.be.equal(expected);
+  });
+  it("should return A(beta) BIS", function () {
+    // Arrange
+    DoItBStub.returns("gamma");
+
+    // Act
+    const actual = moduleA.DoItA();
+
+    // Assert
+    expect(DoItBStub.calledOnce).to.be.true;
+
+    // Assert
+    const expected = "A(gamma)";
     expect(actual).to.be.equal(expected);
   });
   afterEach(function () {
-    sinon.restore();
+    sinon.reset();
   });
 });

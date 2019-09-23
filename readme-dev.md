@@ -30,3 +30,4 @@ sinon-...
 
 - readme: talk about : The AAA (Arrange, Act, Assert) pattern is a common way of writing unit tests for a method under test.
 - readme: talk about : side effects of each framework.
+- readme: multiple way to use sinon: reset vs restore
