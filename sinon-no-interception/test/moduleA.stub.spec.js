@@ -1,5 +1,5 @@
 const sinon = require("sinon");
-const { DoItA } = require("../lib/moduleA"); // you CAN destructure this dependency
+const { DoItA, DoItA2 } = require("../lib/moduleA"); // you CAN destructure this dependency
 const moduleB = require("../lib/moduleB"); // you CAN'T destructure this dependency
 var chai = require("chai");
 var expect = chai.expect;
@@ -13,6 +13,14 @@ describe("Sinon stub", () => {
     expect(spy.called).to.be.true;
 
     const expected = "A(beta)";
+    expect(actual).to.be.equal(expected);
+  });
+  it("side effects : no side effects on other methods", () => {
+    const spy = sinon.stub(moduleB, "DoItB").returns("beta");
+    
+    const actual = DoItA2();
+
+    const expected = "A(B2)";
     expect(actual).to.be.equal(expected);
   });
   afterEach(function () {

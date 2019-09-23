@@ -15,14 +15,14 @@ describe("Sinon spy", () => {
     const expected = "A(B)";
     expect(actual).to.be.equal(expected);
   });
-  // it("side effects", () => {
-  //   const spy = sinon.spy(moduleB, "DoItB");
+  it("side effects : no side effects on other methods", () => {
+    const spy = sinon.spy(moduleB, "DoItB");
 
-  //   const actual = DoItA2();
+    const actual = DoItA2();
 
-  //   const expected = "A(XX)";
-  //   expect(actual).to.be.equal(expected);
-  // });
+    const expected = "A(B2)";
+    expect(actual).to.be.equal(expected);
+  });
 
   afterEach(function () {
     sinon.restore();
