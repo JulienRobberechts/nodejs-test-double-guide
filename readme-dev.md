@@ -12,22 +12,15 @@
 
 ## in progress
 
-- test side effect on every test after jest: 
-sinon-...
-
-
+- test side effect on every test after rewire: 
 
 ## todo
 
-- move logic into before-each
-
-- rename moduleA as System under test
 - Review all tests
-
-
+  - move logic into before-each
+  - rename moduleA as System under test
 
 - readme: inventory of relative paths: relative from the test to the dependency OR NOT???
-
 - readme: talk about : The AAA (Arrange, Act, Assert) pattern is a common way of writing unit tests for a method under test.
 - readme: talk about : side effects of each framework.
 - readme: multiple way to use sinon: reset vs restore
