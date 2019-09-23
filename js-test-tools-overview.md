@@ -105,24 +105,25 @@ For spy and stubs:
   1. [EMPTY] return undefined
   1. [ERROR] throw an exception the method doesn't exist.
 
-- If I call the same dependency from an other object. Is it counted/stubed.
+- If I call the same dependency from an other object. Is it counted/stubed. (Todo)
 
   1. Yes
   1. No
   1. Error
 
-- Path of the dependency in the test
+- Dependency Path in the test
 
-  1. Relative to the module under test
-  1. Relative to the test
+  1. [r/test] Relative to the test
+  2. [name] Just the module name (???? TO understand)
+  3. [r/sut] Relative to the module under test
 
-- Can the dependency be destructured in the module under test?
+- Can the dependency be destructured in the module under test? (Todo)
 
   1. Yes
   1. No, silently fail
   1. No, error
 
-- Can the import of the module under test be destrustured in the test code?
+- Can the import of the module under test be destrustured in the test code? (Todo)
   1. Yes
   1. No, silently fail
   1. No, error
@@ -140,16 +141,16 @@ PATHS:
 (.\sinon-with-interception-rewiremock\test\moduleA.spy.spec.js
 (.\testdouble-with-interception\test\moduleA.spy.spec.js
 
-| Tool                                 | Module interception | Spy implementation | Siblings method call |     |     |     |
-| :----------------------------------- | :-----------------: | :----------------: | :------------------: | :-: | :-: | :-: |
-| 1. Jasmine                           |         NO          |       [FAKE]       |         [OK]         |     |     |     |
-| 2. Jest no interception              |         NO          |        [OK]        |         [OK]         |     |     |     |
-| 3. Mocha + Chai + Sinon              |         NO          |        [OK]        |         [OK]         |     |     |     |
-| 4. Jest with interception            |         YES         |       [FAKE]       |       [ERROR]        |     |     |     |
-| 5. Mocha + Chai + Sinon + proxyquire |         YES         |       [FAKE]       |         [OK]         |     |     |     |
-| 6. Mocha + Chai + Sinon + rewire     |         YES         |       [FAKE]       |       [ERROR]        |     |     |     |
-| 7. Mocha + Chai + Sinon + rewiremock |         YES         |       [FAKE]       |       [ERROR]        |     |     |     |
-| 8. Mocha + Chai + testdouble         |         YES         |       [FAKE]       |       [EMPTY]        |     |     |     |
+| Tool                                 | Module interception | Spy implementation | Siblings method call | Dependency Path |     |     |
+| :----------------------------------- | :-----------------: | :----------------: | :------------------: | :-------------: | :-: | :-: |
+| 1. Jasmine                           |         NO          |       [FAKE]       |         [OK]         |    [r/test]     |     |     |
+| 2. Jest no interception              |         NO          |        [OK]        |         [OK]         |    [r/test]     |     |     |
+| 3. Mocha + Chai + Sinon              |         NO          |        [OK]        |         [OK]         |    [r/test]     |     |     |
+| 4. Jest with interception            |         YES         |       [FAKE]       |       [ERROR]        |    [r/test]     |     |     |
+| 5. Mocha + Chai + Sinon + proxyquire |         YES         |       [FAKE]       |         [OK]         |     [r/sut]     |     |     |
+| 6. Mocha + Chai + Sinon + rewire     |         YES         |       [FAKE]       |       [ERROR]        |     [name]      |     |     |
+| 7. Mocha + Chai + Sinon + rewiremock |         YES         |       [FAKE]       |       [ERROR]        |    [r/test]     |     |     |
+| 8. Mocha + Chai + testdouble         |         YES         |       [FAKE]       |       [EMPTY]        |    [r/test]     |     |     |
 
 ## References
 
