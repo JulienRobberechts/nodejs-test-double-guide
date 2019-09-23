@@ -1,7 +1,6 @@
-"use strict";
 const sinon = require("sinon");
-const moduleA = require("../lib/moduleA");
-const moduleB = require("../lib/moduleB");
+const moduleA = require("../lib/moduleA"); // you can destructure this dependency
+const moduleB = require("../lib/moduleB"); // you can't destructure this dependency
 var chai = require("chai");
 var expect = chai.expect;
 

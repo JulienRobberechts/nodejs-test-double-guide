@@ -1,4 +1,5 @@
-var { DoItB, DoItB2 } = require("./moduleB");
+ // you can't destructure this dependency
+ var { DoItB, DoItB2 } = require("./moduleB");
 
 function DoItA() {
   return "A(" + DoItB() + ")";

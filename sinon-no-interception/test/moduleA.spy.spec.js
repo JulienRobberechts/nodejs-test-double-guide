@@ -1,4 +1,3 @@
-"use strict";
 const sinon = require("sinon");
 const { DoItA } = require("../lib/moduleA"); // you can destructure this dependency
 const moduleB = require("../lib/moduleB"); // you can't destructure this dependency
