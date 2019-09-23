@@ -5,6 +5,7 @@ var expect = chai.expect;
 
 describe("moduleB intercepted by proxyquire and stub by Sinon", function() {
   it("should return A(beta)", function() {
+    // Arrange
     let moduleBStub = sinon.stub();
     moduleBStub.returns("beta");
 
@@ -15,11 +16,14 @@ describe("moduleB intercepted by proxyquire and stub by Sinon", function() {
       }
     });
 
-    const expected = "A(beta)";
+    // Act
     const actual = moduleA.DoItA();
 
+    // Assert 1
     expect(moduleBStub.called).to.be.true;
-
+    
+    // Assert 2
+    const expected = "A(beta)";
     expect(actual).to.be.equal(expected);
   });
 });
