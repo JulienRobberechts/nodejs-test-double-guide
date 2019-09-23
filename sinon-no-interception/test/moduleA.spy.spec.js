@@ -1,14 +1,21 @@
 const sinon = require("sinon");
-const { DoItA } = require("../lib/moduleA"); // you can destructure this dependency
-const moduleB = require("../lib/moduleB"); // you can't destructure this dependency
+const { DoItA } = require("../lib/moduleA"); // you CAN destructure this dependency
+const moduleB = require("../lib/moduleB"); // you CAN'T destructure this dependency
 var chai = require("chai");
 var expect = chai.expect;
 
-describe("module A tests with sinon spy", () => {
+describe("Sinon spy", () => {
   it("The implementation of A should call DoItB in module B - interesting test", () => {
     const spy = sinon.spy(moduleB, "DoItB");
-    expect(DoItA()).to.be.equal("A(B)");
+    
+    const actual = DoItA();
+
     expect(spy.called).to.be.true;
-    sinon.restore();
+
+    const expected = "A(B)";
+    expect(actual).to.be.equal(expected);
   });
+  afterEach(function () {
+    sinon.restore();
+  })
 });

@@ -1,4 +1,4 @@
-var moduleB = require("./moduleB");
+var moduleB = require("./moduleB"); // you can't destructure this dependency
 
 function DoItA() {
   return "A(" + moduleB.DoItB() + ")";
