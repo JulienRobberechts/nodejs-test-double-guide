@@ -15,7 +15,4 @@ describe("Sinon stub", () => {
     const expected = "A(beta)";
     expect(actual).to.be.equal(expected);
   });
-  afterEach(function () {
-    sinon.restore();
-  })
 });

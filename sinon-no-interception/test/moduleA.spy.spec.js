@@ -15,7 +15,4 @@ describe("Sinon spy", () => {
     const expected = "A(B)";
     expect(actual).to.be.equal(expected);
   });
-  afterEach(function () {
-    sinon.restore();
-  })
 });
