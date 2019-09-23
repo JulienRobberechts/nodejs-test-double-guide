@@ -24,8 +24,9 @@ sinon-...
 - rename moduleA as System under test
 - Review all tests
 
-- inventory of relative paths: relative from the test to the dependency OR NOT???
-
-- talk about : The AAA (Arrange, Act, Assert) pattern is a common way of writing unit tests for a method under test.
 
 
+- readme: inventory of relative paths: relative from the test to the dependency OR NOT???
+
+- readme: talk about : The AAA (Arrange, Act, Assert) pattern is a common way of writing unit tests for a method under test.
+- readme: talk about : side effects of each framework.

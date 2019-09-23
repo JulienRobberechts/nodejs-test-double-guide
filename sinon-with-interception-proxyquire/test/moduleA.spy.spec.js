@@ -27,6 +27,24 @@ describe("moduleB intercepted by proxyquire and spied by Sinon (but with empty b
     const expected = "A(undefined)";
     expect(actual).to.be.equal(expected);
   });
+  it("side effect: No, everything is working", function () {
+    // Arrange
+    let DoItBSpy = sinon.stub();
+
+    // import the module to test, using a fake dependency
+    const moduleA = proxyquire("../lib/moduleA", {
+      "./moduleB": {
+        DoItB: DoItBSpy
+      }
+    });
+
+    // Act
+    const actual = moduleA.DoItA2();
+
+    // Assert
+    const expected = "A(B2)";
+    expect(actual).to.be.equal(expected);
+  });
   afterEach(function () {
     sinon.restore();
   });

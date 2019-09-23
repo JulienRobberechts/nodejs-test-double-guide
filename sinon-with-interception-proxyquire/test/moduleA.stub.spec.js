@@ -26,6 +26,25 @@ describe("moduleB intercepted by proxyquire and stub by Sinon", function() {
     const expected = "A(beta)";
     expect(actual).to.be.equal(expected);
   });
+  it("side effects: No everything is working", function () {
+    // Arrange
+    let moduleBStub = sinon.stub();
+    moduleBStub.returns("beta");
+
+    // import the module to test, using a fake dependency
+    const moduleA = proxyquire("../lib/moduleA", {
+      "./moduleB": {
+        DoItB: moduleBStub
+      }
+    });
+
+    // Act
+    const actual = moduleA.DoItA2();
+
+    // Assert
+    const expected = "A(B2)";
+    expect(actual).to.be.equal(expected);
+  });
   afterEach(function () {
     sinon.restore();
   });
