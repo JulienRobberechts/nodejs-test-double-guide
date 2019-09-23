@@ -21,4 +21,7 @@ describe("moduleB.DoItB intercepted by rewire and stub by Sinon", function() {
     expect(DoItBStub.called).to.be.true;
     expect(actual).to.be.equal(expected);
   });
+  afterEach(function () {
+    sinon.restore();
+  });
 });

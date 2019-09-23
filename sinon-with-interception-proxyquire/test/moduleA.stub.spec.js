@@ -26,4 +26,7 @@ describe("moduleB intercepted by proxyquire and stub by Sinon", function() {
     const expected = "A(beta)";
     expect(actual).to.be.equal(expected);
   });
+  afterEach(function () {
+    sinon.restore();
+  });
 });

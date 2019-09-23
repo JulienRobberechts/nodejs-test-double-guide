@@ -27,4 +27,7 @@ describe("moduleB intercepted by proxyquire and spied by Sinon (but with empty b
     const expected = "A(undefined)";
     expect(actual).to.be.equal(expected);
   });
+  afterEach(function () {
+    sinon.restore();
+  });
 });

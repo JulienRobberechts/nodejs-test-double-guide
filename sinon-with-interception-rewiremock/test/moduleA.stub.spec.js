@@ -19,4 +19,7 @@ describe("moduleB.DoItB intercepted by rewiremock and stub by Sinon", function()
     expect(DoItBStub.called).to.be.true;
     expect(actual).to.be.equal(expected);
   });
+  afterEach(function () {
+    sinon.restore();
+  });
 });

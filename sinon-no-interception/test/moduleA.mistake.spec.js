@@ -17,4 +17,7 @@ describe("Sinon spy with destructuring in the component under test", () => {
     const expected = "A(B)";
     expect(actual).to.be.equal(expected);
   });
+  afterEach(function () {
+    sinon.restore();
+  });
 });

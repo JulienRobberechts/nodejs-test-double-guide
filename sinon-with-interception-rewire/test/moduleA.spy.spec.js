@@ -25,4 +25,7 @@ describe("moduleB.DoItB intercepted by rewire and and spied by Sinon (but with e
     // just a mock with, it's just a stub with empty behavior.
     expect(actual).to.be.equal(expected);
   });
+  afterEach(function () {
+    sinon.restore();
+  });
 });
