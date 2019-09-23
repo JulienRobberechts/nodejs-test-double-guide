@@ -1,3 +1,4 @@
+"use strict";
 jest.mock("../lib/moduleB", () => ({
   DoItB: jest.fn()
 }));
@@ -11,7 +12,7 @@ beforeEach(() => jest.clearAllMocks());
 // when there is interception, it's not a spy??
 test("moduleB can't be spied without changing the behaviour Jest without implementation", () => {
   const actual = moduleA.DoItA();
-  
+
   expect(moduleBMocked.DoItB).toHaveBeenCalled();
 
   // In fact the behavior is modified it's not really a spy,
@@ -25,5 +26,5 @@ test("side effect: the method DoItA2 doesn't exist if you don't stub it.", () =>
     moduleA.DoItA2();
   };
 
-  expect(callAnOtherMethod).toThrow('moduleB.DoItB2 is not a function');
+  expect(callAnOtherMethod).toThrow("moduleB.DoItB2 is not a function");
 });

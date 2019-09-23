@@ -1,3 +1,4 @@
+"use strict";
 var sinon = require("sinon");
 var chai = require("chai");
 var proxyquire = require("proxyquire").noPreserveCache();
@@ -21,12 +22,12 @@ describe("moduleB intercepted by proxyquire and stub by Sinon", function() {
 
     // Assert 1
     expect(moduleBStub.called).to.be.true;
-    
+
     // Assert 2
     const expected = "A(beta)";
     expect(actual).to.be.equal(expected);
   });
-  it("side effects: No everything is working", function () {
+  it("side effects: No everything is working", function() {
     // Arrange
     let moduleBStub = sinon.stub();
     moduleBStub.returns("beta");
@@ -45,7 +46,7 @@ describe("moduleB intercepted by proxyquire and stub by Sinon", function() {
     const expected = "A(B2)";
     expect(actual).to.be.equal(expected);
   });
-  afterEach(function () {
+  afterEach(function() {
     sinon.restore();
   });
 });

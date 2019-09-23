@@ -1,3 +1,4 @@
+"use strict";
 const moduleA = require("../lib/moduleA");
 const moduleB = require("../lib/moduleB");
 

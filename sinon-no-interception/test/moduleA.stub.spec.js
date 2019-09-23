@@ -1,3 +1,4 @@
+"use strict";
 const sinon = require("sinon");
 const { DoItA, DoItA2 } = require("../lib/moduleA"); // you CAN destructure this dependency
 const moduleB = require("../lib/moduleB"); // you CAN'T destructure this dependency
@@ -9,7 +10,7 @@ describe("Sinon stub", () => {
     const spy = sinon.stub(moduleB, "DoItB").returns("beta");
 
     const actual = DoItA();
-    
+
     expect(spy.called).to.be.true;
 
     const expected = "A(beta)";
@@ -17,13 +18,13 @@ describe("Sinon stub", () => {
   });
   it("side effects : no side effects on other methods", () => {
     const spy = sinon.stub(moduleB, "DoItB").returns("beta");
-    
+
     const actual = DoItA2();
 
     const expected = "A(B2)";
     expect(actual).to.be.equal(expected);
   });
-  afterEach(function () {
+  afterEach(function() {
     sinon.restore();
   });
 });

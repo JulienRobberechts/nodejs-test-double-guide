@@ -1,3 +1,4 @@
+"use strict";
 var sinon = require("sinon");
 var chai = require("chai");
 var proxyquire = require("proxyquire").noPreserveCache();
@@ -17,17 +18,17 @@ describe("moduleB intercepted by proxyquire and spied by Sinon (but with empty b
 
     // Act
     const actual = moduleA.DoItA();
-    
+
     // Assert 1
     expect(DoItBSpy.called).to.be.true;
-    
+
     // Assert 2
     // In fact the behavior is modified it's not really a spy,
     // just a mock with, it's just a stub with empty behavior.
     const expected = "A(undefined)";
     expect(actual).to.be.equal(expected);
   });
-  it("side effect: No, everything is working", function () {
+  it("side effect: No, everything is working", function() {
     // Arrange
     let DoItBSpy = sinon.stub();
 
@@ -45,7 +46,7 @@ describe("moduleB intercepted by proxyquire and spied by Sinon (but with empty b
     const expected = "A(B2)";
     expect(actual).to.be.equal(expected);
   });
-  afterEach(function () {
+  afterEach(function() {
     sinon.restore();
   });
 });

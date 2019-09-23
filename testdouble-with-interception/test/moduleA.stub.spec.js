@@ -1,3 +1,4 @@
+"use strict";
 var td = require("testdouble");
 var chai = require("chai");
 var expect = chai.expect;
@@ -11,7 +12,7 @@ var moduleB;
 describe("moduleB.DoItB intercepted and stubbed by testdouble", function() {
   beforeEach(function() {
     moduleB = td.replace("../lib/moduleB");
-    
+
     // The correct way is to call require after replacing the dependencies:
     moduleA = require("../lib/moduleA");
   });
