@@ -1,4 +1,4 @@
-var moduleB = require("./moduleB");
+var { DoItB, DoItB2 } = require("./moduleB");
 
 function DoItA() {
   return "A(" + moduleB.DoItB() + ")";
