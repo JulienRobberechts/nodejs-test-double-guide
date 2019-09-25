@@ -15,7 +15,6 @@
 - Review all tests
 
   - move logic into before-each
-  - rename moduleA as System under test
 
 ## todo
 

@@ -4,34 +4,30 @@ var chai = require("chai");
 var proxyquire = require("proxyquire").noPreserveCache();
 var expect = chai.expect;
 
-describe("Proxyquire intercepted stubs", function() {
-  it("are replacing the behavior of the the target stubbed function", function() {
-    let moduleBStub = sinon.stub();
-    moduleBStub.returns("beta");
+let moduleA, DoItBStub;
 
+describe("Proxyquire intercepted stubs", function() {
+  before(function() {
+    DoItBStub = sinon.stub();
     // intercept moduleB.DoItB in moduleA with proxyquire
-    const moduleA = proxyquire("../lib/moduleA", {
+    moduleA = proxyquire("../lib/moduleA", {
       "./moduleB": {
-        DoItB: moduleBStub
+        DoItB: DoItBStub
       }
     });
+  });
+  it("are replacing the behavior of the the target stubbed function", function() {
+    DoItBStub.returns("beta");
 
     const actual = moduleA.DoItA();
 
-    expect(moduleBStub.called).to.be.true;
+    expect(DoItBStub.called).to.be.true;
 
     const expected = "A(beta)";
     expect(actual).to.be.equal(expected);
   });
   it("are SURPRISINGLY not modifying the behavior of sibling functions", function() {
-    let moduleBStub = sinon.stub();
-    moduleBStub.returns("beta");
-
-    const moduleA = proxyquire("../lib/moduleA", {
-      "./moduleB": {
-        DoItB: moduleBStub
-      }
-    });
+    DoItBStub.returns("beta");
 
     const actual = moduleA.DoItA2();
 
