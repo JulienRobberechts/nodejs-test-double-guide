@@ -8,7 +8,6 @@ let moduleA, DoItBStub;
 
 describe("Rewire intercepted spies", function() {
   before(function() {
-    // intercept moduleB.DoItB in moduleA with rewire
     moduleA = rewire("../lib/moduleA");
     DoItBStub = sinon.stub();
     var moduleBTestDouble = {
@@ -17,16 +16,10 @@ describe("Rewire intercepted spies", function() {
     moduleA.__set__("moduleB", moduleBTestDouble);
   });
   it("are NOT replacing the behavior of the the target spied function", function() {
-    // Arrange
-    // nothing for a spy
-
-    // Act
     const actual = moduleA.DoItA();
 
-    // Assert
     expect(DoItBStub.calledOnce).to.be.true;
 
-    // Assert
     const expected = "A(undefined)";
     expect(actual).to.be.equal(expected);
   });

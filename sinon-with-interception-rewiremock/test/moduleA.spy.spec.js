@@ -8,7 +8,6 @@ let moduleA, DoItBSpy;
 
 describe("rewiremock intercepted spies", function() {
   before(function() {
-    // intercept moduleB.DoItB in moduleA with rewiremock
     DoItBSpy = sinon.stub();
     moduleA = rewiremock.proxy("../lib/moduleA", {
       "../lib/moduleB": {
@@ -17,15 +16,10 @@ describe("rewiremock intercepted spies", function() {
     });
   });
   it("are NOT replacing the behavior of the the target spied function", function() {
-    // Act
     const actual = moduleA.DoItA();
 
-    // Assert 1
     expect(DoItBSpy.called).to.be.true;
 
-    // Assert 2
-    // In fact the behavior is modified it's not really a spy,
-    // just a mock with, it's just a stub with empty behavior.
     const expected = "A(undefined)";
     expect(actual).to.be.equal(expected);
   });

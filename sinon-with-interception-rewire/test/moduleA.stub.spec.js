@@ -17,21 +17,16 @@ describe("Rewire intercepted stubs", function() {
     moduleA.__set__("moduleB", moduleBTestDouble);
   });
   it("are replacing the behavior of the the target stubbed function", function() {
-    // Arrange
     DoItBStub.returns("beta");
 
-    // Act
     const actual = moduleA.DoItA();
 
-    // Assert
     expect(DoItBStub.calledOnce).to.be.true;
 
-    // Assert
     const expected = "A(beta)";
     expect(actual).to.be.equal(expected);
   });
   it("are not aware of sibling functions anymore", function() {
-    // Arrange
     DoItBStub.returns("beta");
 
     const callAnOtherMethod = () => {

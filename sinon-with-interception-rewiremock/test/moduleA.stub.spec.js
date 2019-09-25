@@ -17,16 +17,12 @@ describe("rewiremock intercepted stubs", function() {
     });
   });
   it("are replacing the behavior of the the target stubbed function", function() {
-    // Arrange
     DoItBStub.returns("beta");
 
-    // Act
     const actual = moduleA.DoItA();
 
-    // Assert 1
     expect(DoItBStub.called).to.be.true;
 
-    // Assert 2
     const expected = "A(beta)";
     expect(actual).to.be.equal(expected);
   });
