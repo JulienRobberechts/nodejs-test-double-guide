@@ -12,9 +12,7 @@
 
 ## in progress
 
-- Review all tests
-
-  - move logic into before-each
+fix test in sinon no interception.
 
 ## todo
 
