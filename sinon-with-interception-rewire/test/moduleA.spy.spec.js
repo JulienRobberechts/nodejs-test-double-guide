@@ -8,6 +8,7 @@ let moduleA, DoItBStub;
 
 describe("Rewire intercepted spies", function() {
   before(function() {
+    // intercept moduleB.DoItB in moduleA with rewire
     moduleA = rewire("../lib/moduleA");
     DoItBStub = sinon.stub();
     var moduleBTestDouble = {

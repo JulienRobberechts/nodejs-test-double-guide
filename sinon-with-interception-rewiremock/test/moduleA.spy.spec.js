@@ -9,6 +9,7 @@ let moduleA, DoItBSpy;
 describe("rewiremock intercepted spies", function() {
   before(function() {
     DoItBSpy = sinon.stub();
+    // intercept moduleB.DoItB in moduleA with rewiremock
     moduleA = rewiremock.proxy("../lib/moduleA", {
       "../lib/moduleB": {
         DoItB: DoItBSpy

@@ -1,4 +1,5 @@
 "use strict";
+// intercept moduleB.DoItB everywhere with proxyquire
 jest.mock("../lib/moduleB", () => ({
   DoItB: jest.fn()
 }));

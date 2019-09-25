@@ -6,6 +6,7 @@ describe("Jest partial stub", () => {
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
   test("are replacing the behavior of the the target stubbed function", () => {
+    // partial stub with jest
     const moduleBSpy = jest
       .spyOn(moduleB, "DoItB")
       .mockImplementation(() => "beta");

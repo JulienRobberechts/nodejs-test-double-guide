@@ -101,32 +101,15 @@ For spy and stubs:
 
 - Siblings method call: Is it possible to call other function in the same module. (defintion of Partial/Full)
 
-  1. [OK] possible everything is ok
-  1. [EMPTY] return undefined
-  1. [ERROR] throw an exception the method doesn't exist.
-
-- If I call the same dependency from an other object. Is it counted/stubed. (Todo)
-
-  1. Yes
-  1. No
-  1. Error
+  1. [OK] possible everything is ok, It's a partial test double.
+  1. [EMPTY] return undefined. It's a wired mix between a partial and a full test double.
+  1. [ERROR] throw an exception the method doesn't exist. It's a full test double. You are sure that any method of your dependency is used.
 
 - Dependency Path in the test
 
-  1. [r/test] Relative to the test
-  2. [name] Just the module name (???? TO understand)
-  3. [r/sut] Relative to the module under test
-
-- Can the dependency be destructured in the module under test? (Todo)
-
-  1. Yes
-  1. No, silently fail
-  1. No, error
-
-- Can the import of the module under test be destrustured in the test code? (Todo)
-  1. Yes
-  1. No, silently fail
-  1. No, error
+  1. [r/test] Relative to the test. It's the best.
+  2. [r/sut] Relative to the module under test. It's a bad idea!
+  3. [name] The name of the variable in the system under test. It's a bad idea!
 
 ### spy
 

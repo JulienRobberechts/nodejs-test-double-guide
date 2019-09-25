@@ -4,6 +4,7 @@ var moduleB = require("../lib/moduleB");
 
 describe("Jasmine partial spies", function() {
   it("are deleting the behavior of the target spied function", function() {
+    // partial spy with Jasmine
     var DoItBSpy = spyOn(moduleB, "DoItB");
 
     const actual = moduleA.DoItA();

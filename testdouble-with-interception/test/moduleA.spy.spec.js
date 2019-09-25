@@ -10,6 +10,7 @@ let moduleA, moduleB;
 
 describe("testdouble intercepted spies", function() {
   beforeEach(function() {
+    // intercept moduleB everywhere with testdouble
     moduleB = td.replace("../lib/moduleB");
 
     // The correct way is to call require after replacing the dependencies:

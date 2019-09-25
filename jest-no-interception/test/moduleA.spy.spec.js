@@ -6,6 +6,7 @@ describe("Jest partial spies", () => {
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
   test("are NOT changing the behavior of the target spied function", () => {
+    // partial spy with jest
     const moduleBSpy = jest.spyOn(moduleB, "DoItB");
 
     const actual = moduleA.DoItA();

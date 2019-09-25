@@ -8,8 +8,8 @@ let moduleA, DoItBStub;
 
 describe("rewiremock intercepted stubs", function() {
   before(function() {
-    // intercept moduleB.DoItB in moduleA with rewiremock
     DoItBStub = sinon.stub();
+    // intercept moduleB.DoItB in moduleA with rewiremock
     moduleA = rewiremock.proxy("../lib/moduleA", {
       "../lib/moduleB": {
         DoItB: DoItBStub

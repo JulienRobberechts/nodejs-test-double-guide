@@ -7,6 +7,7 @@ var expect = chai.expect;
 
 describe("Sinon partial stub", () => {
   it("are replacing the behavior of the the target stubbed function", () => {
+    // partial stub with sinon
     const spy = sinon.stub(moduleB, "DoItB").returns("beta");
 
     const actual = DoItA();

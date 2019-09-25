@@ -7,6 +7,7 @@ var expect = chai.expect;
 describe("Proxyquire intercepted spies", function() {
   it("are NOT replacing the behavior of the the target spied function", function() {
     let DoItBSpy = sinon.stub();
+    // intercept moduleB.DoItB in moduleA with proxyquire
     const moduleA = proxyquire("../lib/moduleA", {
       "./moduleB": {
         DoItB: DoItBSpy

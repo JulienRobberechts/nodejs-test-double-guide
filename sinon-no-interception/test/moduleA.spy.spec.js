@@ -7,6 +7,7 @@ var expect = chai.expect;
 
 describe("Sinon partial spies", () => {
   it("are NOT changing the behavior of the target spied function", () => {
+    // partial spy with sinon
     const spy = sinon.spy(moduleB, "DoItB");
 
     const actual = DoItA();

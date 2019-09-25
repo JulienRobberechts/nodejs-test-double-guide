@@ -4,6 +4,7 @@ var moduleB = require("../lib/moduleB");
 
 describe("Jasmine partial stub", function() {
   it("are replacing the behavior of the the target stubbed function", function() {
+    // partial stub with Jasmine
     var DoItBStub = spyOn(moduleB, "DoItB").and.returnValue("beta");
 
     const actual = moduleA.DoItA();
