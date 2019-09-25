@@ -31,6 +31,6 @@ describe("Proxyquire intercepted spies", function() {
     expect(actual).to.be.equal(expected);
   });
   afterEach(function() {
-    sinon.restore();
+    sinon.reset();
   });
 });

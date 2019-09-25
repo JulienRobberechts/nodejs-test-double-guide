@@ -34,6 +34,6 @@ describe("rewiremock intercepted stubs", function() {
     expect(callAnOtherMethod).to.throw("moduleB.DoItB2 is not a function");
   });
   afterEach(function() {
-    sinon.restore();
+    sinon.reset();
   });
 });

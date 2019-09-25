@@ -35,6 +35,6 @@ describe("Proxyquire intercepted stubs", function() {
     expect(actual).to.be.equal(expected);
   });
   afterEach(function() {
-    sinon.restore();
+    sinon.reset();
   });
 });

@@ -18,6 +18,6 @@ describe("Sinon spies with destructuring in the component under test", () => {
     expect(actual).to.be.equal(expected);
   });
   afterEach(function() {
-    sinon.restore();
+    sinon.reset();
   });
 });

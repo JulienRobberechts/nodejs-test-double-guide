@@ -27,6 +27,6 @@ describe("Sinon partial spies", () => {
   });
 
   afterEach(function() {
-    sinon.restore();
+    sinon.reset();
   });
 });
