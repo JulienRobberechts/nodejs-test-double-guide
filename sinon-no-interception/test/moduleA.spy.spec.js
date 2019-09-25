@@ -5,8 +5,8 @@ const moduleB = require("../lib/moduleB"); // you CAN'T destructure this depende
 var chai = require("chai");
 var expect = chai.expect;
 
-describe("Sinon spy", () => {
-  it("The implementation of A should call DoItB in module B - interesting test", () => {
+describe("Sinon partial spies", () => {
+  it("are NOT changing the behavior of the target spied function", () => {
     const spy = sinon.spy(moduleB, "DoItB");
 
     const actual = DoItA();
@@ -16,7 +16,7 @@ describe("Sinon spy", () => {
     const expected = "A(B)";
     expect(actual).to.be.equal(expected);
   });
-  it("side effects : no side effects on other methods", () => {
+  it("are not modifying the behavior of sibling functions", () => {
     const spy = sinon.spy(moduleB, "DoItB");
 
     const actual = DoItA2();

@@ -4,8 +4,8 @@ var chai = require("chai");
 var proxyquire = require("proxyquire").noPreserveCache();
 var expect = chai.expect;
 
-describe("moduleB intercepted by proxyquire and spied by Sinon (but with empty behavior)", function() {
-  it("should return A(undefined)", function() {
+describe("Proxyquire intercepted spies", function() {
+  it("are NOT replacing the behavior of the the target spied function", function() {
     // Arrange
     let DoItBSpy = sinon.stub();
 
@@ -28,7 +28,7 @@ describe("moduleB intercepted by proxyquire and spied by Sinon (but with empty b
     const expected = "A(undefined)";
     expect(actual).to.be.equal(expected);
   });
-  it("side effect: No, everything is working", function() {
+  it("are SURPRISINGLY not modifying the behavior of sibling functions", function() {
     // Arrange
     let DoItBSpy = sinon.stub();
 

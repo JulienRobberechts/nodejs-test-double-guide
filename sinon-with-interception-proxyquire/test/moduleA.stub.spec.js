@@ -4,8 +4,8 @@ var chai = require("chai");
 var proxyquire = require("proxyquire").noPreserveCache();
 var expect = chai.expect;
 
-describe("moduleB intercepted by proxyquire and stub by Sinon", function() {
-  it("should return A(beta)", function() {
+describe("Proxyquire intercepted stubs", function() {
+  it("are replacing the behavior of the the target stubbed function", function() {
     // Arrange
     let moduleBStub = sinon.stub();
     moduleBStub.returns("beta");
@@ -27,7 +27,7 @@ describe("moduleB intercepted by proxyquire and stub by Sinon", function() {
     const expected = "A(beta)";
     expect(actual).to.be.equal(expected);
   });
-  it("side effects: No everything is working", function() {
+  it("are SURPRISINGLY not modifying the behavior of sibling functions", function() {
     // Arrange
     let moduleBStub = sinon.stub();
     moduleBStub.returns("beta");

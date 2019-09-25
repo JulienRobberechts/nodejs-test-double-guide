@@ -99,7 +99,7 @@ For spies:
 
 For spy and stubs:
 
-- Siblings method call: Is it possible to call other function in the same module.
+- Siblings method call: Is it possible to call other function in the same module. (defintion of Partial/Full)
 
   1. [OK] possible everything is ok
   1. [EMPTY] return undefined

@@ -6,16 +6,7 @@ var expect = chai.expect;
 
 let moduleA, DoItBStub;
 
-// let DoItBStub = sinon.stub();
-// DoItBStub.returns("beta");
-
-// const moduleA = rewiremock.proxy("../lib/moduleA", {
-//   "../lib/moduleB": {
-//     DoItB: DoItBStub
-//   }
-// });
-
-describe("moduleB.DoItB intercepted by rewiremock and stub by Sinon", function() {
+describe("rewiremock intercepted stubs", function() {
   before(function() {
     // intercept moduleB.DoItB in moduleA with rewiremock
     DoItBStub = sinon.stub();
@@ -25,7 +16,7 @@ describe("moduleB.DoItB intercepted by rewiremock and stub by Sinon", function()
       }
     });
   });
-  it("should return A(beta)", function() {
+  it("are replacing the behavior of the the target stubbed function", function() {
     // Arrange
     DoItBStub.returns("beta");
 
@@ -39,7 +30,7 @@ describe("moduleB.DoItB intercepted by rewiremock and stub by Sinon", function()
     const expected = "A(beta)";
     expect(actual).to.be.equal(expected);
   });
-  it("side effects: the method DoItA2 doesn't exist if you don't stub it.", function() {
+  it("are not aware of sibling functions anymore", function() {
     const callAnOtherMethod = () => {
       moduleA.DoItA2();
     };

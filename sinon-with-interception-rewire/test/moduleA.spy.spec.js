@@ -6,7 +6,7 @@ const expect = chai.expect;
 
 let moduleA, DoItBStub;
 
-describe("moduleB.DoItB interception by rewire and stubbed by Sinon", function() {
+describe("Rewire intercepted spies", function() {
   before(function() {
     // intercept moduleB.DoItB in moduleA with rewire
     moduleA = rewire("../lib/moduleA");
@@ -16,7 +16,7 @@ describe("moduleB.DoItB interception by rewire and stubbed by Sinon", function()
     };
     moduleA.__set__("moduleB", moduleBTestDouble);
   });
-  it("should return A(beta)", function() {
+  it("are NOT replacing the behavior of the the target spied function", function() {
     // Arrange
     // nothing for a spy
 
@@ -30,21 +30,7 @@ describe("moduleB.DoItB interception by rewire and stubbed by Sinon", function()
     const expected = "A(undefined)";
     expect(actual).to.be.equal(expected);
   });
-  it("should return A(beta) BIS", function() {
-    // Arrange
-    // nothing for a spy
-
-    // Act
-    const actual = moduleA.DoItA();
-
-    // Assert
-    expect(DoItBStub.calledOnce).to.be.true;
-
-    // Assert
-    const expected = "A(undefined)";
-    expect(actual).to.be.equal(expected);
-  });
-  it("side effects: the method DoItA2 doesn't exist if you don't stub it.", function() {
+  it("are not aware of sibling functions anymore", function() {
     const callAnOtherMethod = () => {
       moduleA.DoItA2();
     };

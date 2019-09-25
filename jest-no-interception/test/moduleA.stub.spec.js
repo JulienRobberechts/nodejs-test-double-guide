@@ -2,28 +2,30 @@
 const moduleA = require("../lib/moduleA");
 const moduleB = require("../lib/moduleB");
 
-beforeEach(() => jest.clearAllMocks());
+describe("Jest partial stub", () => {
+  beforeEach(() => jest.clearAllMocks());
+  afterEach(() => jest.clearAllMocks());
+  test("are replacing the behavior of the the target stubbed function", () => {
+    const moduleBSpy = jest
+      .spyOn(moduleB, "DoItB")
+      .mockImplementation(() => "beta");
 
-test("module A tests with Jest stub", () => {
-  const moduleBSpy = jest
-    .spyOn(moduleB, "DoItB")
-    .mockImplementation(() => "beta");
+    const actual = moduleA.DoItA();
 
-  const actual = moduleA.DoItA();
+    expect(moduleBSpy).toHaveBeenCalledWith();
 
-  expect(moduleBSpy).toHaveBeenCalledWith();
+    const expected = "A(beta)";
+    expect(actual).toEqual(expected);
+  });
 
-  const expected = "A(beta)";
-  expect(actual).toEqual(expected);
-});
+  test("are not modifying the behavior of sibling functions", () => {
+    const moduleBSpy = jest
+      .spyOn(moduleB, "DoItB")
+      .mockImplementation(() => "beta");
 
-test("side effect: NO, it's ok", () => {
-  const moduleBSpy = jest
-    .spyOn(moduleB, "DoItB")
-    .mockImplementation(() => "beta");
+    const actual = moduleA.DoItA2();
 
-  const actual = moduleA.DoItA2();
-
-  const expected = "A(B2)";
-  expect(actual).toEqual(expected);
+    const expected = "A(B2)";
+    expect(actual).toEqual(expected);
+  });
 });

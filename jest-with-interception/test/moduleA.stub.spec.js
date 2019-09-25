@@ -6,32 +6,25 @@ jest.mock("../lib/moduleB", () => ({
 const moduleA = require("../lib/moduleA");
 const moduleBMocked = require("../lib/moduleB");
 
-beforeEach(() => jest.clearAllMocks());
+describe("Jest intercepted stub", () => {
+  beforeEach(() => jest.clearAllMocks());
+  afterEach(() => jest.clearAllMocks());
+  test("moduleB stub with Jest with implementation", () => {
+    moduleBMocked.DoItB.mockReturnValueOnce("beta");
 
-test("moduleB stub with Jest without implementation", () => {
-  const actual = moduleA.DoItA();
+    const actual = moduleA.DoItA();
 
-  expect(moduleBMocked.DoItB).toHaveBeenCalled();
+    expect(moduleBMocked.DoItB).toHaveBeenCalled();
 
-  const expected = "A(undefined)";
-  expect(actual).toEqual(expected);
-});
+    const expected = "A(beta)";
+    expect(actual).toEqual(expected);
+  });
 
-test("moduleB stub with Jest with implementation", () => {
-  moduleBMocked.DoItB.mockReturnValueOnce("beta");
+  test("are not aware of sibling functions anymore", () => {
+    const callAnOtherMethod = () => {
+      moduleA.DoItA2();
+    };
 
-  const actual = moduleA.DoItA();
-
-  expect(moduleBMocked.DoItB).toHaveBeenCalled();
-
-  const expected = "A(beta)";
-  expect(actual).toEqual(expected);
-});
-
-test("side effects: the method DoItA2 doesn't exist if you don't stub it.", () => {
-  const callAnOtherMethod = () => {
-    moduleA.DoItA2();
-  };
-
-  expect(callAnOtherMethod).toThrow("moduleB.DoItB2 is not a function");
+    expect(callAnOtherMethod).toThrow("moduleB.DoItB2 is not a function");
+  });
 });

@@ -5,8 +5,8 @@ const moduleB = require("../lib/moduleB"); // you CAN'T destructure this depende
 var chai = require("chai");
 var expect = chai.expect;
 
-describe("Sinon stub", () => {
-  it("The implementation of A should call DoItB in module B and stub it to 'beta' - interesting test", () => {
+describe("Sinon partial stub", () => {
+  it("are replacing the behavior of the the target stubbed function", () => {
     const spy = sinon.stub(moduleB, "DoItB").returns("beta");
 
     const actual = DoItA();
@@ -16,7 +16,7 @@ describe("Sinon stub", () => {
     const expected = "A(beta)";
     expect(actual).to.be.equal(expected);
   });
-  it("side effects : no side effects on other methods", () => {
+  it("are not modifying the behavior of sibling functions", () => {
     const spy = sinon.stub(moduleB, "DoItB").returns("beta");
 
     const actual = DoItA2();

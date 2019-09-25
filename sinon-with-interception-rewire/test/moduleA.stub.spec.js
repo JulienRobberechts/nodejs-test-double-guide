@@ -6,7 +6,7 @@ const expect = chai.expect;
 
 let moduleA, DoItBStub;
 
-describe("moduleB.DoItB interception by rewire and spied by Sinon", function() {
+describe("Rewire intercepted stubs", function() {
   before(function() {
     // intercept moduleB.DoItB in moduleA with rewire
     moduleA = rewire("../lib/moduleA");
@@ -16,7 +16,7 @@ describe("moduleB.DoItB interception by rewire and spied by Sinon", function() {
     };
     moduleA.__set__("moduleB", moduleBTestDouble);
   });
-  it("should return A(beta)", function() {
+  it("are replacing the behavior of the the target stubbed function", function() {
     // Arrange
     DoItBStub.returns("beta");
 
@@ -30,21 +30,7 @@ describe("moduleB.DoItB interception by rewire and spied by Sinon", function() {
     const expected = "A(beta)";
     expect(actual).to.be.equal(expected);
   });
-  it("should return A(beta) BIS", function() {
-    // Arrange
-    DoItBStub.returns("gamma");
-
-    // Act
-    const actual = moduleA.DoItA();
-
-    // Assert
-    expect(DoItBStub.calledOnce).to.be.true;
-
-    // Assert
-    const expected = "A(gamma)";
-    expect(actual).to.be.equal(expected);
-  });
-  it("side effects: the method DoItA2 doesn't exist if you don't stub it.", function() {
+  it("are not aware of sibling functions anymore", function() {
     // Arrange
     DoItBStub.returns("beta");
 

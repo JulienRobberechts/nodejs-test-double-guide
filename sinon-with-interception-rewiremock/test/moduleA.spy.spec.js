@@ -6,7 +6,7 @@ var expect = chai.expect;
 
 let moduleA, DoItBSpy;
 
-describe("moduleB.DoItB intercepted by rewiremock and spied by Sinon (but with empty behavior)", function() {
+describe("rewiremock intercepted spies", function() {
   before(function() {
     // intercept moduleB.DoItB in moduleA with rewiremock
     DoItBSpy = sinon.stub();
@@ -16,7 +16,7 @@ describe("moduleB.DoItB intercepted by rewiremock and spied by Sinon (but with e
       }
     });
   });
-  it("should return A(undefined)", function() {
+  it("are NOT replacing the behavior of the the target spied function", function() {
     // Act
     const actual = moduleA.DoItA();
 
@@ -29,7 +29,7 @@ describe("moduleB.DoItB intercepted by rewiremock and spied by Sinon (but with e
     const expected = "A(undefined)";
     expect(actual).to.be.equal(expected);
   });
-  it("side effects: the method DoItA2 doesn't exist if you don't stub it.", function() {
+  it("are not aware of sibling functions anymore", function() {
     const callAnOtherMethod = () => {
       moduleA.DoItA2();
     };
