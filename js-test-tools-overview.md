@@ -128,6 +128,8 @@ For spy and stubs:
   1. No, silently fail
   1. No, error
 
+### spy
+
 PATHS:
 
 (.\jasmine-no-interception\test\moduleAspySpec.js#L9)
@@ -141,16 +143,16 @@ PATHS:
 (.\sinon-with-interception-rewiremock\test\moduleA.spy.spec.js
 (.\testdouble-with-interception\test\moduleA.spy.spec.js
 
-| Tool                                 | Module interception | Spy implementation | Siblings method call | Dependency Path |     |     |
-| :----------------------------------- | :-----------------: | :----------------: | :------------------: | :-------------: | :-: | :-: |
-| 1. Jasmine                           |         NO          |       [FAKE]       |         [OK]         |    [r/test]     |     |     |
-| 2. Jest no interception              |         NO          |        [OK]        |         [OK]         |    [r/test]     |     |     |
-| 3. Mocha + Chai + Sinon              |         NO          |        [OK]        |         [OK]         |    [r/test]     |     |     |
-| 4. Jest with interception            |         YES         |       [FAKE]       |       [ERROR]        |    [r/test]     |     |     |
-| 5. Mocha + Chai + Sinon + proxyquire |         YES         |       [FAKE]       |         [OK]         |     [r/sut]     |     |     |
-| 6. Mocha + Chai + Sinon + rewire     |         YES         |       [FAKE]       |       [ERROR]        |     [name]      |     |     |
-| 7. Mocha + Chai + Sinon + rewiremock |         YES         |       [FAKE]       |       [ERROR]        |    [r/test]     |     |     |
-| 8. Mocha + Chai + testdouble         |         YES         |       [FAKE]       |       [EMPTY]        |    [r/test]     |     |     |
+| Tool                                 | Module interception | Spy implementation | Siblings method call | Dependency Path |
+| :----------------------------------- | :-----------------: | :----------------: | :------------------: | :-------------: |
+| 1. Jasmine                           |         NO          |       [FAKE]       |         [OK]         |    [r/test]     |
+| 2. Jest no interception              |         NO          |        [OK]        |         [OK]         |    [r/test]     |
+| 3. Mocha + Chai + Sinon              |         NO          |        [OK]        |         [OK]         |    [r/test]     |
+| 4. Jest with interception            |         YES         |       [FAKE]       |       [ERROR]        |    [r/test]     |
+| 5. Mocha + Chai + Sinon + proxyquire |         YES         |       [FAKE]       |         [OK]         |     [r/sut]     |
+| 6. Mocha + Chai + Sinon + rewire     |         YES         |       [FAKE]       |       [ERROR]        |     [name]      |
+| 7. Mocha + Chai + Sinon + rewiremock |         YES         |       [FAKE]       |       [ERROR]        |    [r/test]     |
+| 8. Mocha + Chai + testdouble         |         YES         |       [FAKE]       |       [EMPTY]        |    [r/test]     |
 
 ## References
 
