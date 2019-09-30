@@ -24,7 +24,7 @@ fix test in sinon no interception.
 - readme: multiple way to use sinon: reset vs restore
 - readme: no-interception vs partial-testdouble
 
-## Additional content:
+## Additional content
 
 - Can the dependency be destructured in the module under test? (Todo)
 

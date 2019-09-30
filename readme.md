@@ -1,15 +1,57 @@
 # Demo Mocking in javascript
 
+
+
+
+
+## Table of content
+
+- [Demo Mocking in javascript](#demo-mocking-in-javascript)
+  - [Table of content](#table-of-content)
+  - [Are you mocking me?](#are-you-mocking-me)
+  - [introduction](#introduction)
+  - [Scope](#scope)
+  - [0. Vocabulary](#0-vocabulary)
+    - [General definition](#general-definition)
+    - [Types of test double](#types-of-test-double)
+    - [Test double in real life](#test-double-in-real-life)
+  - [1. How you should organize your production code to make it easy to mock.](#1-how-you-should-organize-your-production-code-to-make-it-easy-to-mock)
+  - [2. What you want to mock](#2-what-you-want-to-mock)
+    - [2.1. Type of component to mock](#21-type-of-component-to-mock)
+    - [2.2. Level of mocking](#22-level-of-mocking)
+      - [With module interception](#with-module-interception)
+      - [Without module interception](#without-module-interception)
+  - [3. Which mocking tool should I use?](#3-which-mocking-tool-should-i-use)
+    - [Test Doubles](#test-doubles)
+    - [Module interception](#module-interception)
+      - [proxyquire](#proxyquire)
+      - [rewiremock](#rewiremock)
+      - [others](#others)
+    - [Api Mock](#api-mock)
+  - [4. Integrate the mocking tool in your solution](#4-integrate-the-mocking-tool-in-your-solution)
+  - [References](#references)
+
+
+## Are you mocking me?
+
+== Vocabulary ==
+
+Mock = test double in fact.
+
 ## introduction
 
+== Crap:
 Mocking your dependencies in order to test it is not so easy. You need to make some choices about:
 
 1. How you should organize your production code to make it easy to mock.
-2. What you want to mock.
-3. Which mocking tool should I use?
+2. Choose what you want to mock.
+3. Choose the mocking library should I use?
 4. Integrate the mocking tool in your solution
 
-The goal is to help you to pick the right solution for you and to copy past it into your code.
+
+## Scope
+
+My goal in this document is to answer to the most general question we can have when we want to create some tests double in Node.JS and have a code example for each framework.
 
 ## 0. Vocabulary
 
@@ -23,7 +65,9 @@ Definition of Test doubles (from Wikipedia):
 In automated unit testing, it may be necessary to use objects or procedures that look and behave like their release-intended counterparts, but are actually simplified versions that reduce the complexity and facilitate testing. A test double is a generic (meta) term used for these objects or procedures.
 ```
 
-Test doubles is a general term to refer to different type of objects:
+### Types of test double
+
+Test doubles is a general term to refer to different type of objects. This list describe 5 of the most used by order of complexity: 
 
 - Dummies: simple implementation of an interface. It's not intended to be used. It's not really useful in Javascript.
 - spy: (or Test Spy) get information on dependency usage without changing the behavior. (Number of call, arguments)
@@ -31,32 +75,19 @@ Test doubles is a general term to refer to different type of objects:
 - Fakes: (= stub + simple implementation)
 - Mock: (= stub + internal test) test double which is aware about the test (with some test assertion for example).
 
-**Be carful**: Mock is in fact consider as an anti-pattern most of the time. It breaks the AAA (Arrange Act Assert) test structure.
+**Be carful**: Mock as this type of specific type of test double built specifically for your test is in fact consider as an ___anti-pattern___ most of the time. It breaks the AAA (Arrange Act Assert) test structure. You should probably consider other types of test double before.
 
-Reference:
+### Test double in real life
 
-Understanding Test Doubles (Mock vs Stub)  
-https://adamcod.es/2014/05/15/test-doubles-mock-vs-stub.html
+In javascript, __Dummies__ are not really useful because there is no need to implement any fixed interface. Therefore you'll never have to implement test doubles if it's not intended to be used in your component under test.
 
-### Real life usage
+__Spies__ are non invasive test double provided by almost all the testing frameworks. You could technically implement a spy yourself but it's really not worth it.
 
-In javascript case, 'Dummies' is not really useful because there is no need to implement any fixed interface. We'll not consider this in our tests.
+__Stubs__ are invasive test double provided by almost all the testing frameworks. You could technically implement a stub yourself but it's really not worth it.
 
-Fakes are technically like stub, their implementation is smarter and fully functional in contrast to a stub which have a very basic implementation (static most of the time). We'll consider Fakes and stub as one category.
+__Fakes__ are just smart stubs, their implementation is smarter and fully functional in contrast to a stub which have a very basic implementation (static most of the time). We'll consider Fakes and stub as one category.
 
-Mock are not the first type of test double to consider but some framework have special objects for this. You always have the choice to use a stub to implement a mock.
-
-[Sinon](https://www.npmjs.com/package/sinon)  
-[Jest](https://www.npmjs.com/package/jest)  
-[Jasmine](https://www.npmjs.com/package/jasmine)  
-[testdouble](https://www.npmjs.com/package/testdouble)
-
-| Tool       |    spy/fake     |            stub |          mock |
-| ---------- | :-------------: | --------------: | ------------: |
-| Sinon      |   sinon.spy()   |    sinon.stub() |  sinon.mock() |
-| Jest       |  jest.spyOn()   |       jest.fn() | no / use stub |
-| Jasmine    | jasmine.spyOn() | jasmine.spyOn() | no / use stub |
-| testdouble |    td.func()    |       td.func() | no / use stub |
+__Mocks__ are just stubs with some awareness of your test. Mocks are not the first type of test double to consider. Sinon have special objects for this, on other frameworks you need to use stubs.
 
 ## 1. How you should organize your production code to make it easy to mock.
 
@@ -146,8 +177,10 @@ This collection of demo try to find the pro and cons of different approaches.
 
 ## References
 
-to read:  
-https://medium.com/codeclan/mocking-es-and-commonjs-modules-with-jest-mock-37bbb552da43
+[Understanding Test Doubles (Mock vs Stub)](https://adamcod.es/2014/05/15/test-doubles-mock-vs-stub.html)
 
-Please, stop playing with proxyquire  
-https://dev.to/thekashey/please-stop-playing-with-proxyquire-11j4
+[mocking ES and commonJS modules with jest mock](http://www.google.com)
+
+[clean code](https://medium.com/codeclan)
+
+[Please stop playing with proxyquire](https://dev.to/thekashey/please-stop-playing-with-proxyquire-11j4)

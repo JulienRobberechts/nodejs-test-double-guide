@@ -1,3 +1,15 @@
+- [Javascript test tools types overview](#javascript-test-tools-types-overview)
+  - [Test runner](#test-runner)
+  - [Assertion](#assertion)
+  - [Test Doubles Framework](#test-doubles-framework)
+  - [Module interception (by order of popularity)](#module-interception-by-order-of-popularity)
+  - [Api Mock](#api-mock)
+  - [tools](#tools)
+  - [Demo of some tool stacks](#demo-of-some-tool-stacks)
+  - [Specificity](#specificity)
+    - [spy](#spy)
+  - [References](#references)
+
 # Javascript test tools types overview
 
 This list of tools try to sum up which tool you can use for each task. Some tool are doing a lot of different task like Jest so you'll find them in multiple categories. There are also some compatiblite between tools and platform (ES and CommonJS). We'll not cover all but give some stack that you can use to do the job.
@@ -75,6 +87,20 @@ Tools:
 
 - super-agent
 - Sinon (fake server)??
+
+## tools
+
+[Sinon](https://www.npmjs.com/package/sinon)  
+[Jest](https://www.npmjs.com/package/jest)  
+[Jasmine](https://www.npmjs.com/package/jasmine)  
+[testdouble](https://www.npmjs.com/package/testdouble)
+
+| Tool       |    spy/fake     |            stub |          mock |
+| ---------- | :-------------: | --------------: | ------------: |
+| Sinon      |   sinon.spy()   |    sinon.stub() |  sinon.mock() |
+| Jest       |  jest.spyOn()   |       jest.fn() | no / use stub |
+| Jasmine    | jasmine.spyOn() | jasmine.spyOn() | no / use stub |
+| testdouble |    td.func()    |       td.func() | no / use stub |
 
 ## Demo of some tool stacks
 
