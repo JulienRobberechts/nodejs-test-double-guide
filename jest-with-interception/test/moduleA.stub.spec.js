@@ -1,10 +1,12 @@
 "use strict";
-// intercept moduleB.DoItB everywhere with proxyquire
+// 1. intercept moduleB.DoItB everywhere with jest
 jest.mock("../lib/moduleB", () => ({
   DoItB: jest.fn()
 }));
 
+// 2. import your component under test afterwards
 const moduleA = require("../lib/moduleA");
+// 3. import the stub reference as you would do with the original dependency.
 const moduleBMocked = require("../lib/moduleB");
 
 describe("Jest intercepted stub", () => {

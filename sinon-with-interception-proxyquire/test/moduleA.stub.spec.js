@@ -9,7 +9,7 @@ let moduleA, DoItBStub;
 describe("Proxyquire intercepted stubs", function() {
   before(function() {
     DoItBStub = sinon.stub();
-    // intercept moduleB.DoItB in moduleA with proxyquire
+    // 1. intercept moduleB.DoItB in moduleA with proxyquire
     moduleA = proxyquire("../lib/moduleA", {
       "./moduleB": {
         DoItB: DoItBStub
