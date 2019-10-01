@@ -1,12 +1,8 @@
-# Demo Mocking in javascript
-
-
-
-
+# Choose the best way to test double your nodeJS code
 
 ## Table of content
 
-- [Demo Mocking in javascript](#demo-mocking-in-javascript)
+- [Choose the best way to test double your nodeJS code](#choose-the-best-way-to-test-double-your-nodejs-code)
   - [Table of content](#table-of-content)
   - [Are you mocking me?](#are-you-mocking-me)
   - [introduction](#introduction)
@@ -19,8 +15,8 @@
   - [2. What you want to mock](#2-what-you-want-to-mock)
     - [2.1. Type of component to mock](#21-type-of-component-to-mock)
     - [2.2. Level of mocking](#22-level-of-mocking)
-      - [With module interception](#with-module-interception)
-      - [Without module interception](#without-module-interception)
+      - [Partial test double](#partial-test-double)
+      - [Full test double](#full-test-double)
   - [3. Which mocking tool should I use?](#3-which-mocking-tool-should-i-use)
     - [Test Doubles](#test-doubles)
     - [Module interception](#module-interception)
@@ -30,7 +26,6 @@
     - [Api Mock](#api-mock)
   - [4. Integrate the mocking tool in your solution](#4-integrate-the-mocking-tool-in-your-solution)
   - [References](#references)
-
 
 ## Are you mocking me?
 
@@ -126,20 +121,43 @@ Depending of your component and your test case, you will be interested to mock d
 
 ### 2.2. Level of mocking
 
-There is 2 types of libraries: stubbing library and module interception library. (See [Sinon documentation](https://sinonjs.org/how-to/stub-dependency/))
+Test doubles in javascript can be achieved at 2 different levels.
+
+I propose to name them: POST-import test doubles and import-interception test doubles.
+
+no-interception vs partial-testdouble
+
+There is 2 types of libraries: stubbing library and module interception library.
 
 - Sinon is simply a stubbing library. Only for simple cases.
 - module interception library: solutions targeting link seams or explicit dependency injection
   - For module interception, the type of import is really important. Depending of your project the type of import is really important to choose your mock tool. [see this page](./summary-import-types.md)
 
-#### With module interception
+#### Partial test double
+
+![test double partial](./_schemas/test-double-partial.svg)
+
+The simplest way is to import your component under test and modify it afterwards to introduce your test doubles.
+For this you just need a test doubles library. Some people name it __partial test double__ because you are keeping the behavior of all your dependency except the part you want to spy or stub.
+
+Without module interception
+
+= Partial mock
+
+it's simple but could lead to some problems.
+it's consider as an anti pattern.
+
+#### Full test double
+
+![test double full](./_schemas/test-double-full.svg)
+
+Some people name it __full test double__ because you are not keeping the behavior of your dependency you have to stub
+Spying in a __full test double__ is not possible, because by intercepting the javascript dependent module you are not  importing the original module at all.
 
 = simple stubbing
 = Full mock
 
-#### Without module interception
-
-= Partial mock
+You need an javascript module interception library.
 
 ## 3. Which mocking tool should I use?
 
@@ -184,3 +202,5 @@ This collection of demo try to find the pro and cons of different approaches.
 [clean code](https://medium.com/codeclan)
 
 [Please stop playing with proxyquire](https://dev.to/thekashey/please-stop-playing-with-proxyquire-11j4)
+
+[Sinon documentation](https://sinonjs.org/how-to/stub-dependency/)

@@ -1,4 +1,5 @@
-- [Javascript test tools types overview](#javascript-test-tools-types-overview)
+
+[Javascript test tools types overview](#javascript-test-tools-types-overview)
   - [Test runner](#test-runner)
   - [Assertion](#assertion)
   - [Test Doubles Framework](#test-doubles-framework)
@@ -9,21 +10,22 @@
   - [Specificity](#specificity)
     - [spy](#spy)
   - [References](#references)
+  - [References](#references)
 
-# Javascript test tools types overview
+# Overview of javascript test libraries
 
-This list of tools try to sum up which tool you can use for each task. Some tool are doing a lot of different task like Jest so you'll find them in multiple categories. There are also some compatiblite between tools and platform (ES and CommonJS). We'll not cover all but give some stack that you can use to do the job.
+This matrix sum up the purpose of some major javascript test libraries.
 
-| Tool                | Test runner | Assertion | Test double | Module interception | Test doubles for api |
+| Library / purpose   | Test runner | Assertion | Test double | Module interception | Test doubles for api |
 | :------------------ | :---------: | :-------: | :---------: | :-----------------: | :------------------: |
-| Jest                |      X      |     X     |      X      |          X          |          -           |
-| Jasmine             |      X      |     X     |      X      |          -          |          -           |
-| Mocha               |      X      |     -     |      -      |          -          |          -           |
-| Chai                |      -      |     X     |      -      |          -          |          -           |
+| jest                |      X      |     X     |      X      |          X          |          -           |
+| jasmine             |      X      |     X     |      X      |          -          |          -           |
+| mocha               |      X      |     -     |      -      |          -          |          -           |
+| chai                |      -      |     X     |      -      |          -          |          -           |
 | should.js           |      -      |     X     |      -      |          -          |          -           |
 | expect.js           |      -      |     X     |      -      |          -          |          -           |
 | better-assert       |      -      |     X     |      -      |          -          |          -           |
-| Sinon               |      -      |     -     |      X      |          -          |          X           |
+| sinon               |      -      |     -     |      X      |          -          |          X           |
 | testdouble          |      -      |     -     |      X      |          X          |          -           |
 | proxyquire          |      -      |     -     |      -      |          X          |          -           |
 | rewire              |      -      |     -     |      -      |          X          |          -           |
@@ -32,46 +34,44 @@ This list of tools try to sum up which tool you can use for each task. Some tool
 | mockery             |      -      |     -     |      -      |          X          |          -           |
 | rewiremock          |      -      |     -     |      -      |          X          |          -           |
 | super-agent         |      -      |     -     |      -      |          -          |          X           |
-| Chai-http           |      -      |     x     |      -      |          -          |          X           |
+| chai-http           |      -      |     x     |      -      |          -          |          X           |
 | supertest           |      -      |     x     |      -      |          -          |          X           |
 | Nock                |      -      |     x     |      -      |          -          |          X           |
 
+Some tool are like a swiss army knife for tests (like Jest) doing a lot of different task so you'll find them in multiple categories. There are also some compatibility between tools and platform (ES and CommonJS).
+
+Let's define each test task...
+
 ## Test runner
 
-helps to find test in your code, launch test, Generate and display test progress and results.
-
-- Jest
-- Mocha
-- Jasmine
+The test runner helps to find tests in your code, launch test, generate and display test progress and results.
+The main one are: Jest, Mocha, Jasmine.
 
 ## Assertion
 
-helps to check the test results.
+The assertion helps to check the test results.
+It's already included in Jest and Jasmine. If you don't use those library you (and probably mocha as test runner) you can pick _chai_ or should.js, expect.js, better-assert.The most popular stack are Jest or mocha+chai. 
 
-- Jest
-- Jasmine
-- Chai (3 flavors: should, expect, assert)
-- should.js
-- expect.js
-- better-assert
+## Test Doubles
 
-## Test Doubles Framework
+We are arriving to our main subject: test doubles.
+In this section we are only talking about way to provide spies and stubs.
 
-= Mocking Framework
+ Full test doubles are often used with javascript module interception but it's an add-on.
+The main libraries are: Jest, Sinon, Jasmine, Testdouble (the library, not the concept).
 
-- Jest (mock)
-- Sinon (mock, stub, spy, fake server)
-- Jasmine (spies)
-- testdouble
+## Module interception
 
-## Module interception (by order of popularity)
+
+ (by order of popularity)
 
 Other name for the same concept:
 
 - Dependency mocking
-- Proxies nodejs require to overriding dependencies during testing
+- overriding dependencies during testing
 - mocking of Node.js modules
 - mock require statements in Node.js
+- 
 
 Tools:
 

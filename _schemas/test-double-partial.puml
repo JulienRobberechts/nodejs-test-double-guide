@@ -1,0 +1,27 @@
+
+@startuml
+skinparam backgroundColor #EEEBDC
+
+title
+  Partial test double
+end title
+
+skinparam rectangle {
+    roundCorner 20
+}
+
+rectangle "Unit test" as UnitTest #gray
+
+rectangle "Component\nunder test" as cut #LightCoral
+
+rectangle "Real dependency" as RealDependency #LightCoral {
+  component "method\nunder test" as RealDependencyMut #gray
+  component "other method" as RealDependencyOtherMethod #LightCoral
+}
+
+UnitTest --> cut: 1. import
+UnitTest --> RealDependency: 2. import
+cut -> RealDependency: import
+UnitTest -> RealDependencyMut: 3. change
+
+@enduml

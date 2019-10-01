@@ -1,0 +1,32 @@
+
+@startuml
+skinparam backgroundColor #EEEBDC
+
+title
+  Full test double
+end title
+
+skinparam rectangle {
+    roundCorner 20
+}
+
+rectangle "Unit test" as UnitTest #gray
+
+rectangle "Interception\nlibrary proxy" as InterceptionLib #gray
+
+rectangle "Component\nunder test" as cut #LightCoral
+
+rectangle "Test double dependency" as TestDoubleDependency #gray {
+  component "method\nunder test" as TestDoubleDependencyMethod #gray
+}
+
+rectangle "<strike>Real dependency" as RealDependency #LightCoral {
+  component "<strike>other method" as RealDependencyOtherMethod #LightCoral
+  component "<strike>method\n<strike>under test" as RealDependencyMut #LightCoral
+}
+
+UnitTest -> InterceptionLib: use
+InterceptionLib --> cut: to import
+cut -> TestDoubleDependency: with\ntest double\nimport
+
+@enduml
