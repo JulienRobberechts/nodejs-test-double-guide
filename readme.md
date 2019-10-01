@@ -152,8 +152,8 @@ To make a full stub you need a javascript module interception library. (SEE Diff
 __Step by step__: The way to intercept the module dependency in your component under test will not be the same depending on the library but the only common point is that you SHOULD NOT import the component dependency directly.
 
 See example with:
- [Jest](.\jest-with-interception\test\moduleA.stub.spec.js),
- [proxyquire](.\sinon-with-interception-proxyquire\test\moduleA.stub.spec.js),
+ [Jest](./jest-with-interception\test\moduleA.stub.spec.js),
+ [proxyquire](./sinon-with-interception-proxyquire\test\moduleA.stub.spec.js),
  [rewire](.\sinon-with-interception-rewire\test\moduleA.stub.spec.js),
  [rewiremock](.\sinon-with-interception-rewiremock\test\moduleA.stub.spec.js),
  [testdouble](.\testdouble-with-interception\test\moduleA.stub.spec.js),
