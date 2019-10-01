@@ -4,7 +4,6 @@
   - [Assertion](#assertion)
   - [Test Doubles Framework](#test-doubles-framework)
   - [Module interception (by order of popularity)](#module-interception-by-order-of-popularity)
-  - [Api Mock](#api-mock)
   - [tools](#tools)
   - [Demo of some tool stacks](#demo-of-some-tool-stacks)
   - [Specificity](#specificity)
@@ -16,27 +15,27 @@
 
 This matrix sum up the purpose of some major javascript test libraries.
 
-| Library / purpose   | Test runner | Assertion | Test double | Module interception | Test doubles for api |
-| :------------------ | :---------: | :-------: | :---------: | :-----------------: | :------------------: |
-| jest                |      X      |     X     |      X      |          X          |          -           |
-| jasmine             |      X      |     X     |      X      |          -          |          -           |
-| mocha               |      X      |     -     |      -      |          -          |          -           |
-| chai                |      -      |     X     |      -      |          -          |          -           |
-| should.js           |      -      |     X     |      -      |          -          |          -           |
-| expect.js           |      -      |     X     |      -      |          -          |          -           |
-| better-assert       |      -      |     X     |      -      |          -          |          -           |
-| sinon               |      -      |     -     |      X      |          -          |          X           |
-| testdouble          |      -      |     -     |      X      |          X          |          -           |
-| proxyquire          |      -      |     -     |      -      |          X          |          -           |
-| rewire              |      -      |     -     |      -      |          X          |          -           |
-| mock-require        |      -      |     -     |      -      |          X          |          -           |
-| babel-plugin-rewire |      -      |     -     |      -      |          X          |          -           |
-| mockery             |      -      |     -     |      -      |          X          |          -           |
-| rewiremock          |      -      |     -     |      -      |          X          |          -           |
-| super-agent         |      -      |     -     |      -      |          -          |          X           |
-| chai-http           |      -      |     x     |      -      |          -          |          X           |
-| supertest           |      -      |     x     |      -      |          -          |          X           |
-| Nock                |      -      |     x     |      -      |          -          |          X           |
+| Library / purpose   | Test runner | Assertion | Test double | Module interception |
+| :------------------ | :---------: | :-------: | :---------: | :-----------------: |
+| jest                |      X      |     X     |      X      |          X          |
+| jasmine             |      X      |     X     |      X      |          -          |
+| mocha               |      X      |     -     |      -      |          -          |
+| chai                |      -      |     X     |      -      |          -          |
+| should.js           |      -      |     X     |      -      |          -          |
+| expect.js           |      -      |     X     |      -      |          -          |
+| better-assert       |      -      |     X     |      -      |          -          |
+| sinon               |      -      |     -     |      X      |          -          |
+| testdouble          |      -      |     -     |      X      |          X          |
+| proxyquire          |      -      |     -     |      -      |          X          |
+| rewire              |      -      |     -     |      -      |          X          |
+| mock-require        |      -      |     -     |      -      |          X          |
+| babel-plugin-rewire |      -      |     -     |      -      |          X          |
+| mockery             |      -      |     -     |      -      |          X          |
+| rewiremock          |      -      |     -     |      -      |          X          |
+| super-agent         |      -      |     -     |      -      |          -          |
+| chai-http           |      -      |     x     |      -      |          -          |
+| supertest           |      -      |     x     |      -      |          -          |
+| Nock                |      -      |     x     |      -      |          -          |
 
 Some tool are like a swiss army knife for tests (like Jest) doing a lot of different task so you'll find them in multiple categories. There are also some compatibility between tools and platform (ES and CommonJS).
 
@@ -82,11 +81,6 @@ Tools:
 - mockery
 - testdouble
 - rewiremock
-
-## Api Mock
-
-- super-agent
-- Sinon (fake server)??
 
 ## tools
 

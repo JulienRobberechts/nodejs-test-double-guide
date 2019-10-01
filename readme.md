@@ -18,12 +18,6 @@
       - [Partial test double](#partial-test-double)
       - [Full test double](#full-test-double)
   - [3. Which mocking tool should I use?](#3-which-mocking-tool-should-i-use)
-    - [Test Doubles](#test-doubles)
-    - [Module interception](#module-interception)
-      - [proxyquire](#proxyquire)
-      - [rewiremock](#rewiremock)
-      - [others](#others)
-    - [Api Mock](#api-mock)
   - [4. Integrate the mocking tool in your solution](#4-integrate-the-mocking-tool-in-your-solution)
   - [References](#references)
 
@@ -115,15 +109,12 @@ Depending of your component and your test case, you will be interested to mock d
 
 - some of your own dependencies
 - some system dependencies
-- some api calls
-- some variables
-- some database call
+
+=> TO CHECK: Mocking everywhere or just my code !!!!
 
 ### 2.2. Level of mocking
 
 Test doubles in javascript can be achieved at 2 different levels. Those 2 different level are often named Partial test double and full test double.
-
-
 
 To remove: I propose to name them: POST-import test doubles and import-interception test doubles.
 
@@ -139,58 +130,43 @@ There is 2 types of libraries: stubbing library and module interception library.
 
 ![test double partial](./out/_schemas/test-double-partial/test-double-partial.svg)
 
+This is the only way to get a real spy and a simple ack to to get a stub (for stubs prefer Full test double).
 
-This is the simplest way of doing test double (but not the preferred one)
+Step by step:
 
-1. You first import your component under test
-2. then your component dependency
-3. and then modify it afterwards to introduce your test doubles.
+1. Import your component under test (of course)
+2. Import the component dependency
+3. Replace each method dependency with your method spy or stub.
 
 For this you just need a test doubles library. It's named __partial test double__ because you are keeping the behavior of all your dependency except the part you want to spy or stub. You can also name it 'test double without module interception'.
 
-Partial test double is consider as an __anti-pattern__ (REF NEEDED), it's simple but could lead to some problems. (TO COMPLETE)
+This is the way to go to spy your dependency. You can also stub it but partial stub is consider as an __anti-pattern__ (REF NEEDED), it's simple but could lead to some problems. (TO COMPLETE)
 
 #### Full test double
 
 ![test double full](./out/_schemas/test-double-full/test-double-full.svg)
 
-Some people name it __full test double__ because you are not keeping the behavior of your dependency you have to stub
-Spying in a __full test double__ is not possible, because by intercepting the javascript dependent module you are not  importing the original module at all.
+This is the best way to stub your dependency in a clean way.
+To make a full stub you need a javascript module interception library. (SEE Different options HERE...)
 
-= simple stubbing
-= Full mock
+__Step by step__: The way to intercept the module dependency in your component under test will not be the same depending on the library but the only common point is that you SHOULD NOT import the component dependency directly.
 
-You need an javascript module interception library.
+See example with:
+ [Jest](.\jest-with-interception\test\moduleA.stub.spec.js),
+ [proxyquire](.\sinon-with-interception-proxyquire\test\moduleA.stub.spec.js),
+ [rewire](.\sinon-with-interception-rewire\test\moduleA.stub.spec.js),
+ [rewiremock](.\sinon-with-interception-rewiremock\test\moduleA.stub.spec.js),
+ [testdouble](.\testdouble-with-interception\test\moduleA.stub.spec.js),
+
+It's named __full test double__ because you are not keeping anything of your original dependency behavior.
+
+Spying in a __full test double__ is not possible, because by intercepting the javascript dependent module you are not  importing the original module at all. You have to stub it fully to be able to test your component.
 
 ## 3. Which mocking tool should I use?
 
 There plenty of test libraries in javascript for different purpose. Some are made to be used together some not. See [Javascript test tools types overview](./js-test-tools-overview.md) for more details.
 
 For Mocking purpose we'll be interested by only those types of tools: Test Doubles library and Module interception library.
-
-### Test Doubles
-
-### Module interception
-
-#### proxyquire
-
-[The Sinon guide](https://sinonjs.org/how-to/link-seams-commonjs/) explains that for bigger need and when you use NodeJs (with CommonJS) using [proxyquire](https://github.com/thlorenz/proxyquire) to construct our seams is the way to go.
-
-See the directory 'sinon-proxyquire' for Module interception by proxyquire and stubing by sinon.
-
-#### rewiremock
-
-todo
-
-#### others
-
-Alternatives to this library are: (by order of popularity)
-
-Some people are against this technic:
-https://medium.com/@antonkorzunov/please-stop-playing-with-proxyquire-923fe6009a0a
-by the creator of rewiremock
-
-### Api Mock
 
 ## 4. Integrate the mocking tool in your solution
 
@@ -205,5 +181,7 @@ This collection of demo try to find the pro and cons of different approaches.
 [clean code](https://medium.com/codeclan)
 
 [Please stop playing with proxyquire](https://dev.to/thekashey/please-stop-playing-with-proxyquire-11j4)
+[Please stop playing with proxyquire](https://medium.com/@antonkorzunov/please-stop-playing-with-proxyquire-923fe6009a0a)
+by the creator of rewiremock
 
 [Sinon documentation](https://sinonjs.org/how-to/stub-dependency/)
