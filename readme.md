@@ -137,7 +137,7 @@ There is 2 types of libraries: stubbing library and module interception library.
 
 #### Partial test double
 
-![test double partial](./_schemas/test-double-partial.svg)
+![test double partial](./out/_schemas/test-double-partial/test-double-partial.svg)
 
 
 This is the simplest way of doing test double (but not the preferred one)
@@ -152,7 +152,7 @@ Partial test double is consider as an __anti-pattern__ (REF NEEDED), it's simple
 
 #### Full test double
 
-![test double full](./_schemas/test-double-full.svg)
+![test double full](./out/_schemas/test-double-full/test-double-full.svg)
 
 Some people name it __full test double__ because you are not keeping the behavior of your dependency you have to stub
 Spying in a __full test double__ is not possible, because by intercepting the javascript dependent module you are not  importing the original module at all.
