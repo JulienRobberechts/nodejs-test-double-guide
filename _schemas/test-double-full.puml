@@ -29,4 +29,10 @@ UnitTest -> InterceptionLib: use
 InterceptionLib --> cut: to import
 cut -> TestDoubleDependency: with\ntest double\nimport
 
+legend left
+|colors|
+|<#LightCoral> production code in pink |
+|<#gray> test code in gray |
+endlegend
+
 @enduml

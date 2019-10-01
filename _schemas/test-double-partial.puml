@@ -24,4 +24,10 @@ UnitTest --> RealDependency: 2. import
 cut -> RealDependency: import
 UnitTest -> RealDependencyMut: 3. change
 
+legend left
+|colors|
+|<#LightCoral> production code in pink |
+|<#gray> test code in gray |
+endlegend
+
 @enduml

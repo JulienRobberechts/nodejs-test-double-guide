@@ -121,9 +121,11 @@ Depending of your component and your test case, you will be interested to mock d
 
 ### 2.2. Level of mocking
 
-Test doubles in javascript can be achieved at 2 different levels.
+Test doubles in javascript can be achieved at 2 different levels. Those 2 different level are often named Partial test double and full test double.
 
-I propose to name them: POST-import test doubles and import-interception test doubles.
+
+
+To remove: I propose to name them: POST-import test doubles and import-interception test doubles.
 
 no-interception vs partial-testdouble
 
@@ -137,15 +139,16 @@ There is 2 types of libraries: stubbing library and module interception library.
 
 ![test double partial](./_schemas/test-double-partial.svg)
 
-The simplest way is to import your component under test and modify it afterwards to introduce your test doubles.
-For this you just need a test doubles library. Some people name it __partial test double__ because you are keeping the behavior of all your dependency except the part you want to spy or stub.
 
-Without module interception
+This is the simplest way of doing test double (but not the preferred one)
 
-= Partial mock
+1. You first import your component under test
+2. then your component dependency
+3. and then modify it afterwards to introduce your test doubles.
 
-it's simple but could lead to some problems.
-it's consider as an anti pattern.
+For this you just need a test doubles library. It's named __partial test double__ because you are keeping the behavior of all your dependency except the part you want to spy or stub. You can also name it 'test double without module interception'.
+
+Partial test double is consider as an __anti-pattern__ (REF NEEDED), it's simple but could lead to some problems. (TO COMPLETE)
 
 #### Full test double
 
