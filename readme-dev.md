@@ -23,6 +23,9 @@ fix test in sinon no interception.
 - readme: talk about : side effects of each framework.
 - readme: multiple way to use sinon: reset vs restore
 - readme: no-interception vs partial-testdouble
+- change voc on the diagrams: on the dependency, it's not method under test but: 'dependency method'
+- Create a matrix comparison spy stub fake mock
+- Remove tools only for api stub
 
 ## Additional content
 
