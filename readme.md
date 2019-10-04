@@ -99,7 +99,7 @@ Of course, some tools can help you to modify some implementation details like [r
 
 If to test your component you would need to replace an internal function, you need first to refactor your component to expose this function as a seam before thinking of mocking anything.
 
-On top of this, intercept an internal function is tricky [See the chapter Intercept internal function](./summary-import-types.md)
+On top of this, intercept an internal function is tricky (To Explain)
 
 ## 2. What you want to mock
 
@@ -125,6 +125,11 @@ There is 2 types of libraries: stubbing library and module interception library.
 - Sinon is simply a stubbing library. Only for simple cases.
 - module interception library: solutions targeting link seams or explicit dependency injection
   - For module interception, the type of import is really important. Depending of your project the type of import is really important to choose your mock tool. [see this page](./summary-import-types.md)
+  
+
+[This very good article and project explain how it's tricky to make partial import in ES6](https://codewithhugo.com/jest-mock-spy-module-import/)
+
+
 
 #### Partial test double
 
