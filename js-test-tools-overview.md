@@ -1,55 +1,58 @@
 
-[Javascript test tools types overview](#javascript-test-tools-types-overview)
-  - [Test runner](#test-runner)
-  - [Assertion](#assertion)
-  - [Test Doubles Framework](#test-doubles-framework)
-  - [Module interception (by order of popularity)](#module-interception-by-order-of-popularity)
-  - [tools](#tools)
-  - [Demo of some tool stacks](#demo-of-some-tool-stacks)
-  - [Specificity](#specificity)
-    - [spy](#spy)
-  - [References](#references)
+- [Overview of javascript test libraries](#overview-of-javascript-test-libraries)
+  - [Choose the right type of Javascript test library](#choose-the-right-type-of-javascript-test-library)
+    - [Test runner](#test-runner)
+    - [Assertion Lib](#assertion-lib)
+    - [Test doubles creator](#test-doubles-creator)
+    - [Module interception](#module-interception)
+  - [Deep dive into each libraries](#deep-dive-into-each-libraries)
+    - [Test Doubles implementations across libraries](#test-doubles-implementations-across-libraries)
+    - [Specificities of each libraries](#specificities-of-each-libraries)
+      - [*Module interception* - Is it module interception or not?](#module-interception---is-it-module-interception-or-not)
+      - [*Spy implementation* - Real or fake spy?](#spy-implementation---real-or-fake-spy)
+      - [Stack: Siblings method call](#stack-siblings-method-call)
+      - [Stack: Dependency Path](#stack-dependency-path)
   - [References](#references)
 
 # Overview of javascript test libraries
 
 This matrix sum up the purpose of some major javascript test libraries.
 
-## Which Js test lib for which purpose?
+## Choose the right type of Javascript test library
 
-| Library / purpose | Test runner | Assertion | Test double | Module interception |
-| :---------------- | :---------: | :-------: | :---------: | :-----------------: |
-| jest              |      X      |     X     |      X      |          X          |
-| jasmine           |      X      |     X     |      X      |          -          |
-| mocha             |      X      |     -     |      -      |          -          |
-| chai              |      -      |     X     |      -      |          -          |
-| should.js         |      -      |     X     |      -      |          -          |
-| expect.js         |      -      |     X     |      -      |          -          |
-| better-assert     |      -      |     X     |      -      |          -          |
-| sinon             |      -      |     -     |      X      |          -          |
-| testdouble        |      -      |     -     |      X      |          X          |
-| proxyquire        |      -      |     -     |      -      |          X          |
-| rewire            |      -      |     -     |      -      |          X          |
-| mock-require      |      -      |     -     |      -      |          X          |
-| rewiremock        |      -      |     -     |      -      |          X          |
+To perform your 'test double' tests, you'll need those 4 features: a test runner, an assertion library, a test double creator, Module interceptor. If you just want to create spies, you just need the 3 firsts ones.
+
+| Library / purpose | Test runner | Assertion Lib | Test double creator | Module interceptor |
+| :---------------- | :---------: | :-----------: | :-----------------: | :----------------: |
+| jest              |      X      |       X       |          X          |         X          |
+| jasmine           |      X      |       X       |          X          |         -          |
+| mocha             |      X      |       -       |          -          |         -          |
+| chai              |      -      |       X       |          -          |         -          |
+| should.js         |      -      |       X       |          -          |         -          |
+| expect.js         |      -      |       X       |          -          |         -          |
+| better-assert     |      -      |       X       |          -          |         -          |
+| sinon             |      -      |       -       |          X          |         -          |
+| testdouble        |      -      |       -       |          X          |         X          |
+| proxyquire        |      -      |       -       |          -          |         X          |
+| rewire            |      -      |       -       |          -          |         X          |
+| mock-require      |      -      |       -       |          -          |         X          |
+| rewiremock        |      -      |       -       |          -          |         X          |
 
 Some tool are like a swiss army knife for tests (like Jest) doing a lot of different task so you'll find them in multiple categories. There are also some compatibility between tools and platform (ES and CommonJS).
 
 Let's define each test purpose...
-
-## Javascript test features?
 
 ### Test runner
 
 The test runner helps to find tests in your code, launch test, generate and display test progress and results.
 The main one are: Jest, Mocha, Jasmine.
 
-### Assertion
+### Assertion Lib
 
 The assertion helps to check the test results.
 It's already included in Jest and Jasmine. If you don't use those library you (and probably mocha as test runner) you can pick _chai_ or should.js, expect.js, better-assert.The most popular stack are Jest or mocha+chai. 
 
-### Test Doubles
+### Test doubles creator
 
 We are arriving to our main subject: test doubles.
 In this section we are only talking about way to provide spies and stubs.
@@ -76,21 +79,9 @@ Tools:
 - testdouble
 - rewiremock
 
-## Test Doubles implementations across libraries
+## Deep dive into each libraries
 
-[Sinon](https://www.npmjs.com/package/sinon)  
-[Jest](https://www.npmjs.com/package/jest)  
-[Jasmine](https://www.npmjs.com/package/jasmine)  
-[testdouble](https://www.npmjs.com/package/testdouble)
-
-| Tool       |    spy/fake     |            stub |          mock |
-| ---------- | :-------------: | --------------: | ------------: |
-| Sinon      |   sinon.spy()   |    sinon.stub() |  sinon.mock() |
-| Jest       |  jest.spyOn()   |       jest.fn() | no / use stub |
-| Jasmine    | jasmine.spyOn() | jasmine.spyOn() | no / use stub |
-| testdouble |    td.func()    |       td.func() | no / use stub |
-
-## Demo of some tool stacks
+In order to understand all the different combination of libraies and how to use them together, I have created the same basic example with 8 different stacks.  
 
 [jasmine]: ./jasmine-no-interception
 [jest-no-int]: ./jest-no-interception
@@ -112,7 +103,42 @@ Tools:
 | 7. [Mocha + Chai + Sinon + rewiremock][rewiremock] |      X      |     X     |      X      |          X          |
 | 8. [Mocha + Chai + testdouble][testdouble]         |      X      |     X     |      X      |          X          |
 
-## Specificity of each libraries
+Each solutions will test the following basic code. The goal is to test the module A which reference the module B. We'll do it with spy and stub with partial or full test double.
+
+*`ModuleB.js`*
+
+```js
+function DoItB() {
+  return "B";
+}
+
+module.exports = { DoItB };
+```
+
+*`ModuleA.js`*
+
+```js
+var moduleB = require("./moduleB");
+
+function DoItA() {
+  return "A(" + moduleB.DoItB() + ")";
+}
+
+module.exports = { DoItA };
+```
+
+### Test Doubles implementations across libraries
+
+| Tool                                                   |    spy/fake     |            stub |          mock |
+| ------------------------------------------------------ | :-------------: | --------------: | ------------: |
+| [Sinon](https://www.npmjs.com/package/sinon)           |   sinon.spy()   |    sinon.stub() |  sinon.mock() |
+| [Jest](https://www.npmjs.com/package/jest)             |  jest.spyOn()   |       jest.fn() | no / use stub |
+| [Jasmine](https://www.npmjs.com/package/jasmine)       | jasmine.spyOn() | jasmine.spyOn() | no / use stub |
+| [testdouble](https://www.npmjs.com/package/testdouble) |    td.func()    |       td.func() | no / use stub |
+
+### Specificities of each libraries
+
+Let's now look at some implementation details about how each libraries (use in each stacks) deal with some specific subjects. 
 
 [jasmine-spy]: ./jasmine-no-interception/test/moduleAspySpec.js#L9
 [jasmine-sib]: ./jasmine-no-interception/test/moduleAspySpec.js#L19
@@ -157,16 +183,22 @@ Tools:
 | 7. Mocha + Chai + Sinon + rewiremock |         YES         | [FAKE][rewiremock-spy] | [ERROR][rewiremock-sib] | [r/test][rewiremock-dep]  |
 | 8. Mocha + Chai + testdouble         |         YES         | [FAKE][testdouble-spy] | [EMPTY][testdouble-sib] | [r/test][testdouble-dep]  |
 
-### Stack: Module interception
+#### *Module interception* - Is it module interception or not?
 
-### Stack: Spy implementation
+You have proper module interception when you don't import the ....
+
+TODO
+
+#### *Spy implementation* - Real or fake spy?
+
+Does this solution implement change the behavior of my dependency?
 
 Spy implementation: real or fake spy
 
   1. [OK] Real spy the behavior is the same
   2. [FAKE] Just empty stub: return undefined.
 
-### Stack: Siblings method call
+#### Stack: Siblings method call
 
 Siblings method call: Is it possible to call other function in the same module. (definition of Partial/Full) (for spy and stubs)
 
@@ -174,7 +206,7 @@ Siblings method call: Is it possible to call other function in the same module. 
   2. [EMPTY] return undefined. It's a wired mix between a partial and a full test double.
   3. [ERROR] throw an exception the method doesn't exist. It's a full test double. You are sure that any method of your dependency is used.
 
-### Stack: Dependency Path
+#### Stack: Dependency Path
 
 Dependency Path in the test (for spy and stubs)
 
