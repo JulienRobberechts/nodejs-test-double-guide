@@ -92,14 +92,14 @@ Tools:
 
 ## Demo of some tool stacks
 
-[jasmine]: .\jasmine-no-interception
-[jest-no-int]: .\jest-no-interception
-[sinon]: .\sinon-no-interception
-[jest-int]: .\jest-with-interception
-[proxyquire]: .\sinon-with-interception-proxyquire
-[rewire]: .\sinon-with-interception-rewire
-[rewiremock]: .\sinon-with-interception-rewiremock
-[testdouble]: .\testdouble-with-interception
+[jasmine]: ./jasmine-no-interception
+[jest-no-int]: ./jest-no-interception
+[sinon]: ./sinon-no-interception
+[jest-int]: ./jest-with-interception
+[proxyquire]: ./sinon-with-interception-proxyquire
+[rewire]: ./sinon-with-interception-rewire
+[rewiremock]: ./sinon-with-interception-rewiremock
+[testdouble]: ./testdouble-with-interception
 
 | Tool                                               | Test runner | Assertion | Test double | Module interception |
 | :------------------------------------------------- | :---------: | :-------: | :---------: | :-----------------: |
@@ -114,37 +114,37 @@ Tools:
 
 ## Specificity of each stack
 
-[jasmine-spy]: .\jasmine-no-interception\test\moduleAspySpec.js#L9
-[jasmine-sib]: .\jasmine-no-interception\test\moduleAspySpec.js#L19
-[jasmine-dep]: .\jasmine-no-interception\test\moduleAspySpec.js#L19
+[jasmine-spy]: ./jasmine-no-interception/test/moduleAspySpec.js#L9
+[jasmine-sib]: ./jasmine-no-interception/test/moduleAspySpec.js#L19
+[jasmine-dep]: ./jasmine-no-interception/test/moduleAspySpec.js#L19
 
-[jest-no-int-spy]: .\jest-no-interception\test\moduleA.spy.spec.js#L7
-[jest-no-int-sib]: .\jest-no-interception\test\moduleA.spy.spec.js#L18
-[jest-no-int-dep]: .\jest-no-interception\test\moduleA.spy.spec.js#L18
+[jest-no-int-spy]: ./jest-no-interception/test/moduleA.spy.spec.js#L7
+[jest-no-int-sib]: ./jest-no-interception/test/moduleA.spy.spec.js#L18
+[jest-no-int-dep]: ./jest-no-interception/test/moduleA.spy.spec.js#L18
 
-[sinon-spy]: .\sinon-no-interception\test\moduleA.spy.spec.js#L9
-[sinon-sib]: .\sinon-no-interception\test\moduleA.spy.spec.js#L9
-[sinon-dep]: .\sinon-no-interception\test\moduleA.spy.spec.js#L19
+[sinon-spy]: ./sinon-no-interception/test/moduleA.spy.spec.js#L9
+[sinon-sib]: ./sinon-no-interception/test/moduleA.spy.spec.js#L9
+[sinon-dep]: ./sinon-no-interception/test/moduleA.spy.spec.js#L19
 
-[jest-int-spy]: .\jest-with-interception\test\moduleA.spy.spec.js#L13
-[jest-int-sib]: .\jest-with-interception\test\moduleA.spy.spec.js#L24
-[jest-int-dep]: .\jest-with-interception\test\moduleA.spy.spec.js#L24
+[jest-int-spy]: ./jest-with-interception/test/moduleA.spy.spec.js#L13
+[jest-int-sib]: ./jest-with-interception/test/moduleA.spy.spec.js#L24
+[jest-int-dep]: ./jest-with-interception/test/moduleA.spy.spec.js#L24
 
-[proxyquire-spy]: .\sinon-with-interception-proxyquire\test\moduleA.spy.spec.js#L8
-[proxyquire-sib]: .\sinon-with-interception-proxyquire\test\moduleA.spy.spec.js#L31
-[proxyquire-dep]: .\sinon-with-interception-proxyquire\test\moduleA.spy.spec.js#L31
+[proxyquire-spy]: ./sinon-with-interception-proxyquire/test/moduleA.spy.spec.js#L8
+[proxyquire-sib]: ./sinon-with-interception-proxyquire/test/moduleA.spy.spec.js#L31
+[proxyquire-dep]: ./sinon-with-interception-proxyquire/test/moduleA.spy.spec.js#L31
 
-[rewire-spy]: .\sinon-with-interception-rewire\test\moduleA.spy.spec.js
-[rewire-sib]: .\sinon-with-interception-rewire\test\moduleA.spy.spec.js
-[rewire-dep]: .\sinon-with-interception-rewire\test\moduleA.spy.spec.js
+[rewire-spy]: ./sinon-with-interception-rewire/test/moduleA.spy.spec.js
+[rewire-sib]: ./sinon-with-interception-rewire/test/moduleA.spy.spec.js
+[rewire-dep]: ./sinon-with-interception-rewire/test/moduleA.spy.spec.js
 
-[rewiremock-spy]: .\sinon-with-interception-rewiremock\test\moduleA.spy.spec.js
-[rewiremock-sib]: .\sinon-with-interception-rewiremock\test\moduleA.spy.spec.js
-[rewiremock-dep]: .\sinon-with-interception-rewiremock\test\moduleA.spy.spec.js
+[rewiremock-spy]: ./sinon-with-interception-rewiremock/test/moduleA.spy.spec.js
+[rewiremock-sib]: ./sinon-with-interception-rewiremock/test/moduleA.spy.spec.js
+[rewiremock-dep]: ./sinon-with-interception-rewiremock/test/moduleA.spy.spec.js
 
-[testdouble-spy]: .\testdouble-with-interception\test\moduleA.spy.spec.js
-[testdouble-sib]: .\testdouble-with-interception\test\moduleA.spy.spec.js
-[testdouble-dep]: .\testdouble-with-interception\test\moduleA.spy.spec.js
+[testdouble-spy]: ./testdouble-with-interception/test/moduleA.spy.spec.js
+[testdouble-sib]: ./testdouble-with-interception/test/moduleA.spy.spec.js
+[testdouble-dep]: ./testdouble-with-interception/test/moduleA.spy.spec.js
 
 | Tool                                 | Module interception |   Spy implementation   |  Siblings method call   |      Dependency Path      |
 | :----------------------------------- | :-----------------: | :--------------------: | :---------------------: | :-----------------------: |
