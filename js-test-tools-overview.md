@@ -112,7 +112,7 @@ Tools:
 | 7. [Mocha + Chai + Sinon + rewiremock][rewiremock] |      X      |     X     |      X      |          X          |
 | 8. [Mocha + Chai + testdouble][testdouble]         |      X      |     X     |      X      |          X          |
 
-## Specificity of each stack
+## Specificity of each libraries
 
 [jasmine-spy]: ./jasmine-no-interception/test/moduleAspySpec.js#L9
 [jasmine-sib]: ./jasmine-no-interception/test/moduleAspySpec.js#L19
@@ -157,17 +157,26 @@ Tools:
 | 7. Mocha + Chai + Sinon + rewiremock |         YES         | [FAKE][rewiremock-spy] | [ERROR][rewiremock-sib] | [r/test][rewiremock-dep]  |
 | 8. Mocha + Chai + testdouble         |         YES         | [FAKE][testdouble-spy] | [EMPTY][testdouble-sib] | [r/test][testdouble-dep]  |
 
-- Spy implementation: real or fake spy
+### Stack: Module interception
+
+### Stack: Spy implementation
+
+Spy implementation: real or fake spy
+
   1. [OK] Real spy the behavior is the same
   2. [FAKE] Just empty stub: return undefined.
 
-- Siblings method call: Is it possible to call other function in the same module. (definition of Partial/Full) (for spy and stubs)
+### Stack: Siblings method call
+
+Siblings method call: Is it possible to call other function in the same module. (definition of Partial/Full) (for spy and stubs)
 
   1. [OK] possible everything is ok, It's a partial test double.
   2. [EMPTY] return undefined. It's a wired mix between a partial and a full test double.
   3. [ERROR] throw an exception the method doesn't exist. It's a full test double. You are sure that any method of your dependency is used.
 
-- Dependency Path in the test (for spy and stubs)
+### Stack: Dependency Path
+
+Dependency Path in the test (for spy and stubs)
 
   1. [r/test] Relative to the test. It's the best.
   2. [r/sut] Relative to the module under test. It's a bad idea!
