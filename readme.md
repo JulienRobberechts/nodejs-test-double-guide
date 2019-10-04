@@ -129,8 +129,6 @@ There is 2 types of libraries: stubbing library and module interception library.
 
 [This very good article and project explain how it's tricky to make partial import in ES6](https://codewithhugo.com/jest-mock-spy-module-import/)
 
-
-
 #### Partial test double
 
 ![test double partial](./out/_schemas/test-double-partial/test-double-partial.svg)

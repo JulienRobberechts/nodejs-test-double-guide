@@ -15,43 +15,41 @@
 
 This matrix sum up the purpose of some major javascript test libraries.
 
-| Library / purpose   | Test runner | Assertion | Test double | Module interception |
-| :------------------ | :---------: | :-------: | :---------: | :-----------------: |
-| jest                |      X      |     X     |      X      |          X          |
-| jasmine             |      X      |     X     |      X      |          -          |
-| mocha               |      X      |     -     |      -      |          -          |
-| chai                |      -      |     X     |      -      |          -          |
-| should.js           |      -      |     X     |      -      |          -          |
-| expect.js           |      -      |     X     |      -      |          -          |
-| better-assert       |      -      |     X     |      -      |          -          |
-| sinon               |      -      |     -     |      X      |          -          |
-| testdouble          |      -      |     -     |      X      |          X          |
-| proxyquire          |      -      |     -     |      -      |          X          |
-| rewire              |      -      |     -     |      -      |          X          |
-| mock-require        |      -      |     -     |      -      |          X          |
-| babel-plugin-rewire |      -      |     -     |      -      |          X          |
-| mockery             |      -      |     -     |      -      |          X          |
-| rewiremock          |      -      |     -     |      -      |          X          |
-| super-agent         |      -      |     -     |      -      |          -          |
-| chai-http           |      -      |     x     |      -      |          -          |
-| supertest           |      -      |     x     |      -      |          -          |
-| Nock                |      -      |     x     |      -      |          -          |
+## Which Js test lib for which purpose?
+
+| Library / purpose | Test runner | Assertion | Test double | Module interception |
+| :---------------- | :---------: | :-------: | :---------: | :-----------------: |
+| jest              |      X      |     X     |      X      |          X          |
+| jasmine           |      X      |     X     |      X      |          -          |
+| mocha             |      X      |     -     |      -      |          -          |
+| chai              |      -      |     X     |      -      |          -          |
+| should.js         |      -      |     X     |      -      |          -          |
+| expect.js         |      -      |     X     |      -      |          -          |
+| better-assert     |      -      |     X     |      -      |          -          |
+| sinon             |      -      |     -     |      X      |          -          |
+| testdouble        |      -      |     -     |      X      |          X          |
+| proxyquire        |      -      |     -     |      -      |          X          |
+| rewire            |      -      |     -     |      -      |          X          |
+| mock-require      |      -      |     -     |      -      |          X          |
+| rewiremock        |      -      |     -     |      -      |          X          |
 
 Some tool are like a swiss army knife for tests (like Jest) doing a lot of different task so you'll find them in multiple categories. There are also some compatibility between tools and platform (ES and CommonJS).
 
-Let's define each test task...
+Let's define each test purpose...
 
-## Test runner
+## Javascript test features?
+
+### Test runner
 
 The test runner helps to find tests in your code, launch test, generate and display test progress and results.
 The main one are: Jest, Mocha, Jasmine.
 
-## Assertion
+### Assertion
 
 The assertion helps to check the test results.
 It's already included in Jest and Jasmine. If you don't use those library you (and probably mocha as test runner) you can pick _chai_ or should.js, expect.js, better-assert.The most popular stack are Jest or mocha+chai. 
 
-## Test Doubles
+### Test Doubles
 
 We are arriving to our main subject: test doubles.
 In this section we are only talking about way to provide spies and stubs.
@@ -59,9 +57,7 @@ In this section we are only talking about way to provide spies and stubs.
  Full test doubles are often used with javascript module interception but it's an add-on.
 The main libraries are: Jest, Sinon, Jasmine, Testdouble (the library, not the concept).
 
-## Module interception
-
-
+### Module interception
  (by order of popularity)
 
 Other name for the same concept:
@@ -77,12 +73,10 @@ Tools:
 - proxyquire
 - rewire
 - mock-require
-- babel-plugin-rewire
-- mockery
 - testdouble
 - rewiremock
 
-## tools
+## Test Doubles implementations across libraries
 
 [Sinon](https://www.npmjs.com/package/sinon)  
 [Jest](https://www.npmjs.com/package/jest)  
@@ -98,64 +92,86 @@ Tools:
 
 ## Demo of some tool stacks
 
-| Tool                                 | Test runner | Assertion | Test double | Module interception |
-| :----------------------------------- | :---------: | :-------: | :---------: | :-----------------: |
-| 1. Jasmine                           |      X      |     X     |      X      |          -          |
-| 2. Jest no interception              |      X      |     X     |      X      |          -          |
-| 3. Jest with interception            |      X      |     X     |      X      |          X          |
-| 4. Mocha + Chai + Sinon              |      X      |     X     |      X      |          -          |
-| 5. Mocha + Chai + Sinon + proxyquire |      X      |     X     |      X      |          X          |
-| 6. Mocha + Chai + Sinon + rewire     |      X      |     X     |      X      |          X          |
-| 7. Mocha + Chai + Sinon + rewiremock |      X      |     X     |      X      |          X          |
-| 8. Mocha + Chai + testdouble         |      X      |     X     |      X      |          X          |
+[jasmine]: .\jasmine-no-interception
+[jest-no-int]: .\jest-no-interception
+[sinon]: .\sinon-no-interception
+[jest-int]: .\jest-with-interception
+[proxyquire]: .\sinon-with-interception-proxyquire
+[rewire]: .\sinon-with-interception-rewire
+[rewiremock]: .\sinon-with-interception-rewiremock
+[testdouble]: .\testdouble-with-interception
 
-## Specificity
+| Tool                                               | Test runner | Assertion | Test double | Module interception |
+| :------------------------------------------------- | :---------: | :-------: | :---------: | :-----------------: |
+| 1. [Jasmine][jasmine]                              |      X      |     X     |      X      |          -          |
+| 1. [Jest no interception][jest-no-int]             |      X      |     X     |      X      |          -          |
+| 1. [Mocha + Chai + Sinon][sinon]                   |      X      |     X     |      X      |          -          |
+| 1. [Jest with interception][jest-int]              |      X      |     X     |      X      |          X          |
+| 1. [Mocha + Chai + Sinon + proxyquire][proxyquire] |      X      |     X     |      X      |          X          |
+| 1. [Mocha + Chai + Sinon + rewire][rewire]         |      X      |     X     |      X      |          X          |
+| 1. [Mocha + Chai + Sinon + rewiremock][rewiremock] |      X      |     X     |      X      |          X          |
+| 1. [Mocha + Chai + testdouble][testdouble]         |      X      |     X     |      X      |          X          |
 
-For spies:
+## Specificity of each stack
 
-- Spy implementation: Real Spy
+[jasmine-spy]: .\jasmine-no-interception\test\moduleAspySpec.js#L9
+[jasmine-sib]: .\jasmine-no-interception\test\moduleAspySpec.js#L19
+[jasmine-dep]: .\jasmine-no-interception\test\moduleAspySpec.js#L19
+
+[jest-no-int-spy]: .\jest-no-interception\test\moduleA.spy.spec.js#L7
+[jest-no-int-sib]: .\jest-no-interception\test\moduleA.spy.spec.js#L18
+[jest-no-int-dep]: .\jest-no-interception\test\moduleA.spy.spec.js#L18
+
+[sinon-spy]: .\sinon-no-interception\test\moduleA.spy.spec.js#L9
+[sinon-sib]: .\sinon-no-interception\test\moduleA.spy.spec.js#L9
+[sinon-dep]: .\sinon-no-interception\test\moduleA.spy.spec.js#L19
+
+[jest-int-spy]: .\jest-with-interception\test\moduleA.spy.spec.js#L13
+[jest-int-sib]: .\jest-with-interception\test\moduleA.spy.spec.js#L24
+[jest-int-dep]: .\jest-with-interception\test\moduleA.spy.spec.js#L24
+
+[proxyquire-spy]: .\sinon-with-interception-proxyquire\test\moduleA.spy.spec.js#L8
+[proxyquire-sib]: .\sinon-with-interception-proxyquire\test\moduleA.spy.spec.js#L31
+[proxyquire-dep]: .\sinon-with-interception-proxyquire\test\moduleA.spy.spec.js#L31
+
+[rewire-spy]: .\sinon-with-interception-rewire\test\moduleA.spy.spec.js
+[rewire-sib]: .\sinon-with-interception-rewire\test\moduleA.spy.spec.js
+[rewire-dep]: .\sinon-with-interception-rewire\test\moduleA.spy.spec.js
+
+[rewiremock-spy]: .\sinon-with-interception-rewiremock\test\moduleA.spy.spec.js
+[rewiremock-sib]: .\sinon-with-interception-rewiremock\test\moduleA.spy.spec.js
+[rewiremock-dep]: .\sinon-with-interception-rewiremock\test\moduleA.spy.spec.js
+
+[testdouble-spy]: .\testdouble-with-interception\test\moduleA.spy.spec.js
+[testdouble-sib]: .\testdouble-with-interception\test\moduleA.spy.spec.js
+[testdouble-dep]: .\testdouble-with-interception\test\moduleA.spy.spec.js
+
+| Tool                                 | Module interception |   Spy implementation   |  Siblings method call   |      Dependency Path      |
+| :----------------------------------- | :-----------------: | :--------------------: | :---------------------: | :-----------------------: |
+| 1. Jasmine                           |         NO          |  [FAKE][jasmine-spy]   |    [OK][jasmine-sib]    |   [r/test][jasmine-dep]   |
+| 1. Jest no interception              |         NO          | [OK][jest-no-int-spy]  |  [OK][jest-no-int-sib]  | [r/test][jest-no-int-dep] |
+| 1. Mocha + Chai + Sinon              |         NO          |    [OK][sinon-spy]     |     [OK][sinon-sib]     |    [r/test][sinon-dep]    |
+| 1. Jest with interception            |         YES         |  [FAKE][jest-int-spy]  |  [ERROR][jest-int-sib]  |  [r/test][jest-int-dep]   |
+| 1. Mocha + Chai + Sinon + proxyquire |         YES         | [FAKE][proxyquire-spy] |  [OK][proxyquire-sib]   |  [r/sut][proxyquire-dep]  |
+| 1. Mocha + Chai + Sinon + rewire     |         YES         |   [FAKE][rewire-spy]   |   [ERROR][rewire-sib]   |    [name][rewire-dep]     |
+| 1. Mocha + Chai + Sinon + rewiremock |         YES         | [FAKE][rewiremock-spy] | [ERROR][rewiremock-sib] | [r/test][rewiremock-dep]  |
+| 1. Mocha + Chai + testdouble         |         YES         | [FAKE][testdouble-spy] | [EMPTY][testdouble-sib] | [r/test][testdouble-dep]  |
+
+- Spy implementation: real or fake spy
   1. [OK] Real spy the behavior is the same
   2. [FAKE] Just empty stub: return undefined.
 
-For spy and stubs:
-
-- Siblings method call: Is it possible to call other function in the same module. (defintion of Partial/Full)
+- Siblings method call: Is it possible to call other function in the same module. (definition of Partial/Full) (for spy and stubs)
 
   1. [OK] possible everything is ok, It's a partial test double.
-  1. [EMPTY] return undefined. It's a wired mix between a partial and a full test double.
-  1. [ERROR] throw an exception the method doesn't exist. It's a full test double. You are sure that any method of your dependency is used.
+  2. [EMPTY] return undefined. It's a wired mix between a partial and a full test double.
+  3. [ERROR] throw an exception the method doesn't exist. It's a full test double. You are sure that any method of your dependency is used.
 
-- Dependency Path in the test
+- Dependency Path in the test (for spy and stubs)
 
   1. [r/test] Relative to the test. It's the best.
   2. [r/sut] Relative to the module under test. It's a bad idea!
   3. [name] The name of the variable in the system under test. It's a bad idea!
-
-### spy
-
-PATHS:
-
-(.\jasmine-no-interception\test\moduleAspySpec.js#L9)
-(.\jasmine-no-interception\test\moduleAspySpec.js#L19)
-
-(.\jest-no-interception\test\moduleA.spy.spec.js 7/ 18
-(.\jest-with-interception\test\moduleA.spy.spec.js 13 /24
-(.\sinon-no-interception\test\moduleA.spy.spec.js 9 / 19
-(.\sinon-with-interception-proxyquire\test\moduleA.spy.spec.js 8 /31
-(.\sinon-with-interception-rewire\test\moduleA.spy.spec.js
-(.\sinon-with-interception-rewiremock\test\moduleA.spy.spec.js
-(.\testdouble-with-interception\test\moduleA.spy.spec.js
-
-| Tool                                 | Module interception | Spy implementation | Siblings method call | Dependency Path |
-| :----------------------------------- | :-----------------: | :----------------: | :------------------: | :-------------: |
-| 1. Jasmine                           |         NO          |       [FAKE]       |         [OK]         |    [r/test]     |
-| 2. Jest no interception              |         NO          |        [OK]        |         [OK]         |    [r/test]     |
-| 3. Mocha + Chai + Sinon              |         NO          |        [OK]        |         [OK]         |    [r/test]     |
-| 4. Jest with interception            |         YES         |       [FAKE]       |       [ERROR]        |    [r/test]     |
-| 5. Mocha + Chai + Sinon + proxyquire |         YES         |       [FAKE]       |         [OK]         |     [r/sut]     |
-| 6. Mocha + Chai + Sinon + rewire     |         YES         |       [FAKE]       |       [ERROR]        |     [name]      |
-| 7. Mocha + Chai + Sinon + rewiremock |         YES         |       [FAKE]       |       [ERROR]        |    [r/test]     |
-| 8. Mocha + Chai + testdouble         |         YES         |       [FAKE]       |       [EMPTY]        |    [r/test]     |
 
 ## References
 
