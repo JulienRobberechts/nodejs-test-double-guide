@@ -104,13 +104,13 @@ Tools:
 | Tool                                               | Test runner | Assertion | Test double | Module interception |
 | :------------------------------------------------- | :---------: | :-------: | :---------: | :-----------------: |
 | 1. [Jasmine][jasmine]                              |      X      |     X     |      X      |          -          |
-| 1. [Jest no interception][jest-no-int]             |      X      |     X     |      X      |          -          |
-| 1. [Mocha + Chai + Sinon][sinon]                   |      X      |     X     |      X      |          -          |
-| 1. [Jest with interception][jest-int]              |      X      |     X     |      X      |          X          |
-| 1. [Mocha + Chai + Sinon + proxyquire][proxyquire] |      X      |     X     |      X      |          X          |
-| 1. [Mocha + Chai + Sinon + rewire][rewire]         |      X      |     X     |      X      |          X          |
-| 1. [Mocha + Chai + Sinon + rewiremock][rewiremock] |      X      |     X     |      X      |          X          |
-| 1. [Mocha + Chai + testdouble][testdouble]         |      X      |     X     |      X      |          X          |
+| 2. [Jest no interception][jest-no-int]             |      X      |     X     |      X      |          -          |
+| 3. [Mocha + Chai + Sinon][sinon]                   |      X      |     X     |      X      |          -          |
+| 4. [Jest with interception][jest-int]              |      X      |     X     |      X      |          X          |
+| 5. [Mocha + Chai + Sinon + proxyquire][proxyquire] |      X      |     X     |      X      |          X          |
+| 6. [Mocha + Chai + Sinon + rewire][rewire]         |      X      |     X     |      X      |          X          |
+| 7. [Mocha + Chai + Sinon + rewiremock][rewiremock] |      X      |     X     |      X      |          X          |
+| 8. [Mocha + Chai + testdouble][testdouble]         |      X      |     X     |      X      |          X          |
 
 ## Specificity of each stack
 
@@ -149,13 +149,13 @@ Tools:
 | Tool                                 | Module interception |   Spy implementation   |  Siblings method call   |      Dependency Path      |
 | :----------------------------------- | :-----------------: | :--------------------: | :---------------------: | :-----------------------: |
 | 1. Jasmine                           |         NO          |  [FAKE][jasmine-spy]   |    [OK][jasmine-sib]    |   [r/test][jasmine-dep]   |
-| 1. Jest no interception              |         NO          | [OK][jest-no-int-spy]  |  [OK][jest-no-int-sib]  | [r/test][jest-no-int-dep] |
-| 1. Mocha + Chai + Sinon              |         NO          |    [OK][sinon-spy]     |     [OK][sinon-sib]     |    [r/test][sinon-dep]    |
-| 1. Jest with interception            |         YES         |  [FAKE][jest-int-spy]  |  [ERROR][jest-int-sib]  |  [r/test][jest-int-dep]   |
-| 1. Mocha + Chai + Sinon + proxyquire |         YES         | [FAKE][proxyquire-spy] |  [OK][proxyquire-sib]   |  [r/sut][proxyquire-dep]  |
-| 1. Mocha + Chai + Sinon + rewire     |         YES         |   [FAKE][rewire-spy]   |   [ERROR][rewire-sib]   |    [name][rewire-dep]     |
-| 1. Mocha + Chai + Sinon + rewiremock |         YES         | [FAKE][rewiremock-spy] | [ERROR][rewiremock-sib] | [r/test][rewiremock-dep]  |
-| 1. Mocha + Chai + testdouble         |         YES         | [FAKE][testdouble-spy] | [EMPTY][testdouble-sib] | [r/test][testdouble-dep]  |
+| 2. Jest no interception              |         NO          | [OK][jest-no-int-spy]  |  [OK][jest-no-int-sib]  | [r/test][jest-no-int-dep] |
+| 3. Mocha + Chai + Sinon              |         NO          |    [OK][sinon-spy]     |     [OK][sinon-sib]     |    [r/test][sinon-dep]    |
+| 4. Jest with interception            |         YES         |  [FAKE][jest-int-spy]  |  [ERROR][jest-int-sib]  |  [r/test][jest-int-dep]   |
+| 5. Mocha + Chai + Sinon + proxyquire |         YES         | [FAKE][proxyquire-spy] |  [OK][proxyquire-sib]   |  [r/sut][proxyquire-dep]  |
+| 6. Mocha + Chai + Sinon + rewire     |         YES         |   [FAKE][rewire-spy]   |   [ERROR][rewire-sib]   |    [name][rewire-dep]     |
+| 7. Mocha + Chai + Sinon + rewiremock |         YES         | [FAKE][rewiremock-spy] | [ERROR][rewiremock-sib] | [r/test][rewiremock-dep]  |
+| 8. Mocha + Chai + testdouble         |         YES         | [FAKE][testdouble-spy] | [EMPTY][testdouble-sib] | [r/test][testdouble-dep]  |
 
 - Spy implementation: real or fake spy
   1. [OK] Real spy the behavior is the same
