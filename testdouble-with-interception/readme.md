@@ -1,4 +1,4 @@
-# Mock with Sinon + testdouble
+# Test of Sinon + testdouble (with module interception)
 
 https://www.npmjs.com/package/testdouble
 
@@ -21,6 +21,3 @@ td.func(), td.object(), td.constructor(), and td.imitate() to create test double
 
 - put td.reset() in after-each method.
 
-## TODO
-
-- DO not use sinon with testdouble.

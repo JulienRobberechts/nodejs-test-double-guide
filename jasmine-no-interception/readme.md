@@ -1,6 +1,8 @@
-# Jasmine
+# Test of Jasmine (without module interception)
 
 ## Setup
+
+For this project Jasmine has been installed globally.
 
 ```
 # Global installation 
@@ -11,4 +13,3 @@ jasmine init
 
 npm init
 ```
-

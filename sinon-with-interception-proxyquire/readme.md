@@ -1,4 +1,5 @@
-# Mock with Sinon + proxyquire
+# Test of Sinon + proxyquire (with module interception)
 
-Gotchas:
-module paths are relative to the tested module not the test file
+## Be careful
+
+Module paths are relative to the tested module not the test file

@@ -1,1 +1,1 @@
-# Mock with Sinon + rewiremock
+# Test of Sinon + rewiremock (with module interception)

@@ -1,3 +1,3 @@
-# testdouble with interception testdouble
+# Test of Sinon + testdouble (with module interception)
 
-Official tests.
+This is the official testdouble test.

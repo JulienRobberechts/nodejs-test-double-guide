@@ -1,1 +1,1 @@
-# Mock with Jest without module interception
+# Test of Jest (without module interception)

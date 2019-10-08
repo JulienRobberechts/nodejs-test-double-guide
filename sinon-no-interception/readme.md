@@ -1,8 +1,4 @@
-# Mock with Sinon (Simple stubbing)
-
-## When to use this approach
-
-When you have to mock a module quickly??
+# Test of Sinon (without module interception)
 
 ## Setup
 
@@ -24,8 +20,7 @@ const spy = sinon.stub(moduleB, "DoItB").returns("beta");
 
 For the stubbing to work, the stubbed method cannot be destructured, neither in the module under test nor in the test. Like in this file: [moduleA.mistake.spec.js](./moduleA.mistake.spec.js)
 
-## Conclusion
+## Be careful
 
 - your target code have to not use destructuring syntax for import. (big constraint no!)
 - you have to import the module in your test without destructuring syntax.
-
