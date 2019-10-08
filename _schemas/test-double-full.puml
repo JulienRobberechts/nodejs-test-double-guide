@@ -17,12 +17,12 @@ rectangle "Interception\nlibrary proxy" as InterceptionLib #gray
 rectangle "Component\nunder test" as cut #LightCoral
 
 rectangle "Test double dependency" as TestDoubleDependency #gray {
-  component "method\nunder test" as TestDoubleDependencyMethod #gray
+  component "dependent method" as TestDoubleDependencyMethod #gray
 }
 
 rectangle "<strike>Real dependency" as RealDependency #LightCoral {
   component "<strike>other method" as RealDependencyOtherMethod #LightCoral
-  component "<strike>method\n<strike>under test" as RealDependencyMut #LightCoral
+  component "<strike>dependent method" as RealDependencyMut #LightCoral
 }
 
 UnitTest -> InterceptionLib: use

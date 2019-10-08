@@ -15,13 +15,13 @@ rectangle "Unit test" as UnitTest #gray
 rectangle "Component\nunder test" as cut #LightCoral
 
 rectangle "Real dependency" as RealDependency #LightCoral {
-  component "method\nunder test" as RealDependencyMut #gray
+  component "dependent method" as RealDependencyMut #gray
   component "other method" as RealDependencyOtherMethod #LightCoral
 }
 
-UnitTest --> cut: 1. import
-UnitTest --> RealDependency: 2. import
 cut -> RealDependency: import
+UnitTest --> cut: 1. import
+UnitTest -> RealDependency: 2. import
 UnitTest -> RealDependencyMut: 3. change
 
 legend left

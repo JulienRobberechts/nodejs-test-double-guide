@@ -27,6 +27,7 @@
         - [What is '*Spy implementation*'](#what-is-spy-implementation)
         - [What is '*Siblings method call*'](#what-is-siblings-method-call)
         - [What is '*Dependency Path*'](#what-is-dependency-path)
+  - [Conclusion](#conclusion)
   - [References](#references)
 
 ## 1. introduction
@@ -391,6 +392,10 @@ In your test code you'll have to specify the path to the dependency you want to 
   1. **r/test** The path is relative to the test file. It's the best option.
   2. **r/sut** The path is relative to the module under test. It's a bad idea! In some case it will be tricky.
   3. **VarName** The name of the variable in the system under test. It's a bad idea!
+
+## Conclusion
+
+TODO...
 
 ## References
 
