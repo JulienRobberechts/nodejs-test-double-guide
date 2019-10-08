@@ -9,9 +9,8 @@
     - [Types of test double](#types-of-test-double)
     - [Test double in real life](#test-double-in-real-life)
   - [2. Decide what you want to mock](#2-decide-what-you-want-to-mock)
-    - [2.1. Type of component to mock](#21-type-of-component-to-mock)
-    - [2.2. Make your code easy to test](#22-make-your-code-easy-to-test)
-    - [2.3. Level of mocking](#23-level-of-mocking)
+    - [2.1. Make your code easy to test](#21-make-your-code-easy-to-test)
+    - [2.2. Level of mocking](#22-level-of-mocking)
       - [Partial test double](#partial-test-double)
       - [Full test double](#full-test-double)
   - [3. Choose the right tool](#3-choose-the-right-tool)
@@ -93,16 +92,7 @@ __Mocks__ are just stubs with some awareness of your test. Mocks are not the fir
 
 ## 2. Decide what you want to mock
 
-### 2.1. Type of component to mock
-
-Depending of your component and your test case, you will be interested to mock different type of dependencies:
-
-- some of your own dependencies
-- some system dependencies
-
-=> TO CHECK: Mocking everywhere or just my code !!!!
-
-### 2.2. Make your code easy to test
+### 2.1. Make your code easy to test
 
 How you should organize your production code to make it easy to mock.
 
@@ -127,7 +117,7 @@ If to test your component you would need to replace an internal function, you ne
 
 On top of this, intercept an internal function is tricky (To Explain)
 
-### 2.3. Level of mocking
+### 2.2. Level of mocking
 
 Test doubles in javascript can be achieved at 2 different levels. Those 2 different level are often named Partial test double and full test double.
 
