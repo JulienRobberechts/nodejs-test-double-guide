@@ -14,7 +14,7 @@ describe("Rewire intercepted stubs", function() {
     var moduleBTestDouble = {
       DoItB: DoItBStub
     };
-    moduleA.__set__("moduleB", moduleBTestDouble);
+    moduleA.__set__("moduleBVariable", moduleBTestDouble);
   });
   it("are replacing the behavior of the the target stubbed function", function() {
     DoItBStub.returns("beta");
@@ -33,7 +33,9 @@ describe("Rewire intercepted stubs", function() {
       moduleA.DoItA2();
     };
 
-    expect(callAnOtherMethod).to.throw("moduleB.DoItB2 is not a function");
+    expect(callAnOtherMethod).to.throw(
+      "moduleBVariable.DoItB2 is not a function"
+    );
   });
   afterEach(function() {
     sinon.reset();

@@ -14,7 +14,7 @@ describe("Rewire intercepted spies", function() {
     var moduleBTestDouble = {
       DoItB: DoItBStub
     };
-    moduleA.__set__("moduleB", moduleBTestDouble);
+    moduleA.__set__("moduleBVariable", moduleBTestDouble);
   });
   it("are NOT replacing the behavior of the the target spied function", function() {
     const actual = moduleA.DoItA();
@@ -29,7 +29,9 @@ describe("Rewire intercepted spies", function() {
       moduleA.DoItA2();
     };
 
-    expect(callAnOtherMethod).to.throw("moduleB.DoItB2 is not a function");
+    expect(callAnOtherMethod).to.throw(
+      "moduleBVariable.DoItB2 is not a function"
+    );
   });
   afterEach(function() {
     sinon.reset();
