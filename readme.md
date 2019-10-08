@@ -23,10 +23,10 @@
     - [Deep dive into each libraries](#deep-dive-into-each-libraries)
       - [Test Doubles implementations across libraries](#test-doubles-implementations-across-libraries)
       - [Specificities of each libraries](#specificities-of-each-libraries)
-        - [*Module interception* - Is it module interception or not?](#module-interception---is-it-module-interception-or-not)
-        - [*Spy implementation* - Real or fake spy?](#spy-implementation---real-or-fake-spy)
-        - [Stack: Siblings method call](#stack-siblings-method-call)
-        - [Stack: Dependency Path](#stack-dependency-path)
+        - [What is '*Module interception*'](#what-is-module-interception)
+        - [What is '*Spy implementation*'](#what-is-spy-implementation)
+        - [What is '*Siblings method call*'](#what-is-siblings-method-call)
+        - [What is '*Dependency Path*'](#what-is-dependency-path)
   - [References](#references)
 
 ## 1. introduction
@@ -262,7 +262,7 @@ In order to understand all the different combination of libraies and how to use 
 [rewiremock]: ./sinon-with-interception-rewiremock
 [testdouble]: ./testdouble-with-interception
 
-| Tool                                               | Test runner | Assertion | Test double | Module interception |
+| Stack tested in this project / features            | Test runner | Assertion | Test double | Module interception |
 | :------------------------------------------------- | :---------: | :-------: | :---------: | :-----------------: |
 | 1. [Jasmine][jasmine]                              |      X      |     X     |      X      |          -          |
 | 2. [Jest no interception][jest-no-int]             |      X      |     X     |      X      |          -          |
@@ -299,16 +299,18 @@ module.exports = { DoItA };
 
 #### Test Doubles implementations across libraries
 
-| Tool                                                   |    spy/fake     |            stub |          mock |
-| ------------------------------------------------------ | :-------------: | --------------: | ------------: |
-| [Sinon](https://www.npmjs.com/package/sinon)           |   sinon.spy()   |    sinon.stub() |  sinon.mock() |
-| [Jest](https://www.npmjs.com/package/jest)             |  jest.spyOn()   |       jest.fn() | no / use stub |
+This present on overview of spy, stub and mock in different libraries:
+
+| Tool                                                   |       spy       |      stub       |     mock      |
+| :----------------------------------------------------- | :-------------: | :-------------: | :-----------: |
+| [Sinon](https://www.npmjs.com/package/sinon)           |   sinon.spy()   |  sinon.stub()   | sinon.mock()  |
+| [Jest](https://www.npmjs.com/package/jest)             |  jest.spyOn()   |    jest.fn()    | no / use stub |
 | [Jasmine](https://www.npmjs.com/package/jasmine)       | jasmine.spyOn() | jasmine.spyOn() | no / use stub |
-| [testdouble](https://www.npmjs.com/package/testdouble) |    td.func()    |       td.func() | no / use stub |
+| [testdouble](https://www.npmjs.com/package/testdouble) |    td.func()    |    td.func()    | no / use stub |
 
 #### Specificities of each libraries
 
-Let's now look at some implementation details about how each libraries (use in each stacks) deal with some specific subjects. 
+Let's now look at some implementation details about how each libraries (use in each stacks) deal with some specific requirements.
 
 [jasmine-spy]: ./jasmine-no-interception/test/moduleAspySpec.js#L9
 [jasmine-sib]: ./jasmine-no-interception/test/moduleAspySpec.js#L19
@@ -342,47 +344,47 @@ Let's now look at some implementation details about how each libraries (use in e
 [testdouble-sib]: ./testdouble-with-interception/test/moduleA.spy.spec.js
 [testdouble-dep]: ./testdouble-with-interception/test/moduleA.spy.spec.js
 
-| Tool                                 | Module interception |   Spy implementation   |  Siblings method call   |      Dependency Path      |
-| :----------------------------------- | :-----------------: | :--------------------: | :---------------------: | :-----------------------: |
-| 1. Jasmine                           |         NO          |  [FAKE][jasmine-spy]   |    [OK][jasmine-sib]    |   [r/test][jasmine-dep]   |
-| 2. Jest no interception              |         NO          | [OK][jest-no-int-spy]  |  [OK][jest-no-int-sib]  | [r/test][jest-no-int-dep] |
-| 3. Mocha + Chai + Sinon              |         NO          |    [OK][sinon-spy]     |     [OK][sinon-sib]     |    [r/test][sinon-dep]    |
-| 4. Jest with interception            |         YES         |  [FAKE][jest-int-spy]  |  [ERROR][jest-int-sib]  |  [r/test][jest-int-dep]   |
-| 5. Mocha + Chai + Sinon + proxyquire |         YES         | [FAKE][proxyquire-spy] |  [OK][proxyquire-sib]   |  [r/sut][proxyquire-dep]  |
-| 6. Mocha + Chai + Sinon + rewire     |         YES         |   [FAKE][rewire-spy]   |   [ERROR][rewire-sib]   |    [name][rewire-dep]     |
-| 7. Mocha + Chai + Sinon + rewiremock |         YES         | [FAKE][rewiremock-spy] | [ERROR][rewiremock-sib] | [r/test][rewiremock-dep]  |
-| 8. Mocha + Chai + testdouble         |         YES         | [FAKE][testdouble-spy] | [EMPTY][testdouble-sib] | [r/test][testdouble-dep]  |
+| Tool                                 | [Module interception](#what-is-module-interception) | [Spy implementation](#what-is-spy-implementation) | [Siblings method call](#what-is-siblings-method-call) | [Dependency Path](#what-is-dependency-path) |
+| :----------------------------------- | :-------------------------------------------------: | :-----------------------------------------------: | :---------------------------------------------------: | :-----------------------------------------: |
+| 1. Jasmine                           |                         NO                          |                [FAKE][jasmine-spy]                |                   [OK][jasmine-sib]                   |            [r/test][jasmine-dep]            |
+| 2. Jest no interception              |                         NO                          |               [OK][jest-no-int-spy]               |                 [OK][jest-no-int-sib]                 |          [r/test][jest-no-int-dep]          |
+| 3. Mocha + Chai + Sinon              |                         NO                          |                  [OK][sinon-spy]                  |                    [OK][sinon-sib]                    |             [r/test][sinon-dep]             |
+| 4. Jest with interception            |                         YES                         |               [FAKE][jest-int-spy]                |                 [ERROR][jest-int-sib]                 |           [r/test][jest-int-dep]            |
+| 5. Mocha + Chai + Sinon + proxyquire |                         YES                         |              [FAKE][proxyquire-spy]               |           [OK][proxyquire-sib] :dizzy_face:           |    [r/sut][proxyquire-dep] :thumbsdown:     |
+| 6. Mocha + Chai + Sinon + rewire     |                         YES                         |                [FAKE][rewire-spy]                 |                  [ERROR][rewire-sib]                  |     [VarName][rewire-dep] :thumbsdown:      |
+| 7. Mocha + Chai + Sinon + rewiremock |                         YES                         |              [FAKE][rewiremock-spy]               |                [ERROR][rewiremock-sib]                |          [r/test][rewiremock-dep]           |
+| 8. Mocha + Chai + testdouble         |                         YES                         |              [FAKE][testdouble-spy]               |         [EMPTY][testdouble-sib] :dizzy_face:          |          [r/test][testdouble-dep]           |
 
-##### *Module interception* - Is it module interception or not?
+Let's explain the meaning of each column.
 
-You have proper module interception when you don't import the ....
+##### What is '*Module interception*'
 
-TODO
+You have proper module interception library when you don't have to import the original dependency in your test. But in fact there is multiple way to do module interception and each library is doing this differently.
 
-##### *Spy implementation* - Real or fake spy?
+##### What is '*Spy implementation*'
 
-Does this solution implement change the behavior of my dependency?
+Is the behavior of the original dependency stay the same? If the answer is yes, it's a real spy. If not, it's a fake spy, it's just an empty stub returning undefined. You can't expect any Module interception library to keep the behavior of the original dependency because by nature, Module interception will NEVER use your original dependency at all.
 
-Spy implementation: real or fake spy
+##### What is '*Siblings method call*'
 
-  1. [OK] Real spy the behavior is the same
-  2. [FAKE] Just empty stub: return undefined.
+Once you have stubbed a method in your dependency, The question is to understand if calling a sibling method has the expected behavior. You can expect 3 types of behavior:
 
-##### Stack: Siblings method call
+  1. **OK**: The original behavior of the sibling method is not modified, It's generally what people call a partial test double.
+  2. **EMPTY** The sibling method return undefined. It's a wired mix between a partial and a full test double.
+  3. **ERROR** The sibling method throw an exception "the method doesn't exist". It's what you can expect from a full test double. It's probably the best option  because you are sure that no other method of your dependency is used.
 
-Siblings method call: Is it possible to call other function in the same module. (definition of Partial/Full) (for spy and stubs)
+Exceptions:
 
-  1. [OK] possible everything is ok, It's a partial test double.
-  2. [EMPTY] return undefined. It's a wired mix between a partial and a full test double.
-  3. [ERROR] throw an exception the method doesn't exist. It's a full test double. You are sure that any method of your dependency is used.
+- *Proxyquire* is supposed to be a module interception library (for full test double) but the sibling method will stay unchanged!
+- *Testdouble* is supposed to be a module interception library (for full test double) but the sibling method will still exists with an undefined behavior!
 
-##### Stack: Dependency Path
+##### What is '*Dependency Path*'
 
-Dependency Path in the test (for spy and stubs)
+In your test code you'll have to specify the path to the dependency you want to test double. You can expect 3 types of behavior:
 
-  1. [r/test] Relative to the test. It's the best.
-  2. [r/sut] Relative to the module under test. It's a bad idea!
-  3. [name] The name of the variable in the system under test. It's a bad idea!
+  1. **r/test** The path is relative to the test file. It's the best option.
+  2. **r/sut** The path is relative to the module under test. It's a bad idea! In some case it will be tricky.
+  3. **VarName** The name of the variable in the system under test. It's a bad idea!
 
 ## References
 
