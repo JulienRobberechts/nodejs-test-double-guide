@@ -4,7 +4,7 @@
 
 - only nodejs = commonJS
 - only good practices : no internal mocking demonstration
-- no api mock anymore.
+- no api test double anymore.
 - only for your own dependencies NOW
 
 ## Additional subjects

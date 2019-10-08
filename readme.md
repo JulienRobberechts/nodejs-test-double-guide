@@ -1,16 +1,13 @@
-# Guide to test double your nodeJS code
+# Guide to test double your Node.js code
 
-- [Guide to test double your nodeJS code](#guide-to-test-double-your-nodejs-code)
-  - [1. introduction](#1-introduction)
-    - [Are you mocking me?](#are-you-mocking-me)
-    - [Scope](#scope)
-    - [Vocabulary](#vocabulary)
-    - [General definition](#general-definition)
+- [Guide to test double your Node.js code](#guide-to-test-double-your-nodejs-code)
+  - [1. Are you mocking me?](#1-are-you-mocking-me)
+    - [Stop talking about mock](#stop-talking-about-mock)
     - [Types of test double](#types-of-test-double)
-    - [Test double in real life](#test-double-in-real-life)
-  - [2. Decide what you want to mock](#2-decide-what-you-want-to-mock)
+    - [Test double in Node.js real life](#test-double-in-nodejs-real-life)
+  - [2. Decide how you want to test double](#2-decide-how-you-want-to-test-double)
     - [2.1. Make your code easy to test](#21-make-your-code-easy-to-test)
-    - [2.2. Level of mocking](#22-level-of-mocking)
+    - [2.2. Level of test double](#22-level-of-test-double)
       - [Partial test double](#partial-test-double)
       - [Full test double](#full-test-double)
   - [3. Choose the right tool](#3-choose-the-right-tool)
@@ -29,34 +26,17 @@
   - [Conclusion](#conclusion)
   - [References](#references)
 
-## 1. introduction
+## 1. Are you mocking me?
 
-### Are you mocking me?
+My goal in this guide is to go from theory to practice about tests double in Node.JS. I'll try to cover those questions:
 
-== Vocabulary ==
+- How you should organize your production code to make it easy to test double.
+- Choose the best way to test double your code.
+- Choose the right library to do it.
 
-Mock = test double in fact.
+### Stop talking about mock
 
-
-
-== Crap:
-Mocking your dependencies in order to test it is not so easy. You need to make some choices about:
-
-1. How you should organize your production code to make it easy to mock.
-2. Choose what you want to mock.
-3. Choose the mocking library should I use?
-4. Integrate the mocking tool in your solution
-
-
-### Scope
-
-My goal in this document is to answer to the most general question we can have when we want to create some tests double in Node.JS and have a code example for each framework.
-
-### Vocabulary
-
-### General definition
-
-Mock is sometimes used to refer to all type of **test doubles**, but in fact **mock** is just one type of test doubles.
+Mock is sometimes used to refer to all type of **test doubles**, but in fact **mock** is just one type of test doubles. It's why I'll try to use '*test double*' and not '*mock*' in this guide (as a noun and as a verb).
 
 Definition of Test doubles (from Wikipedia):
 
@@ -84,9 +64,9 @@ Test doubles is a general term to refer to different type of objects. This list 
 
 **Be carful**: Mock as this type of specific type of test double built specifically for your test is in fact consider as an ___anti-pattern___ most of the time. It breaks the AAA (Arrange Act Assert) test structure. You should probably consider other types of test double before.
 
-### Test double in real life
+### Test double in Node.js real life
 
-| Types of test double |   in nodeJs real life use   |
+| Types of test double |  in Node.js real life use   |
 | :------------------- | :-------------------------: |
 | Dummies              |    Nothing, it's useless    |
 | Spy                  |             Spy             |
@@ -94,21 +74,21 @@ Test doubles is a general term to refer to different type of objects. This list 
 | Fakes                |            Stub             |
 | Mock                 | Don't use them, prefer Stub |
 
-__Dummies__ are not really useful In javascript, because there is no need to implement any fixed interface. Therefore you'll never have to implement test doubles if it's not intended to be used in your component under test.
+__Dummies__ are not really useful in javascript, because there is no need to implement any fixed interface. Therefore you'll never have to implement test doubles if it's not intended to be used in your component under test.
 
 __Spies__ are non invasive test double provided by almost all the testing frameworks. You could technically implement a spy yourself but it's really not worth it.
 
-__Stubs__ are invasive test double provided by almost all the testing frameworks. You could technically implement a stub yourself but it's really not worth it.
+__Stubs__ are invasive test double provided by almost all the testing frameworks. You could technically implement a stub yourself but it's really not worth it. With most libraries 
 
 __Fakes__ are just smart stubs, their implementation is smarter and fully functional in contrast to a stub which have a very basic implementation (static most of the time). We'll consider Fakes and stub as one category.
 
 __Mocks__ are just stubs with some awareness of your test. Mocks are not the first type of test double to consider. Sinon have special objects for this, on other frameworks you need to use stubs.
 
-## 2. Decide what you want to mock
+## 2. Decide how you want to test double
 
 ### 2.1. Make your code easy to test
 
-How you should organize your production code to make it easy to mock.
+How you should organize your production code to make it easy to test double.
 
 The basic structure of javascript is the module.
 Your test should stay independent from internal details of the module.
@@ -127,11 +107,11 @@ In javascript the good ways to expose your seams are as
 Of course, some tools can help you to modify some implementation details like [rewire
 ](https://github.com/jhnns/rewire) but using them to create your test is a very bad practice. It breaks the all the encapsulation principle and lead to a lot of problems. So the best practice is to stick to this 3 way of creating seams.
 
-If to test your component you would need to replace an internal function, you need first to refactor your component to expose this function as a seam before thinking of mocking anything.
+If to test your component you would need to replace an internal function, you need first to refactor your component to expose this function as a seam before thinking of test double anything.
 
 On top of this, intercept an internal function is tricky (To Explain)
 
-### 2.2. Level of mocking
+### 2.2. Level of test double
 
 Test doubles in javascript can be achieved at 2 different levels. Those 2 different level are often named Partial test double and full test double.
 
@@ -145,7 +125,6 @@ There is 2 types of libraries: stubbing library and module interception library.
 - module interception library: solutions targeting link seams or explicit dependency injection
   - For module interception, the type of import is really important. Depending of your project the type of import is really important to choose your mock tool. [see this page](./summary-import-types.md)
   
-
 [This very good article and project explain how it's tricky to make partial import in ES6](https://codewithhugo.com/jest-mock-spy-module-import/)
 
 #### Partial test double
