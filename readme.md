@@ -301,12 +301,12 @@ module.exports = { DoItA };
 
 This present on overview of spy, stub and mock in different libraries:
 
-| Tool                                                   |       spy       |      stub       |     mock      |
-| :----------------------------------------------------- | :-------------: | :-------------: | :-----------: |
-| [Sinon](https://www.npmjs.com/package/sinon)           |   sinon.spy()   |  sinon.stub()   | sinon.mock()  |
-| [Jest](https://www.npmjs.com/package/jest)             |  jest.spyOn()   |    jest.fn()    | no / use stub |
+| Tool                                                   |             spy |            stub |          mock |
+| :----------------------------------------------------- | --------------: | --------------: | ------------: |
+| [Sinon](https://www.npmjs.com/package/sinon)           |     sinon.spy() |    sinon.stub() |  sinon.mock() |
+| [Jest](https://www.npmjs.com/package/jest)             |    jest.spyOn() |       jest.fn() | no / use stub |
 | [Jasmine](https://www.npmjs.com/package/jasmine)       | jasmine.spyOn() | jasmine.spyOn() | no / use stub |
-| [testdouble](https://www.npmjs.com/package/testdouble) |    td.func()    |    td.func()    | no / use stub |
+| [testdouble](https://www.npmjs.com/package/testdouble) |       td.func() |       td.func() | no / use stub |
 
 #### Specificities of each libraries
 
@@ -344,16 +344,22 @@ Let's now look at some implementation details about how each libraries (use in e
 [testdouble-sib]: ./testdouble-with-interception/test/moduleA.spy.spec.js
 [testdouble-dep]: ./testdouble-with-interception/test/moduleA.spy.spec.js
 
-| Tool                                 | [Module interception](#what-is-module-interception) | [Spy implementation](#what-is-spy-implementation) | [Siblings method call](#what-is-siblings-method-call) | [Dependency Path](#what-is-dependency-path) |
-| :----------------------------------- | :-------------------------------------------------: | :-----------------------------------------------: | :---------------------------------------------------: | :-----------------------------------------: |
-| 1. Jasmine                           |                         NO                          |                [FAKE][jasmine-spy]                |                   [OK][jasmine-sib]                   |            [r/test][jasmine-dep]            |
-| 2. Jest no interception              |                         NO                          |               [OK][jest-no-int-spy]               |                 [OK][jest-no-int-sib]                 |          [r/test][jest-no-int-dep]          |
-| 3. Mocha + Chai + Sinon              |                         NO                          |                  [OK][sinon-spy]                  |                    [OK][sinon-sib]                    |             [r/test][sinon-dep]             |
-| 4. Jest with interception            |                         YES                         |               [FAKE][jest-int-spy]                |                 [ERROR][jest-int-sib]                 |           [r/test][jest-int-dep]            |
-| 5. Mocha + Chai + Sinon + proxyquire |                         YES                         |              [FAKE][proxyquire-spy]               |           [OK][proxyquire-sib] :dizzy_face:           |    [r/sut][proxyquire-dep] :thumbsdown:     |
-| 6. Mocha + Chai + Sinon + rewire     |                         YES                         |                [FAKE][rewire-spy]                 |                  [ERROR][rewire-sib]                  |     [VarName][rewire-dep] :thumbsdown:      |
-| 7. Mocha + Chai + Sinon + rewiremock |                         YES                         |              [FAKE][rewiremock-spy]               |                [ERROR][rewiremock-sib]                |          [r/test][rewiremock-dep]           |
-| 8. Mocha + Chai + testdouble         |                         YES                         |              [FAKE][testdouble-spy]               |         [EMPTY][testdouble-sib] :dizzy_face:          |          [r/test][testdouble-dep]           |
+[req1]: #what-is-module-interception
+[req2]: #what-is-spy-implementation
+[req3]: #what-is-siblings-method-call
+[req4]: #what-is-dependency-path
+
+
+| Tool                                 | [Module interception][req1] |     [Spy implementation][req2] |         [Siblings method call][req3] |              [Dependency Path][req4] |
+| :----------------------------------- | --------------------------: | -----------------------------: | -----------------------------------: | -----------------------------------: |
+| 1. Jasmine                           |                          NO | :confused: [FAKE][jasmine-spy] |                  [SAME][jasmine-sib] |                [r/test][jasmine-dep] |
+| 2. Jest no interception              |                          NO |        [SAME][jest-no-int-spy] |              [SAME][jest-no-int-sib] |            [r/test][jest-no-int-dep] |
+| 3. Mocha + Chai + Sinon              |                          NO |              [SAME][sinon-spy] |                    [SAME][sinon-sib] |                  [r/test][sinon-dep] |
+| 4. Jest with interception            |                         YES |           [FAKE][jest-int-spy] |                [ERROR][jest-int-sib] |               [r/test][jest-int-dep] |
+| 5. Mocha + Chai + Sinon + proxyquire |                         YES |         [FAKE][proxyquire-spy] |  :dizzy_face: [SAME][proxyquire-sib] | :thumbsdown: [r/sut][proxyquire-dep] |
+| 6. Mocha + Chai + Sinon + rewire     |                         YES |             [FAKE][rewire-spy] |                  [ERROR][rewire-sib] |   :thumbsdown: [VarName][rewire-dep] |
+| 7. Mocha + Chai + Sinon + rewiremock |                         YES |         [FAKE][rewiremock-spy] |              [ERROR][rewiremock-sib] |             [r/test][rewiremock-dep] |
+| 8. Mocha + Chai + testdouble         |                         YES |         [FAKE][testdouble-spy] | :dizzy_face: [EMPTY][testdouble-sib] |             [r/test][testdouble-dep] |
 
 Let's explain the meaning of each column.
 
@@ -369,7 +375,7 @@ Is the behavior of the original dependency stay the same? If the answer is yes, 
 
 Once you have stubbed a method in your dependency, The question is to understand if calling a sibling method has the expected behavior. You can expect 3 types of behavior:
 
-  1. **OK**: The original behavior of the sibling method is not modified, It's generally what people call a partial test double.
+  1. **SAME**: The original behavior of the sibling method is not modified, It's generally what people call a partial test double.
   2. **EMPTY** The sibling method return undefined. It's a wired mix between a partial and a full test double.
   3. **ERROR** The sibling method throw an exception "the method doesn't exist". It's what you can expect from a full test double. It's probably the best option  because you are sure that no other method of your dependency is used.
 
