@@ -1,15 +1,15 @@
 # Guide to test double your Node.js code
 
 - [Guide to test double your Node.js code](#guide-to-test-double-your-nodejs-code)
-  - [1. Are you mocking me?](#1-are-you-mocking-me)
+  - [1. Are you mocking me? An introduction to test double](#1-are-you-mocking-me-an-introduction-to-test-double)
     - [Stop talking about mock](#stop-talking-about-mock)
     - [Types of test double](#types-of-test-double)
     - [Test double in Node.js real life](#test-double-in-nodejs-real-life)
   - [2. Decide how you want to test double](#2-decide-how-you-want-to-test-double)
     - [2.1. Make your code easy to test](#21-make-your-code-easy-to-test)
     - [2.2. Level of test double](#22-level-of-test-double)
-      - [Partial test double](#partial-test-double)
-      - [Full test double](#full-test-double)
+      - [Partial test double (without module interception)](#partial-test-double-without-module-interception)
+      - [Full test double (with module interception)](#full-test-double-with-module-interception)
   - [3. Choose the right tool](#3-choose-the-right-tool)
     - [Choose the right type of Javascript test library](#choose-the-right-type-of-javascript-test-library)
       - [Test runner](#test-runner)
@@ -26,7 +26,7 @@
   - [Conclusion](#conclusion)
   - [References](#references)
 
-## 1. Are you mocking me?
+## 1. Are you mocking me? An introduction to test double
 
 My goal in this guide is to go from theory to practice about tests double in Node.JS. I'll try to cover those questions:
 
@@ -113,9 +113,15 @@ On top of this, intercept an internal function is tricky (To Explain)
 
 ### 2.2. Level of test double
 
-Test doubles in javascript can be achieved at 2 different levels. Those 2 different level are often named Partial test double and full test double.
+Test doubles in javascript can be achieved at 2 different levels.
 
-To remove: I propose to name them: POST-import test doubles and import-interception test doubles.
+Those 2 different level are often named *Partial test double* and *full test double*.
+
+*Partial test double* don't need module interception
+
+ to test double: with or without module interception.
+
+ are often named *Partial test double* and *full test double*.
 
 no-interception vs partial-testdouble
 
@@ -127,7 +133,7 @@ There is 2 types of libraries: stubbing library and module interception library.
   
 [This very good article and project explain how it's tricky to make partial import in ES6](https://codewithhugo.com/jest-mock-spy-module-import/)
 
-#### Partial test double
+#### Partial test double (without module interception)
 
 ![test double partial](./out/_schemas/test-double-partial/test-double-partial.svg)
 
@@ -143,7 +149,7 @@ For this you just need a test doubles library. It's named __partial test double_
 
 This is the way to go to spy your dependency. You can also stub it but partial stub is consider as an __anti-pattern__ (REF NEEDED), it's simple but could lead to some problems. (TO COMPLETE)
 
-#### Full test double
+#### Full test double (with module interception)
 
 ![test double full](./out/_schemas/test-double-full/test-double-full.svg)
 
