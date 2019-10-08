@@ -1,28 +1,13 @@
 # Dev notes
 
-## focus
+## Current focus
 
 - only nodejs = commonJS
 - only good practices : no internal mocking demonstration
 - no api mock anymore.
 - only for your own dependencies NOW
 
-## Questions to solve
-
-## in progress
-
-- Create a matrix comparison spy stub fake mock
-
-## todo
-
-- Remove tools only for api stub
-- remove read me.
-- Add conclusion
-- Mocking everywhere or just my code
-  - some of your own dependencies
-  - some system dependencies
-
-## Additional content
+## Additional subjects
 
 - Can the dependency be destructured in the module under test? (Todo)
 
