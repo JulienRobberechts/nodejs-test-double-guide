@@ -66,11 +66,19 @@ In automated unit testing, it may be necessary to use objects or procedures that
 
 ### Types of test double
 
-Test doubles is a general term to refer to different type of objects. This list describe 5 of the most used by order of complexity: 
+| Types of test double | intended<br>to be used | can get<br>usage info | implementation<br>replacement | implementation<br>contains checks |
+| :------------------- | :--------------------: | :-------------------: | :---------------------------: | :-------------------------------: |
+| Dummies              |           -            |           -           |               -               |                 -                 |
+| Spy                  |           X            |           X           |               -               |                 -                 |
+| Stub                 |           X            |           X           |            static             |                 -                 |
+| Fakes                |           X            |           X           |            complex            |                 -                 |
+| Mock                 |           X            |           X           |               X               |                 X                 |
+
+Test doubles is a general term to refer to different type of objects. This list describe 5 of the most used by order of complexity:
 
 - Dummies: simple implementation of an interface. It's not intended to be used. It's not really useful in Javascript.
-- spy: (or Test Spy) get information on dependency usage without changing the behavior. (Number of call, arguments)
-- stub: (= Dummy + static implementation) test double with modification of the behavior in order to test your component.
+- Spy: (or Test Spy) get information on dependency usage without changing the behavior. (Number of call, arguments)
+- Stub: (= Dummy + static implementation) test double with modification of the behavior in order to test your component.
 - Fakes: (= stub + simple implementation)
 - Mock: (= stub + internal test) test double which is aware about the test (with some test assertion for example).
 
@@ -78,7 +86,15 @@ Test doubles is a general term to refer to different type of objects. This list 
 
 ### Test double in real life
 
-In javascript, __Dummies__ are not really useful because there is no need to implement any fixed interface. Therefore you'll never have to implement test doubles if it's not intended to be used in your component under test.
+| Types of test double |   in nodeJs real life use   |
+| :------------------- | :-------------------------: |
+| Dummies              |    Nothing, it's useless    |
+| Spy                  |             Spy             |
+| Stub                 |            Stub             |
+| Fakes                |            Stub             |
+| Mock                 | Don't use them, prefer Stub |
+
+__Dummies__ are not really useful In javascript, because there is no need to implement any fixed interface. Therefore you'll never have to implement test doubles if it's not intended to be used in your component under test.
 
 __Spies__ are non invasive test double provided by almost all the testing frameworks. You could technically implement a spy yourself but it's really not worth it.
 
@@ -87,8 +103,6 @@ __Stubs__ are invasive test double provided by almost all the testing frameworks
 __Fakes__ are just smart stubs, their implementation is smarter and fully functional in contrast to a stub which have a very basic implementation (static most of the time). We'll consider Fakes and stub as one category.
 
 __Mocks__ are just stubs with some awareness of your test. Mocks are not the first type of test double to consider. Sinon have special objects for this, on other frameworks you need to use stubs.
-
-
 
 ## 2. Decide what you want to mock
 
@@ -183,21 +197,21 @@ This matrix sum up the purpose of some major javascript test libraries.
 
 To perform your 'test double' tests, you'll need those 4 features: a test runner, an assertion library, a test double creator, Module interceptor. If you just want to create spies, you just need the 3 firsts ones.
 
-| Library / purpose | Test runner | Assertion Lib | Test double creator | Module interceptor |
-| :---------------- | :---------: | :-----------: | :-----------------: | :----------------: |
-| jest              |      X      |       X       |          X          |         X          |
-| jasmine           |      X      |       X       |          X          |         -          |
-| mocha             |      X      |       -       |          -          |         -          |
-| chai              |      -      |       X       |          -          |         -          |
-| should.js         |      -      |       X       |          -          |         -          |
-| expect.js         |      -      |       X       |          -          |         -          |
-| better-assert     |      -      |       X       |          -          |         -          |
-| sinon             |      -      |       -       |          X          |         -          |
-| testdouble        |      -      |       -       |          X          |         X          |
-| proxyquire        |      -      |       -       |          -          |         X          |
-| rewire            |      -      |       -       |          -          |         X          |
-| mock-require      |      -      |       -       |          -          |         X          |
-| rewiremock        |      -      |       -       |          -          |         X          |
+| Library / purpose | Test runner | Assertion Lib | Test double creator | Module<br>interceptor |
+| :---------------- | :---------: | :-----------: | :-----------------: | :-------------------: |
+| jest              |      X      |       X       |          X          |           X           |
+| jasmine           |      X      |       X       |          X          |           -           |
+| mocha             |      X      |       -       |          -          |           -           |
+| chai              |      -      |       X       |          -          |           -           |
+| should.js         |      -      |       X       |          -          |           -           |
+| expect.js         |      -      |       X       |          -          |           -           |
+| better-assert     |      -      |       X       |          -          |           -           |
+| sinon             |      -      |       -       |          X          |           -           |
+| testdouble        |      -      |       -       |          X          |           X           |
+| proxyquire        |      -      |       -       |          -          |           X           |
+| rewire            |      -      |       -       |          -          |           X           |
+| mock-require      |      -      |       -       |          -          |           X           |
+| rewiremock        |      -      |       -       |          -          |           X           |
 
 Some tool are like a swiss army knife for tests (like Jest) doing a lot of different task so you'll find them in multiple categories. There are also some compatibility between tools and platform (ES and CommonJS).
 
@@ -253,16 +267,16 @@ In order to understand all the different combination of libraies and how to use 
 [rewiremock]: ./sinon-with-interception-rewiremock
 [testdouble]: ./testdouble-with-interception
 
-| Stack tested in this project / features            | Test runner | Assertion | Test double | Module interception |
-| :------------------------------------------------- | :---------: | :-------: | :---------: | :-----------------: |
-| 1. [Jasmine][jasmine]                              |      X      |     X     |      X      |          -          |
-| 2. [Jest no interception][jest-no-int]             |      X      |     X     |      X      |          -          |
-| 3. [Mocha + Chai + Sinon][sinon]                   |      X      |     X     |      X      |          -          |
-| 4. [Jest with interception][jest-int]              |      X      |     X     |      X      |          X          |
-| 5. [Mocha + Chai + Sinon + proxyquire][proxyquire] |      X      |     X     |      X      |          X          |
-| 6. [Mocha + Chai + Sinon + rewire][rewire]         |      X      |     X     |      X      |          X          |
-| 7. [Mocha + Chai + Sinon + rewiremock][rewiremock] |      X      |     X     |      X      |          X          |
-| 8. [Mocha + Chai + testdouble][testdouble]         |      X      |     X     |      X      |          X          |
+| Stack tested in this project / features            | Test runner | Assertion | Test double | Module<br>interception |
+| :------------------------------------------------- | :---------: | :-------: | :---------: | :--------------------: |
+| 1. [Jasmine][jasmine]                              |      X      |     X     |      X      |           -            |
+| 2. [Jest no interception][jest-no-int]             |      X      |     X     |      X      |           -            |
+| 3. [Mocha + Chai + Sinon][sinon]                   |      X      |     X     |      X      |           -            |
+| 4. [Jest with interception][jest-int]              |      X      |     X     |      X      |           X            |
+| 5. [Mocha + Chai + Sinon + proxyquire][proxyquire] |      X      |     X     |      X      |           X            |
+| 6. [Mocha + Chai + Sinon + rewire][rewire]         |      X      |     X     |      X      |           X            |
+| 7. [Mocha + Chai + Sinon + rewiremock][rewiremock] |      X      |     X     |      X      |           X            |
+| 8. [Mocha + Chai + testdouble][testdouble]         |      X      |     X     |      X      |           X            |
 
 Each solutions will test the following basic code. The goal is to test the module A which reference the module B. We'll do it with spy and stub with partial or full test double.
 
