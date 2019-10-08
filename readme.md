@@ -1,33 +1,43 @@
-# Choose the best way to test double your nodeJS code
+# Guide to test double your nodeJS code
 
-## Table of content
-
-- [Choose the best way to test double your nodeJS code](#choose-the-best-way-to-test-double-your-nodejs-code)
-  - [Table of content](#table-of-content)
-  - [Are you mocking me?](#are-you-mocking-me)
-  - [introduction](#introduction)
-  - [Scope](#scope)
-  - [0. Vocabulary](#0-vocabulary)
+- [Guide to test double your nodeJS code](#guide-to-test-double-your-nodejs-code)
+  - [1. introduction](#1-introduction)
+    - [Are you mocking me?](#are-you-mocking-me)
+    - [Scope](#scope)
+    - [Vocabulary](#vocabulary)
     - [General definition](#general-definition)
     - [Types of test double](#types-of-test-double)
     - [Test double in real life](#test-double-in-real-life)
-  - [1. How you should organize your production code to make it easy to mock.](#1-how-you-should-organize-your-production-code-to-make-it-easy-to-mock)
-  - [2. What you want to mock](#2-what-you-want-to-mock)
+  - [2. Decide what you want to mock](#2-decide-what-you-want-to-mock)
     - [2.1. Type of component to mock](#21-type-of-component-to-mock)
-    - [2.2. Level of mocking](#22-level-of-mocking)
+    - [2.2. Make your code easy to test](#22-make-your-code-easy-to-test)
+    - [2.3. Level of mocking](#23-level-of-mocking)
       - [Partial test double](#partial-test-double)
       - [Full test double](#full-test-double)
-  - [3. Which mocking tool should I use?](#3-which-mocking-tool-should-i-use)
-  - [4. Integrate the mocking tool in your solution](#4-integrate-the-mocking-tool-in-your-solution)
+  - [3. Choose the right tool](#3-choose-the-right-tool)
+    - [Choose the right type of Javascript test library](#choose-the-right-type-of-javascript-test-library)
+      - [Test runner](#test-runner)
+      - [Assertion Lib](#assertion-lib)
+      - [Test doubles creator](#test-doubles-creator)
+      - [Module interception](#module-interception)
+    - [Deep dive into each libraries](#deep-dive-into-each-libraries)
+      - [Test Doubles implementations across libraries](#test-doubles-implementations-across-libraries)
+      - [Specificities of each libraries](#specificities-of-each-libraries)
+        - [*Module interception* - Is it module interception or not?](#module-interception---is-it-module-interception-or-not)
+        - [*Spy implementation* - Real or fake spy?](#spy-implementation---real-or-fake-spy)
+        - [Stack: Siblings method call](#stack-siblings-method-call)
+        - [Stack: Dependency Path](#stack-dependency-path)
   - [References](#references)
 
-## Are you mocking me?
+## 1. introduction
+
+### Are you mocking me?
 
 == Vocabulary ==
 
 Mock = test double in fact.
 
-## introduction
+
 
 == Crap:
 Mocking your dependencies in order to test it is not so easy. You need to make some choices about:
@@ -38,11 +48,11 @@ Mocking your dependencies in order to test it is not so easy. You need to make s
 4. Integrate the mocking tool in your solution
 
 
-## Scope
+### Scope
 
 My goal in this document is to answer to the most general question we can have when we want to create some tests double in Node.JS and have a code example for each framework.
 
-## 0. Vocabulary
+### Vocabulary
 
 ### General definition
 
@@ -78,7 +88,22 @@ __Fakes__ are just smart stubs, their implementation is smarter and fully functi
 
 __Mocks__ are just stubs with some awareness of your test. Mocks are not the first type of test double to consider. Sinon have special objects for this, on other frameworks you need to use stubs.
 
-## 1. How you should organize your production code to make it easy to mock.
+
+
+## 2. Decide what you want to mock
+
+### 2.1. Type of component to mock
+
+Depending of your component and your test case, you will be interested to mock different type of dependencies:
+
+- some of your own dependencies
+- some system dependencies
+
+=> TO CHECK: Mocking everywhere or just my code !!!!
+
+### 2.2. Make your code easy to test
+
+How you should organize your production code to make it easy to mock.
 
 The basic structure of javascript is the module.
 Your test should stay independent from internal details of the module.
@@ -101,18 +126,7 @@ If to test your component you would need to replace an internal function, you ne
 
 On top of this, intercept an internal function is tricky (To Explain)
 
-## 2. What you want to mock
-
-### 2.1. Type of component to mock
-
-Depending of your component and your test case, you will be interested to mock different type of dependencies:
-
-- some of your own dependencies
-- some system dependencies
-
-=> TO CHECK: Mocking everywhere or just my code !!!!
-
-### 2.2. Level of mocking
+### 2.3. Level of mocking
 
 Test doubles in javascript can be achieved at 2 different levels. Those 2 different level are often named Partial test double and full test double.
 
@@ -165,15 +179,210 @@ It's named __full test double__ because you are not keeping anything of your ori
 
 Spying in a __full test double__ is not possible, because by intercepting the javascript dependent module you are not  importing the original module at all. You have to stub it fully to be able to test your component.
 
-## 3. Which mocking tool should I use?
+## 3. Choose the right tool
 
 There plenty of test libraries in javascript for different purpose. Some are made to be used together some not. See [Javascript test tools types overview](./js-test-tools-overview.md) for more details.
 
 For Mocking purpose we'll be interested by only those types of tools: Test Doubles library and Module interception library.
 
-## 4. Integrate the mocking tool in your solution
 
-This collection of demo try to find the pro and cons of different approaches.
+This matrix sum up the purpose of some major javascript test libraries.
+
+### Choose the right type of Javascript test library
+
+To perform your 'test double' tests, you'll need those 4 features: a test runner, an assertion library, a test double creator, Module interceptor. If you just want to create spies, you just need the 3 firsts ones.
+
+| Library / purpose | Test runner | Assertion Lib | Test double creator | Module interceptor |
+| :---------------- | :---------: | :-----------: | :-----------------: | :----------------: |
+| jest              |      X      |       X       |          X          |         X          |
+| jasmine           |      X      |       X       |          X          |         -          |
+| mocha             |      X      |       -       |          -          |         -          |
+| chai              |      -      |       X       |          -          |         -          |
+| should.js         |      -      |       X       |          -          |         -          |
+| expect.js         |      -      |       X       |          -          |         -          |
+| better-assert     |      -      |       X       |          -          |         -          |
+| sinon             |      -      |       -       |          X          |         -          |
+| testdouble        |      -      |       -       |          X          |         X          |
+| proxyquire        |      -      |       -       |          -          |         X          |
+| rewire            |      -      |       -       |          -          |         X          |
+| mock-require      |      -      |       -       |          -          |         X          |
+| rewiremock        |      -      |       -       |          -          |         X          |
+
+Some tool are like a swiss army knife for tests (like Jest) doing a lot of different task so you'll find them in multiple categories. There are also some compatibility between tools and platform (ES and CommonJS).
+
+Let's define each test purpose...
+
+#### Test runner
+
+The test runner helps to find tests in your code, launch test, generate and display test progress and results.
+The main one are: Jest, Mocha, Jasmine.
+
+#### Assertion Lib
+
+The assertion helps to check the test results.
+It's already included in Jest and Jasmine. If you don't use those library you (and probably mocha as test runner) you can pick _chai_ or should.js, expect.js, better-assert.The most popular stack are Jest or mocha+chai. 
+
+#### Test doubles creator
+
+We are arriving to our main subject: test doubles.
+In this section we are only talking about way to provide spies and stubs.
+
+ Full test doubles are often used with javascript module interception but it's an add-on.
+The main libraries are: Jest, Sinon, Jasmine, Testdouble (the library, not the concept).
+
+#### Module interception
+ (by order of popularity)
+
+Other name for the same concept:
+
+- Dependency mocking
+- overriding dependencies during testing
+- mocking of Node.js modules
+- mock require statements in Node.js
+- 
+
+Tools:
+
+- proxyquire
+- rewire
+- mock-require
+- testdouble
+- rewiremock
+
+### Deep dive into each libraries
+
+In order to understand all the different combination of libraies and how to use them together, I have created the same basic example with 8 different stacks.  
+
+[jasmine]: ./jasmine-no-interception
+[jest-no-int]: ./jest-no-interception
+[sinon]: ./sinon-no-interception
+[jest-int]: ./jest-with-interception
+[proxyquire]: ./sinon-with-interception-proxyquire
+[rewire]: ./sinon-with-interception-rewire
+[rewiremock]: ./sinon-with-interception-rewiremock
+[testdouble]: ./testdouble-with-interception
+
+| Tool                                               | Test runner | Assertion | Test double | Module interception |
+| :------------------------------------------------- | :---------: | :-------: | :---------: | :-----------------: |
+| 1. [Jasmine][jasmine]                              |      X      |     X     |      X      |          -          |
+| 2. [Jest no interception][jest-no-int]             |      X      |     X     |      X      |          -          |
+| 3. [Mocha + Chai + Sinon][sinon]                   |      X      |     X     |      X      |          -          |
+| 4. [Jest with interception][jest-int]              |      X      |     X     |      X      |          X          |
+| 5. [Mocha + Chai + Sinon + proxyquire][proxyquire] |      X      |     X     |      X      |          X          |
+| 6. [Mocha + Chai + Sinon + rewire][rewire]         |      X      |     X     |      X      |          X          |
+| 7. [Mocha + Chai + Sinon + rewiremock][rewiremock] |      X      |     X     |      X      |          X          |
+| 8. [Mocha + Chai + testdouble][testdouble]         |      X      |     X     |      X      |          X          |
+
+Each solutions will test the following basic code. The goal is to test the module A which reference the module B. We'll do it with spy and stub with partial or full test double.
+
+*`ModuleB.js`*
+
+```js
+function DoItB() {
+  return "B";
+}
+
+module.exports = { DoItB };
+```
+
+*`ModuleA.js`*
+
+```js
+var moduleB = require("./moduleB");
+
+function DoItA() {
+  return "A(" + moduleB.DoItB() + ")";
+}
+
+module.exports = { DoItA };
+```
+
+#### Test Doubles implementations across libraries
+
+| Tool                                                   |    spy/fake     |            stub |          mock |
+| ------------------------------------------------------ | :-------------: | --------------: | ------------: |
+| [Sinon](https://www.npmjs.com/package/sinon)           |   sinon.spy()   |    sinon.stub() |  sinon.mock() |
+| [Jest](https://www.npmjs.com/package/jest)             |  jest.spyOn()   |       jest.fn() | no / use stub |
+| [Jasmine](https://www.npmjs.com/package/jasmine)       | jasmine.spyOn() | jasmine.spyOn() | no / use stub |
+| [testdouble](https://www.npmjs.com/package/testdouble) |    td.func()    |       td.func() | no / use stub |
+
+#### Specificities of each libraries
+
+Let's now look at some implementation details about how each libraries (use in each stacks) deal with some specific subjects. 
+
+[jasmine-spy]: ./jasmine-no-interception/test/moduleAspySpec.js#L9
+[jasmine-sib]: ./jasmine-no-interception/test/moduleAspySpec.js#L19
+[jasmine-dep]: ./jasmine-no-interception/test/moduleAspySpec.js#L19
+
+[jest-no-int-spy]: ./jest-no-interception/test/moduleA.spy.spec.js#L7
+[jest-no-int-sib]: ./jest-no-interception/test/moduleA.spy.spec.js#L18
+[jest-no-int-dep]: ./jest-no-interception/test/moduleA.spy.spec.js#L18
+
+[sinon-spy]: ./sinon-no-interception/test/moduleA.spy.spec.js#L9
+[sinon-sib]: ./sinon-no-interception/test/moduleA.spy.spec.js#L9
+[sinon-dep]: ./sinon-no-interception/test/moduleA.spy.spec.js#L19
+
+[jest-int-spy]: ./jest-with-interception/test/moduleA.spy.spec.js#L13
+[jest-int-sib]: ./jest-with-interception/test/moduleA.spy.spec.js#L24
+[jest-int-dep]: ./jest-with-interception/test/moduleA.spy.spec.js#L24
+
+[proxyquire-spy]: ./sinon-with-interception-proxyquire/test/moduleA.spy.spec.js#L8
+[proxyquire-sib]: ./sinon-with-interception-proxyquire/test/moduleA.spy.spec.js#L31
+[proxyquire-dep]: ./sinon-with-interception-proxyquire/test/moduleA.spy.spec.js#L31
+
+[rewire-spy]: ./sinon-with-interception-rewire/test/moduleA.spy.spec.js
+[rewire-sib]: ./sinon-with-interception-rewire/test/moduleA.spy.spec.js
+[rewire-dep]: ./sinon-with-interception-rewire/test/moduleA.spy.spec.js
+
+[rewiremock-spy]: ./sinon-with-interception-rewiremock/test/moduleA.spy.spec.js
+[rewiremock-sib]: ./sinon-with-interception-rewiremock/test/moduleA.spy.spec.js
+[rewiremock-dep]: ./sinon-with-interception-rewiremock/test/moduleA.spy.spec.js
+
+[testdouble-spy]: ./testdouble-with-interception/test/moduleA.spy.spec.js
+[testdouble-sib]: ./testdouble-with-interception/test/moduleA.spy.spec.js
+[testdouble-dep]: ./testdouble-with-interception/test/moduleA.spy.spec.js
+
+| Tool                                 | Module interception |   Spy implementation   |  Siblings method call   |      Dependency Path      |
+| :----------------------------------- | :-----------------: | :--------------------: | :---------------------: | :-----------------------: |
+| 1. Jasmine                           |         NO          |  [FAKE][jasmine-spy]   |    [OK][jasmine-sib]    |   [r/test][jasmine-dep]   |
+| 2. Jest no interception              |         NO          | [OK][jest-no-int-spy]  |  [OK][jest-no-int-sib]  | [r/test][jest-no-int-dep] |
+| 3. Mocha + Chai + Sinon              |         NO          |    [OK][sinon-spy]     |     [OK][sinon-sib]     |    [r/test][sinon-dep]    |
+| 4. Jest with interception            |         YES         |  [FAKE][jest-int-spy]  |  [ERROR][jest-int-sib]  |  [r/test][jest-int-dep]   |
+| 5. Mocha + Chai + Sinon + proxyquire |         YES         | [FAKE][proxyquire-spy] |  [OK][proxyquire-sib]   |  [r/sut][proxyquire-dep]  |
+| 6. Mocha + Chai + Sinon + rewire     |         YES         |   [FAKE][rewire-spy]   |   [ERROR][rewire-sib]   |    [name][rewire-dep]     |
+| 7. Mocha + Chai + Sinon + rewiremock |         YES         | [FAKE][rewiremock-spy] | [ERROR][rewiremock-sib] | [r/test][rewiremock-dep]  |
+| 8. Mocha + Chai + testdouble         |         YES         | [FAKE][testdouble-spy] | [EMPTY][testdouble-sib] | [r/test][testdouble-dep]  |
+
+##### *Module interception* - Is it module interception or not?
+
+You have proper module interception when you don't import the ....
+
+TODO
+
+##### *Spy implementation* - Real or fake spy?
+
+Does this solution implement change the behavior of my dependency?
+
+Spy implementation: real or fake spy
+
+  1. [OK] Real spy the behavior is the same
+  2. [FAKE] Just empty stub: return undefined.
+
+##### Stack: Siblings method call
+
+Siblings method call: Is it possible to call other function in the same module. (definition of Partial/Full) (for spy and stubs)
+
+  1. [OK] possible everything is ok, It's a partial test double.
+  2. [EMPTY] return undefined. It's a wired mix between a partial and a full test double.
+  3. [ERROR] throw an exception the method doesn't exist. It's a full test double. You are sure that any method of your dependency is used.
+
+##### Stack: Dependency Path
+
+Dependency Path in the test (for spy and stubs)
+
+  1. [r/test] Relative to the test. It's the best.
+  2. [r/sut] Relative to the module under test. It's a bad idea!
+  3. [name] The name of the variable in the system under test. It's a bad idea!
 
 ## References
 
@@ -188,3 +397,9 @@ This collection of demo try to find the pro and cons of different approaches.
 by the creator of rewiremock
 
 [Sinon documentation](https://sinonjs.org/how-to/stub-dependency/)
+
+[An Overview of JavaScript Testing in 2019](https://medium.com/welldone-software/an-overview-of-javascript-testing-in-2019-264e19514d0a)
+
+[Jest vs Mocha: Which Should You Choose?](https://blog.usejournal.com/jest-vs-mocha-whats-the-difference-235df75ffdf3)
+
+[Jasmine vs. Mocha, Chai, and Sinon](https://davidtang.io/2015/01/12/jasmine-vs-mocha-chai-and-sinon.html)

@@ -26,14 +26,18 @@ fix test in sinon no interception.
 - change voc on the diagrams: on the dependency, it's not method under test but: 'dependency method'
 - Create a matrix comparison spy stub fake mock
 - Remove tools only for api stub
+- 
+- Mocking everywhere or just my code
+  - some of your own dependencies
+  - some system dependencies
 
 ## Additional content
 
 - Can the dependency be destructured in the module under test? (Todo)
 
   1. Yes
-  1. No, silently fail
-  1. No, error
+  2. No, silently fail
+  3. No, error
 
 - Can the import of the module under test be destrustured in the test code? (Todo)
 
