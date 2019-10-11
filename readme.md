@@ -15,7 +15,7 @@
       - [Test runner](#test-runner)
       - [Assertion Lib](#assertion-lib)
       - [Test doubles creator](#test-doubles-creator)
-      - [Module interception](#module-interception)
+      - [Module interception libraries](#module-interception-libraries)
     - [Deep dive into each libraries](#deep-dive-into-each-libraries)
       - [Test Doubles implementations across libraries](#test-doubles-implementations-across-libraries)
       - [Specificities of each libraries](#specificities-of-each-libraries)
@@ -115,21 +115,19 @@ On top of this, intercept an internal function is tricky (To Explain)
 
 Test doubles in javascript can be achieved at 2 different levels: *Partial test double* and *full test double*.
 
-With **Partial test double** you just replace a small part of your real dependency. For doing so you need a simple library named **'Subbing library'**.
+With **Partial test double** you are just replacing a small part of your real dependency. For doing so you need a simple library named **'Subbing library'**. Sinon is the most well known library to only do Subbing.
 
-With *Full test double* you will replace the a full javascript module with your own version for test, not just a small part. For doing so you need a more complex library named **'module interception library'**.
-
-- Sinon is simply a *stubbing library*. Only for simple cases.
-- module interception library: solutions targeting link seams or explicit dependency injection
-  - For module interception, the type of import is really important. Depending of your project the type of import is really important to choose your mock tool. [see this page](./summary-import-types.md)
-  
-[This very good article and project explain how it's tricky to make partial import in ES6](https://codewithhugo.com/jest-mock-spy-module-import/)
+With **Full test double** you are replacing the a full javascript module with your own version for test, not just a small part. For doing so you need a more complex library named **'module interception library'**.
 
 #### Partial test double (without module interception)
 
 ![test double partial](./out/_schemas/test-double-partial/test-double-partial.svg)
 
-This is the only way to get a real spy and a simple ack to to get a stub (for stubs prefer Full test double).
+This is the only way to get a real **spy**, a spy that have the original behavior of your dependency. Module interception will not be able to give you a real spy.
+
+If you need a stub, you can get one with a simple *Subbing library*
+but it's consider as an **anti-pattern** (for stubs prefer Full test double).
+[Explanation from Justin Searls the creator of testdouble](https://github.com/testdouble/contributing-tests/wiki/Partial-Mock)
 
 Step by step:
 
@@ -137,38 +135,35 @@ Step by step:
 2. Import the component dependency
 3. Replace each method dependency with your method spy or stub.
 
-For this you just need a test doubles library. It's named __partial test double__ because you are keeping the behavior of all your dependency except the part you want to spy or stub. You can also name it 'test double without module interception'.
-
-This is the way to go to spy your dependency. You can also stub it but partial stub is consider as an __anti-pattern__ (REF NEEDED), it's simple but could lead to some problems. (TO COMPLETE)
+For this you just need a test doubles library. It's named __partial test double__ because you are keeping the behavior of all your dependency except the part you want to spy or stub.
 
 #### Full test double (with module interception)
 
 ![test double full](./out/_schemas/test-double-full/test-double-full.svg)
 
-This is the best way to stub your dependency in a clean way.
-To make a full stub you need a javascript module interception library. (SEE Different options HERE...)
+This is the best way to stub your dependency in a clean way. To make a full stub you need a javascript module interception library.
 
 __Step by step__: The way to intercept the module dependency in your component under test will not be the same depending on the library but the only common point is that you SHOULD NOT import the component dependency directly.
 
 See example with:
- [Jest](./jest-with-interception/test/moduleA.stub.spec.js),
- [proxyquire](./sinon-with-interception-proxyquire/test/moduleA.stub.spec.js),
- [rewire](./sinon-with-interception-rewire/test/moduleA.stub.spec.js),
- [rewiremock](./sinon-with-interception-rewiremock/test/moduleA.stub.spec.js),
- [testdouble](./testdouble-with-interception/test/moduleA.stub.spec.js),
+- [Jest](./jest-with-interception/test/moduleA.stub.spec.js)
+- [proxyquire](./sinon-with-interception-proxyquire/test/moduleA.stub.spec.js)
+- [rewire](./sinon-with-interception-rewire/test/moduleA.stub.spec.js)
+- [rewiremock](./sinon-with-interception-rewiremock/test/moduleA.stub.spec.js)
+- [testdouble](./testdouble-with-interception/test/moduleA.stub.spec.js)
 
 It's named __full test double__ because you are not keeping anything of your original dependency behavior.
 
 Spying in a __full test double__ is not possible, because by intercepting the javascript dependent module you are not  importing the original module at all. You have to stub it fully to be able to test your component.
 
+For module interception, you should take care of the type of import (CommonJS, ES6 default import, ES6 named import). CommonJS is the easier to use. Make full stub in ES6 can be tricky.
+See this article for more explanation: [Jest Full and Partial Mock/Spy of CommonJS and ES6 Module Imports](https://codewithhugo.com/jest-mock-spy-module-import/)
+
 ## 3. Choose the right tool
 
 There plenty of test libraries in javascript for different purpose. Some are made to be used together some not. See [Javascript test tools types overview](./js-test-tools-overview.md) for more details.
 
-For Test Doubles purpose we'll be interested by only those types of tools: Test Doubles library and Module interception library.
-
-
-This matrix sum up the purpose of some major javascript test libraries.
+For Test Doubles purpose we'll be interested by only those types of tools: stubbing library and Module interception library.
 
 ### Choose the right type of Javascript test library
 
@@ -190,7 +185,7 @@ To perform your 'test double' tests, you'll need those 4 features: a test runner
 | mock-require      |      -      |       -       |          -          |           X           |
 | rewiremock        |      -      |       -       |          -          |           X           |
 
-Some tool are like a swiss army knife for tests (like Jest) doing a lot of different task so you'll find them in multiple categories. There are also some compatibility between tools and platform (ES and CommonJS).
+Some tool are like a swiss army knife for tests (like Jest) doing a lot of different task so you'll find them in multiple categories. There are also some compatibility issue between tools and platform (ES and CommonJS).
 
 Let's define each test purpose...
 
@@ -212,28 +207,20 @@ In this section we are only talking about way to provide spies and stubs.
  Full test doubles are often used with javascript module interception but it's an add-on.
 The main libraries are: Jest, Sinon, Jasmine, Testdouble (the library, not the concept).
 
-#### Module interception
- (by order of popularity)
+#### Module interception libraries
 
-Other name for the same concept:
+This type of library will help you to replace a module dependency in you javascript. Each one have a very different way to do it.
 
-- Dependency mocking
-- overriding dependencies during testing
-- mocking of Node.js modules
-- mock require statements in Node.js
-- 
+```txt
+Module interception is sometimes named: 'Dependency mocking', 'overriding dependencies during testing', 'mocking of Node.js modules', 'mock require statements in Node.js'
+```
 
 Tools:
-
-- proxyquire
-- rewire
-- mock-require
-- testdouble
-- rewiremock
+The main one are: Proxyquire, Rewire, Mock-require, Testdouble, Rewiremock.
 
 ### Deep dive into each libraries
 
-In order to understand all the different combination of libraies and how to use them together, I have created the same basic example with 8 different stacks.  
+In order to understand all the different combination of libraries and how to use them together, I have created the same basic example with 8 different stacks.  
 
 [jasmine]: ./jasmine-no-interception
 [jest-no-int]: ./jest-no-interception
@@ -397,3 +384,6 @@ by the creator of rewiremock
 [Jest vs Mocha: Which Should You Choose?](https://blog.usejournal.com/jest-vs-mocha-whats-the-difference-235df75ffdf3)
 
 [Jasmine vs. Mocha, Chai, and Sinon](https://davidtang.io/2015/01/12/jasmine-vs-mocha-chai-and-sinon.html)
+
+[Jest Full and Partial Mock/Spy of CommonJS and ES6 Module Imports](https://codewithhugo.com/jest-mock-spy-module-import/)
+
