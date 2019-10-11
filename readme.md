@@ -4,10 +4,10 @@
   - [1. Are you mocking me? An introduction to test double](#1-are-you-mocking-me-an-introduction-to-test-double)
     - [Stop talking about mock](#stop-talking-about-mock)
     - [Types of test double](#types-of-test-double)
-    - [Test double in Node.js real life](#test-double-in-nodejs-real-life)
-  - [2. Decide how you want to test double](#2-decide-how-you-want-to-test-double)
-    - [2.1. Make your code easy to test](#21-make-your-code-easy-to-test)
-    - [2.2. Level of test double](#22-level-of-test-double)
+    - [Test double in real life with Node.js](#test-double-in-real-life-with-nodejs)
+  - [2. Choose your way to test double](#2-choose-your-way-to-test-double)
+    - [Make your code easy to test](#make-your-code-easy-to-test)
+    - [Level of test double](#level-of-test-double)
       - [Partial test double (without module interception)](#partial-test-double-without-module-interception)
       - [Full test double (with module interception)](#full-test-double-with-module-interception)
   - [3. Choose the right tool](#3-choose-the-right-tool)
@@ -64,7 +64,7 @@ Test doubles is a general term to refer to different type of objects. This list 
 
 **Be carful**: Mock as this type of specific type of test double built specifically for your test is in fact consider as an ___anti-pattern___ most of the time. It breaks the AAA (Arrange Act Assert) test structure. You should probably consider other types of test double before.
 
-### Test double in Node.js real life
+### Test double in real life with Node.js
 
 | Types of test double |  in Node.js real life use   |
 | :------------------- | :-------------------------: |
@@ -84,9 +84,9 @@ __Fakes__ are just smart stubs, their implementation is smarter and fully functi
 
 __Mocks__ are just stubs with some awareness of your test. Mocks are not the first type of test double to consider. Sinon have special objects for this, on other frameworks you need to use stubs.
 
-## 2. Decide how you want to test double
+## 2. Choose your way to test double
 
-### 2.1. Make your code easy to test
+### Make your code easy to test
 
 How you should organize your production code to make it easy to test double.
 
@@ -111,23 +111,15 @@ If to test your component you would need to replace an internal function, you ne
 
 On top of this, intercept an internal function is tricky (To Explain)
 
-### 2.2. Level of test double
+### Level of test double
 
-Test doubles in javascript can be achieved at 2 different levels.
+Test doubles in javascript can be achieved at 2 different levels: *Partial test double* and *full test double*.
 
-Those 2 different level are often named *Partial test double* and *full test double*.
+With **Partial test double** you just replace a small part of your real dependency. For doing so you need a simple library named **'Subbing library'**.
 
-*Partial test double* don't need module interception
+With *Full test double* you will replace the a full javascript module with your own version for test, not just a small part. For doing so you need a more complex library named **'module interception library'**.
 
- to test double: with or without module interception.
-
- are often named *Partial test double* and *full test double*.
-
-no-interception vs partial-testdouble
-
-There is 2 types of libraries: stubbing library and module interception library.
-
-- Sinon is simply a stubbing library. Only for simple cases.
+- Sinon is simply a *stubbing library*. Only for simple cases.
 - module interception library: solutions targeting link seams or explicit dependency injection
   - For module interception, the type of import is really important. Depending of your project the type of import is really important to choose your mock tool. [see this page](./summary-import-types.md)
   
