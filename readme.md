@@ -173,7 +173,7 @@ Spying in a __full test double__ is not possible, because by intercepting the ja
 
 There plenty of test libraries in javascript for different purpose. Some are made to be used together some not. See [Javascript test tools types overview](./js-test-tools-overview.md) for more details.
 
-For Mocking purpose we'll be interested by only those types of tools: Test Doubles library and Module interception library.
+For Test Doubles purpose we'll be interested by only those types of tools: Test Doubles library and Module interception library.
 
 
 This matrix sum up the purpose of some major javascript test libraries.

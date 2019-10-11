@@ -3,7 +3,7 @@
 ## Current focus
 
 - only nodejs = commonJS
-- only good practices : no internal mocking demonstration
+- only good practices : no anti patterns
 - no api test double anymore.
 - only for your own dependencies NOW
 
