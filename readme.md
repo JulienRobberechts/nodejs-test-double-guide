@@ -1,5 +1,9 @@
 # A guide to test double your Node.js code
 
+![Fake cover](./resources/Oreily_Are-you-mocking-me.png)
+
+Fake cover generated on [O RLY Cover Generator](https://dev.to/rly)
+
 - [A guide to test double your Node.js code](#a-guide-to-test-double-your-nodejs-code)
   - [TL;DR:](#tldr)
     - [Should I use a spy a stub ? In real life it's the 2 useful types of mocks.](#should-i-use-a-spy-a-stub--in-real-life-its-the-2-useful-types-of-mocks)
