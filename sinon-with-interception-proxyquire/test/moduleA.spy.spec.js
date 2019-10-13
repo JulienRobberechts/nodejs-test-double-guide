@@ -16,7 +16,7 @@ describe("Proxyquire intercepted spies", function() {
       }
     });
   });
-  it("are NOT replacing the behavior of the the target spied function", function() {
+  it("are deleting the behavior of the target spied function", function() {
     const actual = moduleA.DoItA();
 
     expect(DoItBSpy.called).to.be.true;

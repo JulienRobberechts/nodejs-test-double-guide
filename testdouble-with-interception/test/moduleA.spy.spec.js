@@ -16,7 +16,7 @@ describe("testdouble intercepted spies", function() {
     // The correct way is to call require after replacing the dependencies:
     moduleA = require("../lib/moduleA");
   });
-  it("are NOT replacing the behavior of the the target spied function", function() {
+  it("are deleting the behavior of the target spied function", function() {
     const actual = moduleA.DoItA();
 
     // the testdouble framework will even warn you that checking

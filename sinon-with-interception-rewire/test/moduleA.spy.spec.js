@@ -16,7 +16,7 @@ describe("Rewire intercepted spies", function() {
     };
     moduleA.__set__("moduleBVariable", moduleBTestDouble);
   });
-  it("are NOT replacing the behavior of the the target spied function", function() {
+  it("are deleting the behavior of the target spied function", function() {
     const actual = moduleA.DoItA();
 
     expect(DoItBStub.calledOnce).to.be.true;

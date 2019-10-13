@@ -10,7 +10,7 @@ const moduleBMocked = require("../lib/moduleB");
 describe("Jest intercepted spies", () => {
   beforeEach(() => jest.clearAllMocks());
 
-  test("moduleB can't be spied without changing the behaviour Jest without implementation", () => {
+  test("are deleting the behavior of the target spied function", () => {
     const actual = moduleA.DoItA();
 
     expect(moduleBMocked.DoItB).toHaveBeenCalled();

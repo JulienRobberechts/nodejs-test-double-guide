@@ -299,37 +299,37 @@ This present on overview of spy, stub and mock in different libraries:
 
 Let's now look at some implementation details about how each libraries (use in each stacks) deal with some specific requirements.
 
-[jasmine-spy]: ./jasmine-no-interception/test/moduleAspySpec.js#L9
+[jasmine-spy]: ./jasmine-no-interception/test/moduleAspySpec.js#L6
 [jasmine-sib]: ./jasmine-no-interception/test/moduleAspySpec.js#L19
-[jasmine-dep]: ./jasmine-no-interception/test/moduleAspySpec.js#L19
+[jasmine-dep]: ./jasmine-no-interception/test/moduleAspySpec.js#L3
 
-[jest-no-int-spy]: ./jest-no-interception/test/moduleA.spy.spec.js#L7
+[jest-no-int-spy]: ./jest-no-interception/test/moduleA.spy.spec.js#L8
 [jest-no-int-sib]: ./jest-no-interception/test/moduleA.spy.spec.js#L18
-[jest-no-int-dep]: ./jest-no-interception/test/moduleA.spy.spec.js#L18
+[jest-no-int-dep]: ./jest-no-interception/test/moduleA.spy.spec.js#L3
 
 [sinon-spy]: ./sinon-no-interception/test/moduleA.spy.spec.js#L9
 [sinon-sib]: ./sinon-no-interception/test/moduleA.spy.spec.js#L9
-[sinon-dep]: ./sinon-no-interception/test/moduleA.spy.spec.js#L19
+[sinon-dep]: ./sinon-no-interception/test/moduleA.spy.spec.js#L3
 
 [jest-int-spy]: ./jest-with-interception/test/moduleA.spy.spec.js#L13
 [jest-int-sib]: ./jest-with-interception/test/moduleA.spy.spec.js#L24
-[jest-int-dep]: ./jest-with-interception/test/moduleA.spy.spec.js#L24
+[jest-int-dep]: ./jest-with-interception/test/moduleA.spy.spec.js#L3
 
-[proxyquire-spy]: ./sinon-with-interception-proxyquire/test/moduleA.spy.spec.js#L8
+[proxyquire-spy]: ./sinon-with-interception-proxyquire/test/moduleA.spy.spec.js#L14
 [proxyquire-sib]: ./sinon-with-interception-proxyquire/test/moduleA.spy.spec.js#L31
-[proxyquire-dep]: ./sinon-with-interception-proxyquire/test/moduleA.spy.spec.js#L31
+[proxyquire-dep]: ./sinon-with-interception-proxyquire/test/moduleA.spy.spec.js#L14
 
-[rewire-spy]: ./sinon-with-interception-rewire/test/moduleA.spy.spec.js
+[rewire-spy]: ./sinon-with-interception-rewire/test/moduleA.spy.spec.js#L19
 [rewire-sib]: ./sinon-with-interception-rewire/test/moduleA.spy.spec.js
-[rewire-dep]: ./sinon-with-interception-rewire/test/moduleA.spy.spec.js
+[rewire-dep]: ./sinon-with-interception-rewire/test/moduleA.spy.spec.js#L17
 
-[rewiremock-spy]: ./sinon-with-interception-rewiremock/test/moduleA.spy.spec.js
+[rewiremock-spy]: ./sinon-with-interception-rewiremock/test/moduleA.spy.spec.js#L19
 [rewiremock-sib]: ./sinon-with-interception-rewiremock/test/moduleA.spy.spec.js
-[rewiremock-dep]: ./sinon-with-interception-rewiremock/test/moduleA.spy.spec.js
+[rewiremock-dep]: ./sinon-with-interception-rewiremock/test/moduleA.spy.spec.js#L14
 
-[testdouble-spy]: ./testdouble-with-interception/test/moduleA.spy.spec.js
+[testdouble-spy]: ./testdouble-with-interception/test/moduleA.spy.spec.js#L19
 [testdouble-sib]: ./testdouble-with-interception/test/moduleA.spy.spec.js
-[testdouble-dep]: ./testdouble-with-interception/test/moduleA.spy.spec.js
+[testdouble-dep]: ./testdouble-with-interception/test/moduleA.spy.spec.js#L14
 
 [req1]: #what-is-module-interception
 [req2]: #what-is-spy-implementation
@@ -340,9 +340,9 @@ Let's now look at some implementation details about how each libraries (use in e
 | Tool                                 | [Module interception][req1] |     [Spy implementation][req2] |         [Siblings method call][req3] |              [Dependency Path][req4] |
 | :----------------------------------- | --------------------------: | -----------------------------: | -----------------------------------: | -----------------------------------: |
 | 1. Jasmine                           |                          NO | :confused: [FAKE][jasmine-spy] |                  [SAME][jasmine-sib] |                [r/test][jasmine-dep] |
-| 2. :two_hearts: Jest no interception              |                          NO |        [SAME][jest-no-int-spy] |              [SAME][jest-no-int-sib] |            [r/test][jest-no-int-dep] |
+| 2. :two_hearts: Jest no interception |                          NO |        [SAME][jest-no-int-spy] |              [SAME][jest-no-int-sib] |            [r/test][jest-no-int-dep] |
 | 3. Mocha + Chai + Sinon              |                          NO |              [SAME][sinon-spy] |                    [SAME][sinon-sib] |                  [r/test][sinon-dep] |
-| 4. :two_hearts: Jest with interception            |                         YES |           [FAKE][jest-int-spy] |                [ERROR][jest-int-sib] |               [r/test][jest-int-dep] |
+| 4. :two_hearts: Jest with interception |                         YES |           [FAKE][jest-int-spy] |                [ERROR][jest-int-sib] |               [r/test][jest-int-dep] |
 | 5. Mocha + Chai + Sinon + proxyquire |                         YES |         [FAKE][proxyquire-spy] |  :dizzy_face: [SAME][proxyquire-sib] | :thumbsdown: [r/sut][proxyquire-dep] |
 | 6. Mocha + Chai + Sinon + rewire     |                         YES |             [FAKE][rewire-spy] |                  [ERROR][rewire-sib] |   :thumbsdown: [VarName][rewire-dep] |
 | 7. Mocha + Chai + Sinon + rewiremock |                         YES |         [FAKE][rewiremock-spy] |              [ERROR][rewiremock-sib] |             [r/test][rewiremock-dep] |
