@@ -45,7 +45,10 @@ This matrix should help you to make your choice:
 [Specificities of each libraries](#specificities-of-each-libraries)
 
 ``` 
-My prefered libary stay Jest: it's all interated, you can use with or whitout module interception and there is no surprise on the result.
+My prefered libary stay Jest:
+  It's all interated
+  You can use with or whitout module interception
+  And there is no surprise on the result.
 ```
 
 ### Can I have a basic example for each library?
@@ -80,7 +83,10 @@ Mock is sometimes used to refer to all type of **test doubles**, but in fact **m
 Definition of Test doubles (from Wikipedia):
 
 ```
-In automated unit testing, it may be necessary to use objects or procedures that look and behave like their release-intended counterparts, but are actually simplified versions that reduce the complexity and facilitate testing. A test double is a generic (meta) term used for these objects or procedures.
+In automated unit testing, it may be necessary to use objects or procedures that look and behave
+like their release-intended counterparts, but are actually simplified versions that reduce the
+complexity and facilitate testing.
+A test double is a generic (meta) term used for these objects or procedures.
 ```
 
 ### Types of test double in theory
@@ -223,9 +229,7 @@ The main libraries are: Jest, Sinon, Jasmine, Testdouble (the library, not the c
 
 This type of library will help you to replace a module dependency in you javascript. Each one have a very different way to do it.
 
-```txt
-Module interception is sometimes named: 'Dependency mocking', 'overriding dependencies during testing', 'mocking of Node.js modules', 'mock require statements in Node.js'
-```
+Module interception is sometimes named: 'Dependency mocking', 'overriding dependencies during testing', 'mocking of Node.js modules', 'mock require statements in Node.js'.
 
 Tools:
 The main one are: Proxyquire, Rewire, Mock-require, Testdouble, Rewiremock.
@@ -377,7 +381,7 @@ In your test code you'll have to specify the path to the dependency you want to 
 
 ## Conclusion
 
-TODO...
+Read the [TL;DR:](#tldr) for the summary. My personal choice is Jest, easy, versatility and trustworthy.
 
 ## References
 
