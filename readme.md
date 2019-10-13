@@ -1,30 +1,69 @@
-# Guide to test double your Node.js code
+# A guide to test double your Node.js code
 
-- [Guide to test double your Node.js code](#guide-to-test-double-your-nodejs-code)
+- [A guide to test double your Node.js code](#a-guide-to-test-double-your-nodejs-code)
+  - [TL;DR:](#tldr)
+    - [Should I use a spy a stub ? In real life it's the 2 useful types of mocks.](#should-i-use-a-spy-a-stub--in-real-life-its-the-2-useful-types-of-mocks)
+    - [Should I use module interception?](#should-i-use-module-interception)
+    - [Which library should I use?](#which-library-should-i-use)
+    - [Can I have a basic example for each library?](#can-i-have-a-basic-example-for-each-library)
   - [1. Are you mocking me? An introduction to test double](#1-are-you-mocking-me-an-introduction-to-test-double)
     - [Stop talking about mock](#stop-talking-about-mock)
-    - [Types of test double](#types-of-test-double)
+    - [Types of test double in theory](#types-of-test-double-in-theory)
     - [Test double in real life with Node.js](#test-double-in-real-life-with-nodejs)
   - [2. Choose your way to test double](#2-choose-your-way-to-test-double)
-    - [Make your code easy to test](#make-your-code-easy-to-test)
-    - [Level of test double](#level-of-test-double)
-      - [Partial test double (without module interception)](#partial-test-double-without-module-interception)
-      - [Full test double (with module interception)](#full-test-double-with-module-interception)
+    - [Partial test double (without module interception)](#partial-test-double-without-module-interception)
+    - [Full test double (with module interception)](#full-test-double-with-module-interception)
   - [3. Choose the right tool](#3-choose-the-right-tool)
-    - [Choose the right type of Javascript test library](#choose-the-right-type-of-javascript-test-library)
+    - [Overview of Javascript test libraries](#overview-of-javascript-test-libraries)
       - [Test runner](#test-runner)
       - [Assertion Lib](#assertion-lib)
       - [Test doubles creator](#test-doubles-creator)
       - [Module interception libraries](#module-interception-libraries)
     - [Deep dive into each libraries](#deep-dive-into-each-libraries)
+      - [8 samples on how to mock with different libraries](#8-samples-on-how-to-mock-with-different-libraries)
       - [Test Doubles implementations across libraries](#test-doubles-implementations-across-libraries)
       - [Specificities of each libraries](#specificities-of-each-libraries)
-        - [What is '*Module interception*'](#what-is-module-interception)
-        - [What is '*Spy implementation*'](#what-is-spy-implementation)
-        - [What is '*Siblings method call*'](#what-is-siblings-method-call)
-        - [What is '*Dependency Path*'](#what-is-dependency-path)
   - [Conclusion](#conclusion)
   - [References](#references)
+
+---
+## TL;DR:
+
+This guide help you to anwser those questions:
+### Should I use a spy a stub ? In real life it's the 2 useful types of mocks.
+Both are good choices but with different purpose. 
+- Spies to keep the behavior of your dependency
+- stubs to replace it.
+
+### Should I use module interception?
+- For spy you can't use module interception, use a simple stubbing tool.
+- For stubs you should use module interception, it's the best practice.
+  
+### Which library should I use?
+
+This matrix should help you to make your choice:  
+[Specificities of each libraries](#specificities-of-each-libraries)
+
+``` 
+My prefered libary stay Jest: it's all interated, you can use with or whitout module interception and there is no surprise on the result.
+```
+
+### Can I have a basic example for each library?
+  
+Pick the sample code you need:
+
+  - [Jasmine][jasmine]                             
+  - [Jest no interception][jest-no-int]            
+  - [Mocha + Chai + Sinon][sinon]                  
+  - [Jest with interception][jest-int]             
+  - [Mocha + Chai + Sinon + proxyquire][proxyquire]
+  - [Mocha + Chai + Sinon + rewire][rewire]     
+  - [Mocha + Chai + Sinon + rewiremock][rewiremock]
+  - [Mocha + Chai + testdouble][testdouble]
+  
+---
+
+Now if you want more details, let's start...
 
 ## 1. Are you mocking me? An introduction to test double
 
@@ -44,7 +83,7 @@ Definition of Test doubles (from Wikipedia):
 In automated unit testing, it may be necessary to use objects or procedures that look and behave like their release-intended counterparts, but are actually simplified versions that reduce the complexity and facilitate testing. A test double is a generic (meta) term used for these objects or procedures.
 ```
 
-### Types of test double
+### Types of test double in theory
 
 | Types of test double | intended<br>to be used | can get<br>usage info | implementation<br>replacement | implementation<br>contains checks |
 | :------------------- | :--------------------: | :-------------------: | :---------------------------: | :-------------------------------: |
@@ -86,40 +125,13 @@ __Mocks__ are just stubs with some awareness of your test. Mocks are not the fir
 
 ## 2. Choose your way to test double
 
-### Make your code easy to test
-
-How you should organize your production code to make it easy to test double.
-
-The basic structure of javascript is the module.
-Your test should stay independent from internal details of the module.
-
-```
-In order to test your component in isolation, which dependencies do you need to replace?
-```
-
-Once you have identify those dependencies (functions, modules) they'll become the seams of your component. The seams are the places where two parts of the software meet and where something else can be injected/replaced.
-
-In javascript the good ways to expose your seams are as
-
-- 1. Module dependencies (to an other module or a package)
-- 2. Function parameters (including constructor)
-
-Of course, some tools can help you to modify some implementation details like [rewire
-](https://github.com/jhnns/rewire) but using them to create your test is a very bad practice. It breaks the all the encapsulation principle and lead to a lot of problems. So the best practice is to stick to this 3 way of creating seams.
-
-If to test your component you would need to replace an internal function, you need first to refactor your component to expose this function as a seam before thinking of test double anything.
-
-On top of this, intercept an internal function is tricky (To Explain)
-
-### Level of test double
-
 Test doubles in javascript can be achieved at 2 different levels: *Partial test double* and *full test double*.
 
-With **Partial test double** you are just replacing a small part of your real dependency. For doing so you need a simple library named **'Subbing library'**. Sinon is the most well known library to only do Subbing.
+With **Partial test double** you are just replacing a small part of your real dependency. For doing so you need a simple library named **'Subbing library'**. *Sinon* is the most well known library to only do subbing.
 
 With **Full test double** you are replacing the a full javascript module with your own version for test, not just a small part. For doing so you need a more complex library named **'module interception library'**.
 
-#### Partial test double (without module interception)
+### Partial test double (without module interception)
 
 ![test double partial](./out/_schemas/test-double-partial/test-double-partial.svg)
 
@@ -137,7 +149,7 @@ Step by step:
 
 For this you just need a test doubles library. It's named __partial test double__ because you are keeping the behavior of all your dependency except the part you want to spy or stub.
 
-#### Full test double (with module interception)
+### Full test double (with module interception)
 
 ![test double full](./out/_schemas/test-double-full/test-double-full.svg)
 
@@ -165,7 +177,7 @@ There plenty of test libraries in javascript for different purpose. Some are mad
 
 For Test Doubles purpose we'll be interested by only those types of tools: stubbing library and Module interception library.
 
-### Choose the right type of Javascript test library
+### Overview of Javascript test libraries
 
 To perform your 'test double' tests, you'll need those 4 features: a test runner, an assertion library, a test double creator, Module interceptor. If you just want to create spies, you just need the 3 firsts ones.
 
@@ -219,6 +231,8 @@ Tools:
 The main one are: Proxyquire, Rewire, Mock-require, Testdouble, Rewiremock.
 
 ### Deep dive into each libraries
+
+#### 8 samples on how to mock with different libraries
 
 In order to understand all the different combination of libraries and how to use them together, I have created the same basic example with 8 different stacks.  
 
@@ -322,9 +336,9 @@ Let's now look at some implementation details about how each libraries (use in e
 | Tool                                 | [Module interception][req1] |     [Spy implementation][req2] |         [Siblings method call][req3] |              [Dependency Path][req4] |
 | :----------------------------------- | --------------------------: | -----------------------------: | -----------------------------------: | -----------------------------------: |
 | 1. Jasmine                           |                          NO | :confused: [FAKE][jasmine-spy] |                  [SAME][jasmine-sib] |                [r/test][jasmine-dep] |
-| 2. Jest no interception              |                          NO |        [SAME][jest-no-int-spy] |              [SAME][jest-no-int-sib] |            [r/test][jest-no-int-dep] |
+| 2. :two_hearts: Jest no interception              |                          NO |        [SAME][jest-no-int-spy] |              [SAME][jest-no-int-sib] |            [r/test][jest-no-int-dep] |
 | 3. Mocha + Chai + Sinon              |                          NO |              [SAME][sinon-spy] |                    [SAME][sinon-sib] |                  [r/test][sinon-dep] |
-| 4. Jest with interception            |                         YES |           [FAKE][jest-int-spy] |                [ERROR][jest-int-sib] |               [r/test][jest-int-dep] |
+| 4. :two_hearts: Jest with interception            |                         YES |           [FAKE][jest-int-spy] |                [ERROR][jest-int-sib] |               [r/test][jest-int-dep] |
 | 5. Mocha + Chai + Sinon + proxyquire |                         YES |         [FAKE][proxyquire-spy] |  :dizzy_face: [SAME][proxyquire-sib] | :thumbsdown: [r/sut][proxyquire-dep] |
 | 6. Mocha + Chai + Sinon + rewire     |                         YES |             [FAKE][rewire-spy] |                  [ERROR][rewire-sib] |   :thumbsdown: [VarName][rewire-dep] |
 | 7. Mocha + Chai + Sinon + rewiremock |                         YES |         [FAKE][rewiremock-spy] |              [ERROR][rewiremock-sib] |             [r/test][rewiremock-dep] |
@@ -332,15 +346,15 @@ Let's now look at some implementation details about how each libraries (use in e
 
 Let's explain the meaning of each column.
 
-##### What is '*Module interception*'
+__What is '*Module interception*'__
 
 You have proper module interception library when you don't have to import the original dependency in your test. But in fact there is multiple way to do module interception and each library is doing this differently.
 
-##### What is '*Spy implementation*'
+__What is '*Spy implementation*'__
 
 Is the behavior of the original dependency stay the same? If the answer is yes, it's a real spy. If not, it's a fake spy, it's just an empty stub returning undefined. You can't expect any Module interception library to keep the behavior of the original dependency because by nature, Module interception will NEVER use your original dependency at all.
 
-##### What is '*Siblings method call*'
+__What is '*Siblings method call*'__
 
 Once you have stubbed a method in your dependency, The question is to understand if calling a sibling method has the expected behavior. You can expect 3 types of behavior:
 
@@ -353,7 +367,7 @@ Exceptions:
 - *Proxyquire* is supposed to be a module interception library (for full test double) but the sibling method will stay unchanged!
 - *Testdouble* is supposed to be a module interception library (for full test double) but the sibling method will still exists with an undefined behavior!
 
-##### What is '*Dependency Path*'
+__What is '*Dependency Path*'__
 
 In your test code you'll have to specify the path to the dependency you want to test double. You can expect 3 types of behavior:
 
