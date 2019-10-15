@@ -1,6 +1,6 @@
 
 @startuml
-skinparam backgroundColor White
+skinparam backgroundColor WhiteSmoke
 
 title
   Partial test double
