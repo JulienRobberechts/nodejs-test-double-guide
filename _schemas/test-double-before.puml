@@ -1,0 +1,30 @@
+
+@startuml
+skinparam backgroundColor #EEEBDC
+
+title
+  Unit test WITHOUT test double
+end title
+
+skinparam rectangle {
+    roundCorner 20
+}
+
+rectangle "Unit test" as UnitTest #gray
+
+rectangle "Component\nunder test" as cut #LightCoral
+
+rectangle "Real dependency" as RealDependency #LightCoral {
+  component "dependent method" as RealDependencyMut #LightCoral
+}
+
+UnitTest -> cut: test
+cut -> RealDependencyMut: using
+
+legend left
+|colors|
+|<#LightCoral> production code in pink |
+|<#gray> test code in gray |
+endlegend
+
+@enduml

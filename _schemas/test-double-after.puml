@@ -1,0 +1,30 @@
+
+@startuml
+skinparam backgroundColor #EEEBDC
+
+title
+  Unit test WITH test double
+end title
+
+skinparam rectangle {
+    roundCorner 20
+}
+
+rectangle "Unit test" as UnitTest #gray
+
+rectangle "Component\nunder test" as cut #LightCoral
+
+rectangle "Test double" as TestDoubleDependency #gray {
+  component "dependent method" as TestDoubleDependencyMethod #gray
+}
+
+UnitTest -> cut: test
+cut -> TestDoubleDependencyMethod: using
+
+legend left
+|colors|
+|<#LightCoral> production code in pink |
+|<#gray> test code in gray |
+endlegend
+
+@enduml

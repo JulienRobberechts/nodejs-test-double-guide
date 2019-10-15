@@ -1,14 +1,11 @@
 # A guide to test double your Node.js code
 
-![Fake cover](./resources/Oreily_Are-you-mocking-me.png)
-
-(Fake cover generated on [O RLY Cover Generator](https://dev.to/rly))
-
 **Table of content**
 
 - [A guide to test double your Node.js code](#a-guide-to-test-double-your-nodejs-code)
   - [TL;DR:](#tldr)
   - [1. Are you mocking me? An introduction to test double](#1-are-you-mocking-me-an-introduction-to-test-double)
+    - [What is a test double?](#what-is-a-test-double)
     - [Stop talking about mock](#stop-talking-about-mock)
     - [Types of test double in theory](#types-of-test-double-in-theory)
     - [Test double in real life with Node.js](#test-double-in-real-life-with-nodejs)
@@ -27,6 +24,10 @@
       - [Specificities of each libraries](#specificities-of-each-libraries)
   - [Conclusion](#conclusion)
   - [References](#references)
+
+![Fake cover](./resources/Oreily_Are-you-mocking-me.png)
+
+(Fake cover generated on [O RLY Cover Generator](https://dev.to/rly))
 
 ---
 
@@ -81,22 +82,27 @@ Now if you want more details, let's start...
 
 My goal in this guide is to go from theory to practice about tests double in Node.JS. I'll try to cover those questions:
 
-- How you should organize your production code to make it easy to test double.
-- Choose the best way to test double your code.
-- Choose the right library to do it.
+- Should I use a spy or a stub?
+- What is module interception?
+- Which javascript library should I use?
 
-### Stop talking about mock
+### What is a test double?
 
-Mock is sometimes used to refer to all type of **test doubles**, but in fact **mock** is just one type of test doubles. It's why I'll try to use '_test double_' and not '_mock_' in this guide (as a noun and as a verb).
+Let's go back to the basics...
 
-Definition of Test doubles (from Wikipedia):
-
-```
+_Definition of Test doubles (from Wikipedia)_:
 In automated unit testing, it may be necessary to use objects or procedures that look and behave
 like their release-intended counterparts, but are actually simplified versions that reduce the
 complexity and facilitate testing.
 A test double is a generic (meta) term used for these objects or procedures.
-```
+
+![test-double-before](out/_schemas/test-double-before/test-double-before.svg)
+
+![test-double-after](out/_schemas/test-double-after/test-double-after.svg)
+
+### Stop talking about mock
+
+Mock is sometimes used to refer to all type of **test doubles**, but in fact **mock** is just one type of test doubles. It's why I'll try to use '_test double_' and not '_mock_' in this guide (as a noun and as a verb).
 
 ### Types of test double in theory
 
@@ -110,13 +116,13 @@ A test double is a generic (meta) term used for these objects or procedures.
 
 Test doubles is a general term to refer to different type of objects. This list describe 5 of the most used by order of complexity:
 
-- Dummies: simple implementation of an interface. It's not intended to be used. It's not really useful in Javascript.
+- Dummies: simple implementation of an interface. It's not intended to be used by your system under test.
 - Spy: (or Test Spy) get information on dependency usage without changing the behavior. (Number of call, arguments)
 - Stub: (= Dummy + static implementation) test double with modification of the behavior in order to test your component.
-- Fakes: (= stub + simple implementation)
+- Fakes: (= stub + implementation) A stub that implement some business logic. e.g. A simulator is a kind of complex fake.
 - Mock: (= stub + internal test) test double which is aware about the test (with some test assertion for example).
 
-**Be carful**: Mock as this type of specific type of test double built specifically for your test is in fact consider as an **_anti-pattern_** most of the time. It breaks the AAA (Arrange Act Assert) test structure. You should probably consider other types of test double before.
+**Be carful**: Mock as this type of specific type of test double built specifically for your test is in fact consider as an **_anti-pattern_** most of the time. It breaks the AAA (Arrange Act Assert) test structure. You should probably consider to replace it with a stub or a fake.
 
 ### Test double in real life with Node.js
 
