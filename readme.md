@@ -14,14 +14,9 @@
     - [Full test double (with module interception)](#full-test-double-with-module-interception)
   - [3. Choose the right tool](#3-choose-the-right-tool)
     - [Overview of Javascript test libraries](#overview-of-javascript-test-libraries)
-      - [Test runner](#test-runner)
-      - [Assertion Lib](#assertion-lib)
-      - [Test doubles creator](#test-doubles-creator)
-      - [Module interception libraries](#module-interception-libraries)
-    - [Deep dive into each libraries](#deep-dive-into-each-libraries)
-      - [8 samples on how to mock with different libraries](#8-samples-on-how-to-mock-with-different-libraries)
-      - [Test Doubles implementations across libraries](#test-doubles-implementations-across-libraries)
-      - [Specificities of each libraries](#specificities-of-each-libraries)
+    - [8 samples on how to mock with different libraries](#8-samples-on-how-to-mock-with-different-libraries)
+    - [Test Doubles implementations across libraries](#test-doubles-implementations-across-libraries)
+    - [Specificities of each libraries](#specificities-of-each-libraries)
   - [Conclusion](#conclusion)
   - [References](#references)
 
@@ -162,7 +157,7 @@ If you need a stub, you can get one with a simple _Subbing library_
 but it's consider as an **anti-pattern** (for stubs prefer Full test double).
 [Explanation from Justin Searls the creator of testdouble](https://github.com/testdouble/contributing-tests/wiki/Partial-Mock)
 
-Step by step:
+**Step by step**:
 
 1. Import your component under test (of course)
 2. Import the component dependency
@@ -188,20 +183,18 @@ See example with:
 
 It's named **full test double** because you are not keeping anything of your original dependency behavior.
 
-Spying in a **full test double** is not possible, because by intercepting the javascript dependent module you are not importing the original module at all. You have to stub it fully to be able to test your component.
+Spying in a **full test double** is not possible, because by intercepting the javascript dependent module you are not importing the original module at all. You have to stub each method of your dependency used by your system under test. If you forget to stub one, the module interception library should throw an exception. ([It's not the case for all libraries](#specificities-of-each-libraries))
 
-For module interception, you should take care of the type of import (CommonJS, ES6 default import, ES6 named import). CommonJS is the easier to use. Make full stub in ES6 can be tricky.
+For module interception, you should take care of the type of import (CommonJS, ES6 default import, ES6 named import). CommonJS is the easier to use than ES6 Modules. Make full stub in ES6 can be tricky.
 See this article for more explanation: [Jest Full and Partial Mock/Spy of CommonJS and ES6 Module Imports](https://codewithhugo.com/jest-mock-spy-module-import/)
 
 ## 3. Choose the right tool
 
-There plenty of test libraries in javascript for different purpose. Some are made to be used together some not. See [Javascript test tools types overview](./js-test-tools-overview.md) for more details.
-
-For Test Doubles purpose we'll be interested by only those types of tools: stubbing library and Module interception library.
+There plenty of test libraries in javascript for different purpose. Some are made to be used together some not. For Test Doubles purpose we'll be interested by only those types of tools: stubbing library and Module interception library.
 
 ### Overview of Javascript test libraries
 
-To perform your 'test double' tests, you'll need those 4 features: a test runner, an assertion library, a test double creator, Module interceptor. If you just want to create spies, you just need the 3 firsts ones.
+To perform your 'test double' tests, you'll need those 4 features: a test runner, an assertion library, a test double creator, Module interceptor. If you just want to create spies, you just need the 3 firsts ones. If you want to create a stub, you need all.
 
 | Library / purpose | Test runner | Assertion Lib | Test double creator | Module<br>interceptor |
 | :---------------- | :---------: | :-----------: | :-----------------: | :-------------------: |
@@ -221,38 +214,24 @@ To perform your 'test double' tests, you'll need those 4 features: a test runner
 
 Some tool are like a swiss army knife for tests (like Jest) doing a lot of different task so you'll find them in multiple categories. There are also some compatibility issue between tools and platform (ES and CommonJS).
 
-Let's define each test purpose...
+Let's define each feature...
 
-#### Test runner
-
-The test runner helps to find tests in your code, launch test, generate and display test progress and results.
+**Test runner**: The test runner helps to find tests in your code, launch test, generate and display test progress and results.
 The main one are: Jest, Mocha, Jasmine.
 
-#### Assertion Lib
-
-The assertion helps to check the test results.
+**Assertion Lib**: The assertion helps to check the test results.
 It's already included in Jest and Jasmine. If you don't use those library you (and probably mocha as test runner) you can pick _chai_ or should.js, expect.js, better-assert.The most popular stack are Jest or mocha+chai.
 
-#### Test doubles creator
-
-We are arriving to our main subject: test doubles.
+**Test doubles creator**: We are arriving to our main subject: test doubles.
 In this section we are only talking about way to provide spies and stubs.
-
 Full test doubles are often used with javascript module interception but it's an add-on.
 The main libraries are: Jest, Sinon, Jasmine, Testdouble (the library, not the concept).
 
-#### Module interception libraries
+**Module interception libraries**: This type of library will help you to replace a module dependency in you javascript. Each one have a very different way to do it. Module interception is sometimes named: 'Dependency mocking', 'overriding dependencies during testing', 'mocking of Node.js modules', 'mock require statements in Node.js'.
 
-This type of library will help you to replace a module dependency in you javascript. Each one have a very different way to do it.
+Tools: The main one are: Proxyquire, Rewire, Mock-require, Testdouble, Rewiremock.
 
-Module interception is sometimes named: 'Dependency mocking', 'overriding dependencies during testing', 'mocking of Node.js modules', 'mock require statements in Node.js'.
-
-Tools:
-The main one are: Proxyquire, Rewire, Mock-require, Testdouble, Rewiremock.
-
-### Deep dive into each libraries
-
-#### 8 samples on how to mock with different libraries
+### 8 samples on how to mock with different libraries
 
 In order to understand all the different combination of libraries and how to use them together, I have created the same basic example with 8 different stacks.
 
@@ -276,9 +255,9 @@ In order to understand all the different combination of libraries and how to use
 | 7. [Mocha + Chai + Sinon + rewiremock][rewiremock] |      X      |     X     |      X      |           X            |
 | 8. [Mocha + Chai + testdouble][testdouble]         |      X      |     X     |      X      |           X            |
 
-Each solutions will test the following basic code. The goal is to test the module A which reference the module B. We'll do it with spy and stub with partial or full test double.
+Each solutions will test the following basic code. The goal is to test the module A (The system under test) which reference the module B (the dependency to test double). We'll do it with spy and stub with partial or full test double.
 
-_`ModuleB.js`_
+_`ModuleB.js`_ = the dependency to test double
 
 ```js
 function DoItB() {
@@ -288,7 +267,7 @@ function DoItB() {
 module.exports = { DoItB };
 ```
 
-_`ModuleA.js`_
+_`ModuleA.js`_ = system under test
 
 ```js
 var moduleB = require("./moduleB");
@@ -300,9 +279,9 @@ function DoItA() {
 module.exports = { DoItA };
 ```
 
-#### Test Doubles implementations across libraries
+### Test Doubles implementations across libraries
 
-This present on overview of spy, stub and mock in different libraries:
+Basic syntax of spy, stub and mock in different libraries:
 
 | Tool                                                   |             spy |            stub |          mock |
 | :----------------------------------------------------- | --------------: | --------------: | ------------: |
@@ -311,7 +290,7 @@ This present on overview of spy, stub and mock in different libraries:
 | [Jasmine](https://www.npmjs.com/package/jasmine)       | jasmine.spyOn() | jasmine.spyOn() | no / use stub |
 | [testdouble](https://www.npmjs.com/package/testdouble) |       td.func() |       td.func() | no / use stub |
 
-#### Specificities of each libraries
+### Specificities of each libraries
 
 Let's now look at some implementation details about how each libraries (use in each stacks) deal with some specific requirements.
 
@@ -357,15 +336,15 @@ Let's now look at some implementation details about how each libraries (use in e
 
 Let's explain the meaning of each column.
 
-**What is '_Module interception_'**
+**Column '_Module interception_'**
 
 You have proper module interception library when you don't have to import the original dependency in your test. But in fact there is multiple way to do module interception and each library is doing this differently.
 
-**What is '_Spy implementation_'**
+**Column '_Spy implementation_'**
 
 Is the behavior of the original dependency stay the same? If the answer is yes, it's a real spy. If not, it's a fake spy, it's just an empty stub returning undefined. You can't expect any Module interception library to keep the behavior of the original dependency because by nature, Module interception will NEVER use your original dependency at all.
 
-**What is '_Siblings method call_'**
+**Column '_Siblings method call_'**
 
 Once you have stubbed a method in your dependency, The question is to understand if calling a sibling method has the expected behavior. You can expect 3 types of behavior:
 
@@ -378,7 +357,7 @@ Exceptions:
 - _Proxyquire_ is supposed to be a module interception library (for full test double) but the sibling method will stay unchanged!
 - _Testdouble_ is supposed to be a module interception library (for full test double) but the sibling method will still exists with an undefined behavior!
 
-**What is '_Dependency Path_'**
+**Column '_Dependency Path_'**
 
 In your test code you'll have to specify the path to the dependency you want to test double. You can expect 3 types of behavior:
 
