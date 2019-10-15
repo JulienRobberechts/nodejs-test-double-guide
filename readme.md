@@ -22,7 +22,7 @@
 
 ![Fake cover](./resources/Oreily_Are-you-mocking-me.png)
 
-(Fake cover generated on [O RLY Cover Generator](https://dev.to/rly))
+(Just a fake cover generated on [O RLY Cover Generator](https://dev.to/rly), don't search the book on amazon)
 
 ---
 
