@@ -1,6 +1,6 @@
 
 @startuml
-skinparam backgroundColor #EEEBDC
+skinparam backgroundColor White
 
 title
   Partial test double
@@ -10,13 +10,13 @@ skinparam rectangle {
     roundCorner 20
 }
 
-rectangle "Unit test" as UnitTest #gray
+rectangle "Unit test" as UnitTest #DarkGrey
 
-rectangle "Component\nunder test" as cut #LightCoral
+rectangle "Component\nunder test" as cut #MediumAquaMarine
 
-rectangle "Real dependency" as RealDependency #LightCoral {
-  component "dependent method" as RealDependencyMut #gray
-  component "other method" as RealDependencyOtherMethod #LightCoral
+rectangle "Real dependency" as RealDependency #MediumAquaMarine {
+  component "dependent method" as RealDependencyMut #DarkGrey
+  component "other method" as RealDependencyOtherMethod #MediumAquaMarine
 }
 
 cut -> RealDependency: import
@@ -26,8 +26,8 @@ UnitTest -> RealDependencyMut: 3. change
 
 legend left
 |colors|
-|<#LightCoral> production code in pink |
-|<#gray> test code in gray |
+|<#MediumAquaMarine> production code in green |
+|<#DarkGrey> test code in gray |
 endlegend
 
 @enduml

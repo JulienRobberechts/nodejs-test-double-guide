@@ -1,6 +1,6 @@
 
 @startuml
-skinparam backgroundColor #EEEBDC
+skinparam backgroundColor White
 
 title
   Unit test WITH test double
@@ -10,12 +10,12 @@ skinparam rectangle {
     roundCorner 20
 }
 
-rectangle "Unit test" as UnitTest #gray
+rectangle "Unit test" as UnitTest #DarkGrey
 
-rectangle "Component\nunder test" as cut #LightCoral
+rectangle "Component\nunder test" as cut #MediumAquaMarine
 
-rectangle "Test double" as TestDoubleDependency #gray {
-  component "dependent method" as TestDoubleDependencyMethod #gray
+rectangle "Test double" as TestDoubleDependency #DarkGrey {
+  component "dependent method" as TestDoubleDependencyMethod #DarkGrey
 }
 
 UnitTest -> cut: test
@@ -23,8 +23,8 @@ cut -> TestDoubleDependencyMethod: using
 
 legend left
 |colors|
-|<#LightCoral> production code in pink |
-|<#gray> test code in gray |
+|<#MediumAquaMarine> production code in green |
+|<#DarkGrey> test code in gray |
 endlegend
 
 @enduml

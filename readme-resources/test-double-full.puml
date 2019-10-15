@@ -1,6 +1,6 @@
 
 @startuml
-skinparam backgroundColor #EEEBDC
+skinparam backgroundColor White
 
 title
   Full test double
@@ -10,19 +10,19 @@ skinparam rectangle {
     roundCorner 20
 }
 
-rectangle "Unit test" as UnitTest #gray
+rectangle "Unit test" as UnitTest #DarkGrey
 
-rectangle "Interception\nlibrary proxy" as InterceptionLib #gray
+rectangle "Interception\nlibrary proxy" as InterceptionLib #DarkGrey
 
-rectangle "Component\nunder test" as cut #LightCoral
+rectangle "Component\nunder test" as cut #MediumAquaMarine
 
-rectangle "Test double dependency" as TestDoubleDependency #gray {
-  component "dependent method" as TestDoubleDependencyMethod #gray
+rectangle "Test double dependency" as TestDoubleDependency #DarkGrey {
+  component "dependent method" as TestDoubleDependencyMethod #DarkGrey
 }
 
-rectangle "<strike>Real dependency" as RealDependency #LightCoral {
-  component "<strike>other method" as RealDependencyOtherMethod #LightCoral
-  component "<strike>dependent method" as RealDependencyMut #LightCoral
+rectangle "<strike>Real dependency" as RealDependency #MediumAquaMarine {
+  component "<strike>other method" as RealDependencyOtherMethod #MediumAquaMarine
+  component "<strike>dependent method" as RealDependencyMut #MediumAquaMarine
 }
 
 UnitTest -> InterceptionLib: use
@@ -31,8 +31,8 @@ cut -> TestDoubleDependency: with\ntest double\nimport
 
 legend left
 |colors|
-|<#LightCoral> production code in pink |
-|<#gray> test code in gray |
+|<#MediumAquaMarine> production code in green |
+|<#DarkGrey> test code in gray |
 endlegend
 
 @enduml
