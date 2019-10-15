@@ -20,7 +20,7 @@
   - [Conclusion](#conclusion)
   - [References](#references)
 
-![Fake cover](./resources/Oreily_Are-you-mocking-me.png)
+![Fake cover](readme-resources/Oreily_Are-you-mocking-me.png)
 
 (Just a fake cover generated on [O RLY Cover Generator](https://dev.to/rly), don't search the book on amazon)
 
@@ -91,9 +91,9 @@ like their release-intended counterparts, but are actually simplified versions t
 complexity and facilitate testing.
 A test double is a generic (meta) term used for these objects or procedures.
 
-![test-double-before](out/_schemas/test-double-before/test-double-before.svg)
+![test-double-before](readme-resources/test-double-before.svg)
 
-![test-double-after](out/_schemas/test-double-after/test-double-after.svg)
+![test-double-after](readme-resources/test-double-after.svg)
 
 ### Stop talking about mock
 
@@ -149,7 +149,7 @@ With **Full test double** you are replacing the a full javascript module with yo
 
 ### Partial test double (without module interception)
 
-![test double partial](./out/_schemas/test-double-partial/test-double-partial.svg)
+![test double partial](readme-resources/test-double-partial.svg)
 
 This is the only way to get a real **spy**, a spy that have the original behavior of your dependency. Module interception will not be able to give you a real spy.
 
@@ -167,7 +167,7 @@ For this you just need a test doubles library. It's named **partial test double*
 
 ### Full test double (with module interception)
 
-![test double full](./out/_schemas/test-double-full/test-double-full.svg)
+![test double full](readme-resources/test-double-full.svg)
 
 This is the best way to stub your dependency in a clean way. To make a full stub you need a javascript module interception library.
 
