@@ -196,21 +196,21 @@ There are plenty of test libraries in javascript for different purposes. Some ar
 
 To perform your 'test double' tests, you'll need these 4 features: a test runner, an assertion library, a test double creator and a module interceptor. If you just want to create spies, you just need the 3 firsts ones. If you want to create a stub, you need all.
 
-| Library / purpose | Test runner | Assertion Lib | Test double creator | Module<br>interceptor |
-| :---------------- | :---------: | :-----------: | :-----------------: | :-------------------: |
-| jest              |      X      |       X       |          X          |           X           |
-| jasmine           |      X      |       X       |          X          |           -           |
-| mocha             |      X      |       -       |          -          |           -           |
-| chai              |      -      |       X       |          -          |           -           |
-| should.js         |      -      |       X       |          -          |           -           |
-| expect.js         |      -      |       X       |          -          |           -           |
-| better-assert     |      -      |       X       |          -          |           -           |
-| sinon             |      -      |       -       |          X          |           -           |
-| testdouble        |      -      |       -       |          X          |           X           |
-| proxyquire        |      -      |       -       |          -          |           X           |
-| rewire            |      -      |       -       |          -          |           X           |
-| mock-require      |      -      |       -       |          -          |           X           |
-| rewiremock        |      -      |       -       |          -          |           X           |
+| Library / purpose |    Test runner     |   Assertion Lib    | Test double creator | Module<br>interceptor |
+| :---------------- | :----------------: | :----------------: | :-----------------: | :-------------------: |
+| jest              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  |  :heavy_check_mark:   |
+| jasmine           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  |           -           |
+| mocha             | :heavy_check_mark: |         -          |          -          |           -           |
+| chai              |         -          | :heavy_check_mark: |          -          |           -           |
+| should.js         |         -          | :heavy_check_mark: |          -          |           -           |
+| expect.js         |         -          | :heavy_check_mark: |          -          |           -           |
+| better-assert     |         -          | :heavy_check_mark: |          -          |           -           |
+| sinon             |         -          |         -          | :heavy_check_mark:  |           -           |
+| testdouble        |         -          |         -          | :heavy_check_mark:  |  :heavy_check_mark:   |
+| proxyquire        |         -          |         -          |          -          |  :heavy_check_mark:   |
+| rewire            |         -          |         -          |          -          |  :heavy_check_mark:   |
+| mock-require      |         -          |         -          |          -          |  :heavy_check_mark:   |
+| rewiremock        |         -          |         -          |          -          |  :heavy_check_mark:   |
 
 Some tools are like a swiss army knife for tests (like Jest) doing a lot of different tasks so you'll find them in multiple categories. There are also some compatibility issues between tools and platform (ES and CommonJS).
 
@@ -225,7 +225,7 @@ It's already included in Jest and Jasmine. If you don't use these libraries, you
 **Test doubles creator**: We are arriving at our main subject: test doubles.
 In this section we are only talking about the way to provide spies and stubs.
 Full test doubles are often used with javascript module interception but it's an add-on.
-The main libraries are: Jest, Sinon, Jasmine, Testdouble (the library, not the concept).
+The mains libraries are: Jest, Sinon, Jasmine, Testdouble (the library, not the concept).
 
 **Module interception libraries**: This type of library will help you to replace a module dependency in your javascript. Each one has a very different way of doing it. Module interception is sometimes named: 'Dependency mocking', 'overriding dependencies during testing', 'mocking of Node.js modules', 'mock require statements in Node.js'.
 
@@ -244,16 +244,16 @@ In order to understand all the different combination of libraries and how to use
 [rewiremock]: ./sinon-with-interception-rewiremock
 [testdouble]: ./testdouble-with-interception
 
-| Stack tested in this project / features            | Test runner | Assertion | Test double | Module<br>interception |
-| :------------------------------------------------- | :---------: | :-------: | :---------: | :--------------------: |
-| 1. [Jasmine][jasmine]                              |      X      |     X     |      X      |           -            |
-| 2. [Jest no interception][jest-no-int]             |      X      |     X     |      X      |           -            |
-| 3. [Mocha + Chai + Sinon][sinon]                   |      X      |     X     |      X      |           -            |
-| 4. [Jest with interception][jest-int]              |      X      |     X     |      X      |           X            |
-| 5. [Mocha + Chai + Sinon + proxyquire][proxyquire] |      X      |     X     |      X      |           X            |
-| 6. [Mocha + Chai + Sinon + rewire][rewire]         |      X      |     X     |      X      |           X            |
-| 7. [Mocha + Chai + Sinon + rewiremock][rewiremock] |      X      |     X     |      X      |           X            |
-| 8. [Mocha + Chai + testdouble][testdouble]         |      X      |     X     |      X      |           X            |
+| Stack tested in this project / features            |    Test runner     |     Assertion      |    Test double     | Module<br>interception |
+| :------------------------------------------------- | :----------------: | :----------------: | :----------------: | :--------------------: |
+| 1. [Jasmine][jasmine]                              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |           -            |
+| 2. [Jest no interception][jest-no-int]             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |           -            |
+| 3. [Mocha + Chai + Sinon][sinon]                   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |           -            |
+| 4. [Jest with interception][jest-int]              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |   :heavy_check_mark:   |
+| 5. [Mocha + Chai + Sinon + proxyquire][proxyquire] | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |   :heavy_check_mark:   |
+| 6. [Mocha + Chai + Sinon + rewire][rewire]         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |   :heavy_check_mark:   |
+| 7. [Mocha + Chai + Sinon + rewiremock][rewiremock] | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |   :heavy_check_mark:   |
+| 8. [Mocha + Chai + testdouble][testdouble]         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |   :heavy_check_mark:   |
 
 Each solution will test the following basic code. The goal is to test the module A (The system under test) which reference the module B (the dependency to test double). We'll do it with spy and stub with partial or full test double.
 
