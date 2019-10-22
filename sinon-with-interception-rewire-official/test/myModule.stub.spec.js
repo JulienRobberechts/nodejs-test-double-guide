@@ -22,7 +22,7 @@ describe("fs.readFile intercepted by rewire and stub manually", function() {
       expect(data).to.be.equal(expected);
     });
   });
-  afterEach(function() {
-    sinon.reset();
+  after(function() {
+    sinon.restore();
   });
 });

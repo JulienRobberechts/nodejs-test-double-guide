@@ -36,4 +36,7 @@ describe("rewiremock intercepted stubs", function() {
   afterEach(function() {
     sinon.reset();
   });
+  after(function() {
+    sinon.restore();
+  });
 });

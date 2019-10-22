@@ -40,4 +40,7 @@ describe("Rewire intercepted stubs", function() {
   afterEach(function() {
     sinon.reset();
   });
+  after(function() {
+    sinon.restore();
+  });
 });

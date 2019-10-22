@@ -34,4 +34,7 @@ describe("rewiremock intercepted spies", function() {
   afterEach(function() {
     sinon.reset();
   });
+  after(function() {
+    sinon.restore();
+  });
 });
