@@ -334,6 +334,8 @@ Let's now look at some implementation details about how each library deals with 
 | 7. Mocha + Chai + Sinon + rewiremock   |                         YES |         [FAKE][rewiremock-spy] |              [ERROR][rewiremock-sib] |             [r/test][rewiremock-dep] |
 | 8. Mocha + Chai + testdouble           |                         YES |         [FAKE][testdouble-spy] | :dizzy_face: [EMPTY][testdouble-sib] |             [r/test][testdouble-dep] |
 
+Tested versions: mocha=6.2.2, chai=4.2.0, sinon=7.5.0, jasmine=3.5.0, jest=24.9.0, proxyquire=2.1.3, rewire=4.0.1, rewiremock=3.13.9, testdouble=3.12.4.
+
 Let's explain the meaning of each column.
 
 **Column '_Module interception_'**
