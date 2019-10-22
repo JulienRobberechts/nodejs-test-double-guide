@@ -25,8 +25,8 @@ describe("Sinon partial spies", () => {
     const expected = "A(B2)";
     expect(actual).to.be.equal(expected);
   });
-
   afterEach(function() {
-    sinon.reset();
+    // Restore the default sandbox
+    sinon.restore();
   });
 });

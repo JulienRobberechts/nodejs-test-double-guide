@@ -26,6 +26,7 @@ describe("Sinon partial stub", () => {
     expect(actual).to.be.equal(expected);
   });
   afterEach(function() {
-    sinon.reset();
+    // Restore the default sandbox
+    sinon.restore();
   });
 });
