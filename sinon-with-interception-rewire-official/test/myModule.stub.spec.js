@@ -1,5 +1,6 @@
 // test/myModule.test.js
 var rewire = require("rewire");
+var sinon = require("sinon");
 var chai = require("chai");
 var expect = chai.expect;
 

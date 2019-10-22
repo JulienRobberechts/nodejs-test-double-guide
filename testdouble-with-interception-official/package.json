@@ -8,10 +8,10 @@
     "test:debug": "npm test -- --debug-brk"
   },
   "devDependencies": {
-    "core-assert": "^0.2.1",
-    "is-number": "^3.0.0",
-    "standard": "^10.0.2",
-    "teenytest": "^5.0.2",
+    "core-assert": "^1.0.0",
+    "is-number": "^7.0.0",
+    "standard": "^14.3.1",
+    "teenytest": "^5.2.0",
     "testdouble": "^3.12.4"
   },
   "standard": {
