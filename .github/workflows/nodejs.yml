@@ -25,3 +25,66 @@ jobs:
           npm test
         env:
           CI: true
+      - name: Run jest-no-interception tests
+        working-directory: ./jest-no-interception
+        run: |
+          npm install
+          npm test
+        env:
+          CI: true
+      - name: Run jest-no-interception tests
+        working-directory: ./jest-no-interception
+        run: |
+          npm install
+          npm test
+        env:
+          CI: true
+      - name: Run jest-with-interception tests
+        working-directory: ./jest-with-interception
+        run: |
+          npm install
+          npm test
+        env:
+          CI: true
+      - name: Run sinon-with-interception-proxyquire tests
+        working-directory: ./sinon-with-interception-proxyquire
+        run: |
+          npm install
+          npm test
+        env:
+          CI: true
+      - name: Run sinon-with-interception-rewire tests
+        working-directory: ./sinon-with-interception-rewire
+        run: |
+          npm install
+          npm test
+        env:
+          CI: true
+      - name: Run sinon-with-interception-rewire-official tests
+        working-directory: ./sinon-with-interception-rewire-official
+        run: |
+          npm install
+          npm test
+        env:
+          CI: true
+      - name: Run sinon-with-interception-rewiremock tests
+        working-directory: ./sinon-with-interception-rewiremock
+        run: |
+          npm install
+          npm test
+        env:
+          CI: true
+      - name: Run testdouble-with-interception tests
+        working-directory: ./testdouble-with-interception
+        run: |
+          npm install
+          npm test
+        env:
+          CI: true
+      - name: Run testdouble-with-interception-official tests
+        working-directory: ./testdouble-with-interception-official
+        run: |
+          npm install
+          npm test
+        env:
+          CI: true
