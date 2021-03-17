@@ -4,15 +4,16 @@
   "scripts": {
     "test:unit": "teenytest",
     "test:style": "standard",
+    "test:style-fix": "standard --fix",
     "test": "npm run test:unit && npm run test:style",
     "test:debug": "npm test -- --debug-brk"
   },
   "devDependencies": {
     "core-assert": "^1.0.0",
     "is-number": "^7.0.0",
-    "standard": "^14.3.1",
-    "teenytest": "^5.3.0",
-    "testdouble": "^3.12.5"
+    "standard": "^16.0.3",
+    "teenytest": "^6.0.2",
+    "testdouble": "^3.16.1"
   },
   "standard": {
     "globals": [
