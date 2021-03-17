@@ -1,3 +1,5 @@
+[![Node.js CI](https://github.com/JulienRobberechts/nodejs-test-double-guide/actions/workflows/nodejs.yml/badge.svg)](https://github.com/JulienRobberechts/nodejs-test-double-guide/actions/workflows/nodejs.yml)
+
 # A guide to test double your Node.js code
 
 **Table of contents**
